@@ -1,4 +1,5 @@
 
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -71,8 +72,30 @@
 
                 </form>                 
             </div>   
-            <div class="col-md-4"></div>
-            
+                    <div class="col-md-4">
+                        <br><br>
+                         <div id="resulset">
+    <%ResultSet rs = (ResultSet) request.getAttribute("resultset");    
+        if (rs != null) {%>
+    <table border="1">
+        <tr>
+            <td>ID</td><td>NOMBRE</td><td>APELLIDO</td><td>DIRECCION</td><td>TELEFONO</td><td colspan="2">OPCIONES</td>
+        </tr>
+        <%while (rs.next()) {%> 
+        <tr> 
+            <td> <%=rs.getString(1)%></td> 
+            <td> <%=rs.getString(2)%></td> 
+            <td> <%=rs.getString(3)%></td>
+            <td> <%=rs.getString(4)%></td>
+            <td> <%=rs.getString(5)%></td>
+            <td> <a href="#" alt="" onclick="valida_envia('4','<%=rs.getString(1)%>');">SELECCIONAR</a></td>
+            <td> <a href="#" alt="" onclick="valida_envia('2','<%=rs.getString(1)%>');">BORRAR</a></td>
+        </tr>
+        <%}%>
+    </table>
+    <%}%>
+</div>
+                    </div>            
         </div>
          
         <!--LLamado al archivo para usar javascript con bootstrap-->                
