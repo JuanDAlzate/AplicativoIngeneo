@@ -69,7 +69,7 @@
                     <br>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Nombre</span>
-                        <input id="redondo" type="text" class="form-control" name="txtNombre" placeholder="First name" aria-describedby="basic-addon1" title="Es necesaria su nombre, y debe contener letras" required value="<%=request.getAttribute("nom")%>"/>
+                        <input id="redondo" type="text" class="form-control" name="txtNombre" placeholder="First name" aria-describedby="basic-addon1" title="Es necesaria su nombre, y debe contener letras" required value="<%= request.getAttribute("nom")%>"/>
                     </div>
                     <br>
                     <div class="input-group">
@@ -157,12 +157,12 @@
                     <legend>Apartaments</legend>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Nombre del departamento</span>
-                        <input id="redondo" type="number" class="form-control" name="txtDepartamento" placeholder="ID/CC" aria-describedby="basic-addon1" title="Es necesaria su identificacion" required value="<%=request.getAttribute("id")%>"/>
+                        <input id="redondo" type="text" class="form-control" name="txtNombre" placeholder="ID/CC" aria-describedby="basic-addon1" title="Es necesaria su identificacion" required value="<%=request.getAttribute("ID")%>"/>
                     </div>
                     <br>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Asignar </span>
-                        <select class="form-control" id="sel1" title="Es necesaria asignar un empledo" required>                              
+                        <select class="form-control" name="txtEmpleadoEncargado" id="sel1" title="Es necesaria asignar un empledo" required>                              
                             <option value="">Empleado</option>
                             <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->
                             <%

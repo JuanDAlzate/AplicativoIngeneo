@@ -1,6 +1,6 @@
 /****************************************
 * *
-* @author Marco A. Trejo Lemus *
+* @author Juan David Alzate *
 * 17/06/2008 09:47:01 AM *
 ****************************************/
 package util;
@@ -36,7 +36,8 @@ public Connection conexion;
     }
 
     public Connection CerrarConexion() throws SQLException
-    { conexion.close();
+    { 
+        conexion.close();
       conexion = null;
       return conexion;
     }
