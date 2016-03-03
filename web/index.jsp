@@ -1,4 +1,6 @@
 
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="util.ClassConex"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,6 +15,7 @@
         <link rel="stylesheet" href="css/Stylo.css"/>      
         <!--LLamado a la libreria de bootstrap para JavaScript-->
 
+
     </head>
     <body>
         <div class="container"> 
@@ -20,15 +23,15 @@
                 <div class="container">
                     <a href="#" class="navbar-brand">GESTION EMPLEADOS</a>
                     <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
-                    
+
                     <div class="collapse navbar-collapse navHeaderCollapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li class="active"><a href="#">EMPLEADOS</a></li>
-                            <li><a href="#">DEPARTAMENTOS</a></li>
+                            <li><a href="#contenedor2">DEPARTAMENTOS</a></li>
                             <li><a href="#">CATEGORIA</a></li>
                             <li><a href="#">NOMINA</a></li>
                             <li><a href="#">CONTRATO</a></li>
@@ -42,7 +45,7 @@
                         </ul>
                     </div>
                 </div>
-             </div>
+            </div>
             <br><br>
             <div class="contenedor col-md-4">
 
@@ -104,14 +107,14 @@
             <div class="col-md-1">
 
             </div>  
-                    
+
             <div class="contenedor col-md-7">
-                 <center><h2>Consulta de empleados</h2></center>
+                <center><h2>Consulta de empleados</h2></center>
                 <br><br>
                 <legend>All the employees</legend>
                 <div id="resulset" class="table-responsive">
                     <%ResultSet rs = (ResultSet) request.getAttribute("resultset");
-        if (rs != null) {%>
+                        if (rs != null) {%>
                     <table border="1" class="table tabla-striped table-hover table-condensed">
                         <tr>
                             <th>ID</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th colspan="2">OPCIONES</th>
@@ -132,43 +135,52 @@
                 </div>
             </div>            
         </div>
-         <hr>
-         <!--Este es el siguiente contenedor con la funcionalidad de gestionar los departamentos-->
-         <div class="container">
-             <div class="contenedor col-md-4">
-                 
-                  <center><h2>Registro de departamentos</h2></center>
-                  <!--
-                  <% if (request.getAttribute("mensaje") != null) { %> 
-                <div class="col-md-12 alert alert-info" role="alert">
+        <hr>
+        <!--Este es el siguiente contenedor con la funcionalidad de gestionar los departamentos-->
+        <div id="contenedor2" class="container">
+            <div class="contenedor col-md-4">
 
-                    ${mensaje} 
-                </div>
+                <center><h2>Registro de departamentos</h2></center>
+                <!--
+                <% if (request.getAttribute("mensaje") != null) { %> 
+              <div class="col-md-12 alert alert-info" role="alert">
+
+                ${mensaje} 
+            </div>
                 <% }%>                        
 
                
-                  -->
-                   <br><br>
-                   <form>
-                       <legend>Apartaments</legend>
-                       <div class="input-group">
+                -->
+                <br><br>
+
+                <form>
+                    <legend>Apartaments</legend>
+                    <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Nombre del departamento</span>
                         <input id="redondo" type="number" class="form-control" name="txtDepartamento" placeholder="ID/CC" aria-describedby="basic-addon1" title="Es necesaria su identificacion" required value="<%=request.getAttribute("id")%>"/>
                     </div>
                     <br>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Asignar </span>
-                          <select class="form-control" id="sel1">
-                            <option>Empleado</option>
-                            <option>2</option>
-                          </select>                        
+                        <select class="form-control" id="sel1" title="Es necesaria asignar un empledo" required>                              
+                            <option value="">Empleado</option>
+                            <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->
+                            <%
+                                ClassConex conn = new ClassConex();
+
+                                PreparedStatement consulta = conn.ObtenerConexion().prepareStatement("SELECT * FROM empleado");
+                                ResultSet res = consulta.executeQuery();
+                                while (res.next()) {%>
+                            <option value="<%= res.getString("ID")%>"><%= res.getString("nombre")%></option>
+                            <%}%>
+                        </select>                        
                     </div>
                     <br>
                     <div class="btn-group col-md-12">
                         <input id="redondo btn-ok"  type="submit" class="btn btn-primary btn-md btn-block active" value="Ok">
                         <br><br><br>
                         <div class="form-group col-md-6">                        
-                            <select id="listaOpciones" class="form-control btn-info" name="txtOpcion">
+                            <select id="listaOpciones" class="form-control btn-info" name="txtOpcion" required>
                                 <option value="1">CREATE</option>
                                 <option value="2">ELIMINAR</option>
                                 <option value="3">ACTUALIZAR</option>
@@ -177,19 +189,17 @@
                             </select>
                         </div>
                     </div>
-                   </form>
-                  
-                 
-             </div>
-             <div class="col-md-1"></div>
-             <div class="col-md-7"></div>
-         </div>
+                </form>
 
-        <!--LLamado al js de bootstrap-->
-        <script src="js/bootstrap.js"></script>
-        
-        <!--LLamado al archivo donde usamos Jquery-->
-        <script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
+
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-7"></div>
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js/jquery-1.12.1.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
 
 
     </body>
