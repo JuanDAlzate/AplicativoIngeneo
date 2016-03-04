@@ -65,11 +65,9 @@ public class ServletDepartamentos extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 2://BORRAR REGISTROS
-
-                
                 if(DDepartamento.borrarRegistro(codigoDepartamento)){
-                    request.setAttribute("mensaje", m2Exito);
-                }else{request.setAttribute("mensaje", m2Error);}
+                    request.setAttribute("mensajeD", m2Exito);
+                }else{request.setAttribute("mensajeD", m2Error);}
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             break;    
