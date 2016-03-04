@@ -48,6 +48,7 @@
             </div>
             <br><br>
             <div class="contenedor col-md-4">
+                
 
                 <center><h2>Registro de empleados</h2></center>
 
