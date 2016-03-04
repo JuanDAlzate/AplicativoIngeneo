@@ -20,10 +20,10 @@
 
     </head>
     <body>
-        <div class="container"> 
+        <div id="contenedor1" class="container"> 
             <div class="navbar navbar-default navbar-fixed-top">
                 <div class="container">
-                    <a href="#" class="navbar-brand">GESTION EMPLEADOS</a>
+                    <a id="txtnavbar" href="#" class="navbar-brand">INGENEO WEB</a>
                     <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -32,7 +32,7 @@
 
                     <div class="collapse navbar-collapse navHeaderCollapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="active"><a href="#">EMPLEADOS</a></li>
+                            <li class="active"><a href="#contenedor1">EMPLEADOS</a></li>
                             <li><a href="#contenedor2">DEPARTAMENTOS</a></li>
                             <li><a href="#">CATEGORIA</a></li>
                             <li><a href="#">NOMINA</a></li>
@@ -164,7 +164,7 @@
                     <legend>Apartaments</legend>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Nombre del departamento</span>
-                        <input id="redondo" type="text" class="form-control" name="txtNombreDepartamento" placeholder="ID/CC" aria-describedby="basic-addon1" title="Es necesaria su identificacion" required value="<%=request.getAttribute("ID")%>"/>
+                        <input id="redondo" type="text" class="form-control" name="txtNombreDepartamento" placeholder="Name" aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento" required value="<%=request.getAttribute("nombre")%>"/>
                     </div>
                     <br>
                     <div class="input-group">
@@ -182,12 +182,18 @@
                             <%}%>
                         </select>                        
                     </div>
+                        <br>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" >Codigo del departamento a eliminar</span>
+                        <input id="redondo" type="number" class="form-control" name="txtCodigoDepartamentoEliminar" placeholder="Cod_departamento" aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento"  value=""/>
+                    </div>    
+                        
                     <br>
                     <div class="btn-group col-md-12">
                         <input id="redondo btn-ok"  type="submit" class="btn btn-primary btn-md btn-block active" value="Ok">
                         <br><br><br>
                         <div class="form-group col-md-6">                        
-                            <select id="listaOpciones" class="form-control btn-info" name="txtOpcion" required>
+                            <select id="listaOpciones" class="form-control btn-info" name="txtOpcionDepartamento" required>
                                 <option value="1">CREATE</option>
                                 <option value="2">ELIMINAR</option>
                                 <option value="3">ACTUALIZAR</option>
@@ -207,21 +213,22 @@
                 <br><br>
                 <legend>All the departamentos</legend>
                 <div id="resulset" class="table-responsive">
-                    <% PreparedStatement consulta2 = conn.ObtenerConexion().prepareStatement("SELECT * FROM departamento");
+                    <% PreparedStatement consulta2 = conn.ObtenerConexion().prepareStatement("select departamento.*,empleado.nombre from empleado inner join departamento on departamento.id_coordinador=empleado.ID");
                        ResultSet res2 = consulta2.executeQuery();
                        if (res2 != null) {%>
                     <table border="1" class="table tabla-striped table-bordered table-hover table-condensed">
                         <tr>
-                            <th>COD_DEPARTAMENTO</th><th>NOMBRE</th><th>EMPLEADO_ENCARGADO</th><th colspan="2">OPCIONES</th>
+                            <th>COD_DEPARTAMENTO</th><th>NOMBRE_DEPARTAMENTO</th><th>ID_COORDINADOR</th><th>NOMBRE_ENCARGADO</th>
                         </tr>
                         <%while (res2.next()) {%> 
                         <tr> 
                             <td> <%=res2.getString(1)%></td> 
                             <td> <%=res2.getString(2)%></td> 
                             <td> <%=res2.getString(3)%></td>
+                            <td> <%=res2.getString(4)%></td>
 
-                            <td> <a href="#" alt="" onclick="valida_envia('4', '<%=res2.getString(1)%>');">SELECCIONAR</a></td>
-                            <td> <a href="#" alt="" onclick="valida_envia('2', '<%=res2.getString(1)%>');">BORRAR</a></td>
+                            <!--<td> <a href="#" alt="" onclick="valida_envia('4', '<%=res2.getString(1)%>');">SELECCIONAR</a></td>
+                            <td> <a href="#" alt="" onclick="valida_envia('2', '<%=res2.getString(1)%>');">BORRAR</a></td>-->
                         </tr>
                         <%}%>
                     </table>

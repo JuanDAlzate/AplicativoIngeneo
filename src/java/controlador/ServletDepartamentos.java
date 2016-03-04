@@ -42,9 +42,10 @@ public class ServletDepartamentos extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        int opcion=Integer.parseInt(request.getParameter("txtOpcion"));       
+        int opcion=Integer.parseInt(request.getParameter("txtOpcionDepartamento"));       
         String nombreDepartamento=request.getParameter("txtNombreDepartamento");
         int idEncargadoDepartamento=Integer.parseInt(request.getParameter("txtEmpleadoEncargado"));
+        int codigoDepartamento=Integer.parseInt(request.getParameter("txtCodigoDepartamentoEliminar"));
         
     //___________________________________________________________________________________    
         BeanDepartamento BDepartamento=new BeanDepartamento(nombreDepartamento,idEncargadoDepartamento);
@@ -52,27 +53,27 @@ public class ServletDepartamentos extends HttpServlet {
         ResultSet rs;
         
                    
-         String mExito="Operacion exitosa, Felicidades!!!!"; 
-         String mError="Operacion Fallida, Lo siento mucho!!!!";
+         String m2Exito="Operacion exitosa, Felicidades!!!!"; 
+         String m2Error="Operacion Fallida, Lo siento mucho!!!!";
          
          switch(opcion){
             case 1:// AGREGAR REGISTROS
                 if(DDepartamento.agregarRegistro()){
-                    request.setAttribute("mensajeD", mExito);
-                }else{request.setAttribute("mensajeD", mError);}
+                    request.setAttribute("mensajeD", m2Exito);
+                }else{request.setAttribute("mensajeD", m2Error);}
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 2://BORRAR REGISTROS
 
                 
-                /*if(DEmpleado.borrarRegistro()){
-                    request.setAttribute("mensaje", mExito);
-                }else{request.setAttribute("mensaje", mError);}
+                if(DDepartamento.borrarRegistro(codigoDepartamento)){
+                    request.setAttribute("mensaje", m2Exito);
+                }else{request.setAttribute("mensaje", m2Error);}
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             break;    
-            case 3://ACTUALIZAR REGISTROS
+           /* case 3://ACTUALIZAR REGISTROS
                 if(DEmpleado.actualizarRegistro()){
                     request.setAttribute("mensaje", mExito);
                 }else{request.setAttribute("mensaje", mError);}

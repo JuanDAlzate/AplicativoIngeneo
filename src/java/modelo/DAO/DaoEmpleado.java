@@ -106,7 +106,7 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
     @Override
     public ResultSet listarTabla() { //opcion 5.
         try {        
-            rs = st.executeQuery("SELECT ID,nombre,apellido,direccion,telefono  FROM empleado order by ID;");
+                rs = st.executeQuery("SELECT ID,nombre,apellido,direccion,telefono  FROM empleado order by ID;");
         } catch (SQLException ex) {
             Logger.getLogger(DaoEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }

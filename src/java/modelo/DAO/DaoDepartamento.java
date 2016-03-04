@@ -56,9 +56,16 @@ public class DaoDepartamento extends ClassConex implements interfaceCRUD {
         return listo;
     }
 
-    @Override
-    public boolean borrarRegistro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean borrarRegistro(int codDepartamento) {
+       try {
+            st.executeUpdate("delete from departamento where cod_departamento='"+codDepartamento+"';");
+            listo=true;
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+      
+        }
+        return listo;
     }
 
     @Override
@@ -73,6 +80,11 @@ public class DaoDepartamento extends ClassConex implements interfaceCRUD {
 
     @Override
     public ResultSet listarTabla() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean borrarRegistro() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
