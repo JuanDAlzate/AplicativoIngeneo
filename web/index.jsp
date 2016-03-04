@@ -1,4 +1,5 @@
 
+<%@page import="java.sql.Statement"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="util.ClassConex"%>
 <%@page import="java.sql.ResultSet"%>
@@ -13,7 +14,8 @@
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
         <!-- LLamado al archivo que contiene nuestro estilos-->
         <link rel="stylesheet" href="css/Stylo.css"/>      
-        <!--LLamado a la libreria de bootstrap para JavaScript-->
+        <!--LLamado a las fuentes-->
+        <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
 
     </head>
@@ -46,9 +48,11 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <p class="titulo">Gestion empleados</p>
             <br><br>
             <div class="contenedor col-md-4">
-                
+
 
                 <center><h2>Registro de empleados</h2></center>
 
@@ -116,7 +120,7 @@
                 <div id="resulset" class="table-responsive">
                     <%ResultSet rs = (ResultSet) request.getAttribute("resultset");
                         if (rs != null) {%>
-                    <table border="1" class="table tabla-striped table-hover table-condensed">
+                    <table border="1" class="table tabla-striped table-bordered table-hover table-condensed">
                         <tr>
                             <th>ID</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th colspan="2">OPCIONES</th>
                         </tr>
@@ -139,14 +143,16 @@
         <hr>
         <!--Este es el siguiente contenedor con la funcionalidad de gestionar los departamentos-->
         <div id="contenedor2" class="container">
+            <p class="titulo">Gestion departamentos</p>
+            <br><br>
             <div class="contenedor col-md-4">
 
                 <center><h2>Registro de departamentos</h2></center>
                 <!--
-                <% if (request.getAttribute("mensaje") != null) { %> 
+                <% if (request.getAttribute("mensajeD") != null) { %> 
               <div class="col-md-12 alert alert-info" role="alert">
 
-                ${mensaje} 
+                ${mensajeD} 
             </div>
                 <% }%>                        
 
@@ -154,11 +160,11 @@
                 -->
                 <br><br>
 
-                <form>
+                <form action="ServleDepartamento" method="POST">
                     <legend>Apartaments</legend>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Nombre del departamento</span>
-                        <input id="redondo" type="text" class="form-control" name="txtNombre" placeholder="ID/CC" aria-describedby="basic-addon1" title="Es necesaria su identificacion" required value="<%=request.getAttribute("ID")%>"/>
+                        <input id="redondo" type="text" class="form-control" name="txtNombreDepartamento" placeholder="ID/CC" aria-describedby="basic-addon1" title="Es necesaria su identificacion" required value="<%=request.getAttribute("ID")%>"/>
                     </div>
                     <br>
                     <div class="input-group">
@@ -195,7 +201,34 @@
 
             </div>
             <div class="col-md-1"></div>
-            <div class="col-md-7"></div>
+
+            <div class="contenedor col-md-7">
+                <center><h2>Consulta de departamentos</h2></center>
+                <br><br>
+                <legend>All the departamentos</legend>
+                <div id="resulset" class="table-responsive">
+                    <% PreparedStatement consulta2 = conn.ObtenerConexion().prepareStatement("SELECT * FROM departamento");
+                       ResultSet res2 = consulta2.executeQuery();
+                       if (res2 != null) {%>
+                    <table border="1" class="table tabla-striped table-bordered table-hover table-condensed">
+                        <tr>
+                            <th>COD_DEPARTAMENTO</th><th>NOMBRE</th><th>EMPLEADO_ENCARGADO</th><th colspan="2">OPCIONES</th>
+                        </tr>
+                        <%while (res2.next()) {%> 
+                        <tr> 
+                            <td> <%=res2.getString(1)%></td> 
+                            <td> <%=res2.getString(2)%></td> 
+                            <td> <%=res2.getString(3)%></td>
+
+                            <td> <a href="#" alt="" onclick="valida_envia('4', '<%=res2.getString(1)%>');">SELECCIONAR</a></td>
+                            <td> <a href="#" alt="" onclick="valida_envia('2', '<%=res2.getString(1)%>');">BORRAR</a></td>
+                        </tr>
+                        <%}%>
+                    </table>
+                    <%}%> 
+
+                </div>
+            </div>
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/jquery-1.12.1.min.js"></script>

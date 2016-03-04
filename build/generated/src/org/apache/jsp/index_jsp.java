@@ -244,11 +244,11 @@ while (rs.next()) {
       out.write("                -->\r\n");
       out.write("                <br><br>\r\n");
       out.write("\r\n");
-      out.write("                <form>\r\n");
+      out.write("                <form action=\"ServleDepartamento\" method=\"POST\">\r\n");
       out.write("                    <legend>Apartaments</legend>\r\n");
       out.write("                    <div class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Nombre del departamento</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtNombre\" placeholder=\"ID/CC\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su identificacion\" required value=\"");
+      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtNombreDepartamento\" placeholder=\"ID/CC\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su identificacion\" required value=\"");
       out.print(request.getAttribute("ID"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
