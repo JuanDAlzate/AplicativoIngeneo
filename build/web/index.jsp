@@ -34,7 +34,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="active"><a href="#contenedor1">EMPLEADOS</a></li>
                             <li><a href="#contenedor2">DEPARTAMENTOS</a></li>
-                            <li><a href="#">CATEGORIA</a></li>
+                            <li><a href="#contenedor3">CATEGORIA</a></li>
                             <li><a href="#">NOMINA</a></li>
                             <li><a href="#">CONTRATO</a></li>
                             <li class="dropdown">
@@ -94,7 +94,7 @@
                     <br>
                     <div class="btn-group col-md-12">
                         <input id="redondo btn-ok"  type="submit" class="btn btn-primary btn-md btn-block active" value="Ok">
-                        <br><br><br>
+                        <br><br>
                         <div class="form-group col-md-6">                        
                             <select id="listaOpciones" class="form-control btn-info" name="txtOpcion">
                                 <option value="1">CREATE</option>
@@ -138,26 +138,23 @@
                     </table>
                     <%}%>
                 </div>
-            </div>            
+            </div>                
         </div>
-        <hr>
+
         <!--Este es el siguiente contenedor con la funcionalidad de gestionar los departamentos-->
-        <div id="contenedor2" class="container">
-            <p class="titulo">Gestion departamentos</p>
+        <div id="contenedor2" class="container">           
+            <p class="titulo">Gestion de los departamentos</p>
             <br><br>
             <div class="contenedor col-md-4">
-
                 <center><h2>Registro de departamentos</h2></center>
-                <!--
+
                 <% if (request.getAttribute("mensajeD") != null) { %> 
-              <div class="col-md-12 alert alert-info" role="alert">
+                <div class="col-md-12 alert alert-info" role="alert">
 
-                ${mensajeD} 
-            </div>
-                <% }%>                        
+                    ${mensajeD} 
+                </div>
+                <% }%> 
 
-               
-                -->
                 <br><br>
 
                 <form action="ServleDepartamento" method="POST">
@@ -169,8 +166,12 @@
                     <br>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Asignar </span>
-                        <select class="form-control" name="txtEmpleadoEncargado" id="sel1" title="Es necesaria asignar un empledo" required>                              
+                        <select class="form-control" name="txtEmpleadoEncargado" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empledo" required>                              
+                            <%if (request.getAttribute("nombre_Coordinador") != null) {%>
+                            <option value="<%=request.getAttribute("id_Coordinador")%>"><%= request.getAttribute("nombre_Coordinador")%></option>
+                            <%} else {%>
                             <option value="">Empleado</option>
+                            <%}%>
                             <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->
                             <%
                                 ClassConex conn = new ClassConex();
@@ -182,12 +183,13 @@
                             <%}%>
                         </select>                        
                     </div>
-                        <br>
+                    <br>
+
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Codigo del departamento a eliminar</span>
-                        <input id="redondo" type="number" class="form-control" name="txtCodigoDepartamentoEliminar" placeholder="Cod_departamento" aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento"  value=""/>
+                        <input id="redondo" type="number" class="form-control" name="txtCodigoDepartamentoEliminar" placeholder="Cod_departamento" aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento"  value="<%=request.getAttribute("cod_departamento")%>"/>
                     </div>    
-                        
+
                     <br>
                     <div class="btn-group col-md-12">
                         <input id="redondo btn-ok"  type="submit" class="btn btn-primary btn-md btn-block active" value="Ok">
@@ -198,13 +200,10 @@
                                 <option value="2">ELIMINAR</option>
                                 <option value="3">ACTUALIZAR</option>
                                 <option value="4">CONSULTAR </option>
-                                <option value="5">LISTAR</option>
                             </select>
                         </div>
                     </div>
                 </form>
-
-
             </div>
             <div class="col-md-1"></div>
 
@@ -214,9 +213,9 @@
                 <legend>All the departamentos</legend>
                 <div id="resulset" class="table-responsive">
                     <% PreparedStatement consulta2 = conn.ObtenerConexion().prepareStatement("select departamento.*,empleado.nombre from empleado inner join departamento on departamento.id_coordinador=empleado.ID");
-                       ResultSet res2 = consulta2.executeQuery();
-                       if (res2 != null) {%>
-                    <table border="1" class="table tabla-striped table-bordered table-hover table-condensed">
+                        ResultSet res2 = consulta2.executeQuery();
+                        if (res2 != null) {%>
+                    <table border="1" class="table table-striped table-bordered table-hover table-condensed">
                         <tr>
                             <th>COD_DEPARTAMENTO</th><th>NOMBRE_DEPARTAMENTO</th><th>ID_COORDINADOR</th><th>NOMBRE_ENCARGADO</th>
                         </tr>
@@ -226,17 +225,60 @@
                             <td> <%=res2.getString(2)%></td> 
                             <td> <%=res2.getString(3)%></td>
                             <td> <%=res2.getString(4)%></td>
-
                             <!--<td> <a href="#" alt="" onclick="valida_envia('4', '<%=res2.getString(1)%>');">SELECCIONAR</a></td>
                             <td> <a href="#" alt="" onclick="valida_envia('2', '<%=res2.getString(1)%>');">BORRAR</a></td>-->
                         </tr>
                         <%}%>
                     </table>
                     <%}%> 
-
                 </div>
             </div>
         </div>
+
+        <!--En este div se estara presentados los campos y l ainformacion para gestionar la categoria profesional--> 
+        <div id="contenedor3" class="container">
+            <p class="titulo">Gestion de la categoria profesional</p>
+            <br><br>
+            <div class="contenedor col-md-4">
+                <center><h2>Registro de una categoria profesional</h2></center>
+                    <% if (request.getAttribute("mensaje") != null) { %> 
+                <div class="col-md-12 alert alert-info" role="alert">
+
+                    ${mensaje} 
+                </div>
+                <% }%>  
+                <br><br>
+                <form action="" method="POST">
+                    <legend>professional categories</legend>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" >Nombre de la categoria</span>
+                        <input type="text" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtNombreCategoria" placeholder="Name" title="Es necesaria un nombre para la categoria" required/>
+                    </div>
+                    <br>
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" >Codigo de la categoria a eliminar</span>
+                        <input type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCategoria" placeholder="Name" title="Es necesaria el codigo de la categoria para poder eliminar" required/>
+                    </div>
+                    <br>
+                    <div class="btn-group col-md-12">
+                        <input id="redondo btn-ok"  type="submit" class="btn btn-primary btn-md btn-block active" value="Ok">
+                        <br><br>
+                        <div class="form-group col-md-6">                        
+                            <select id="listaOpciones" class="form-control btn-info" name="txtOpcion">
+                                <option value="1">CREATE</option>
+                                <option value="2">ELIMINAR</option>
+                                <option value="3">ACTUALIZAR</option>
+                            </select>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-7"></div>
+
+
+        </div>
+
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/jquery-1.12.1.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->

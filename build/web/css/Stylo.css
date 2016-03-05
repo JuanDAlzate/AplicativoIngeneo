@@ -3,9 +3,13 @@ body{
     background-color: #212121;
     font-family: 'Raleway', sans-serif;
 }
+container{
+    padding-bottom: 30px;
+}
 h2{
     color:#EEEEEE;
 }
+
 legend{
     color:#E0E0E0;
 }
@@ -16,7 +20,8 @@ legend{
     -webkit-border-radius: 40px;
     -moz-border-radius: 40px;
     border-radius: 40px; 
-    box-shadow: 0px 0px 20px 2px #337ab7;   
+    box-shadow: 0px 0px 20px 2px #337ab7;
+    border:1px solid white;
         
 }
 
@@ -79,4 +84,17 @@ div.navbar{
     
     
     
+}
+#contenedor2,#contenedor3{
+    
+    width: 100%;
+    background: #616161;
+    
+}
+div.collapse>ul.nav>li>a:hover{
+    background:#337ab7;
+    color:#EEEEEE;
+}
+#contenedor3{
+    background:#9E9E9E ;
 }

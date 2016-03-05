@@ -225,13 +225,12 @@ while (rs.next()) {
       out.write("                </div>\r\n");
       out.write("            </div>            \r\n");
       out.write("        </div>\r\n");
-      out.write("        <hr>\r\n");
+      out.write("        \r\n");
       out.write("        <!--Este es el siguiente contenedor con la funcionalidad de gestionar los departamentos-->\r\n");
-      out.write("        <div id=\"contenedor2\" class=\"container\">\r\n");
+      out.write("        <div id=\"contenedor2\" class=\"container\">           \r\n");
       out.write("            <p class=\"titulo\">Gestion departamentos</p>\r\n");
       out.write("            <br><br>\r\n");
       out.write("            <div class=\"contenedor col-md-4\">\r\n");
-      out.write("\r\n");
       out.write("                <center><h2>Registro de departamentos</h2></center>\r\n");
       out.write("                <!--\r\n");
       out.write("                ");
@@ -245,9 +244,7 @@ while (rs.next()) {
       out.write("            </div>\r\n");
       out.write("                ");
  }
-      out.write("                        \r\n");
-      out.write("\r\n");
-      out.write("               \r\n");
+      out.write(" \r\n");
       out.write("                -->\r\n");
       out.write("                <br><br>\r\n");
       out.write("\r\n");
@@ -262,7 +259,7 @@ while (rs.next()) {
       out.write("                    <br>\r\n");
       out.write("                    <div class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Asignar </span>\r\n");
-      out.write("                        <select class=\"form-control\" name=\"txtEmpleadoEncargado\" id=\"sel1\" title=\"Es necesaria asignar un empledo\" required>                              \r\n");
+      out.write("                        <select class=\"form-control\" name=\"txtEmpleadoEncargado\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empledo\" required>                              \r\n");
       out.write("                            <option value=\"\">Empleado</option>\r\n");
       out.write("                            <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->\r\n");
       out.write("                            ");
@@ -287,7 +284,7 @@ while (rs.next()) {
       out.write("                        <br>\r\n");
       out.write("                    <div class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Codigo del departamento a eliminar</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtCodigoDepartamentoEliminar\" placeholder=\"Name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria el nombre del departamento\"  value=\"\"/>\r\n");
+      out.write("                        <input id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtCodigoDepartamentoEliminar\" placeholder=\"Cod_departamento\" aria-describedby=\"basic-addon1\" title=\"Es necesaria el nombre del departamento\"  value=\"0\"/>\r\n");
       out.write("                    </div>    \r\n");
       out.write("                        \r\n");
       out.write("                    <br>\r\n");
@@ -305,8 +302,6 @@ while (rs.next()) {
       out.write("                        </div>\r\n");
       out.write("                    </div>\r\n");
       out.write("                </form>\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
       out.write("            </div>\r\n");
       out.write("            <div class=\"col-md-1\"></div>\r\n");
       out.write("\r\n");
@@ -320,7 +315,7 @@ while (rs.next()) {
                        ResultSet res2 = consulta2.executeQuery();
                        if (res2 != null) {
       out.write("\r\n");
-      out.write("                    <table border=\"1\" class=\"table tabla-striped table-bordered table-hover table-condensed\">\r\n");
+      out.write("                    <table border=\"1\" class=\"table table-striped table-bordered table-hover table-condensed\">\r\n");
       out.write("                        <tr>\r\n");
       out.write("                            <th>COD_DEPARTAMENTO</th><th>NOMBRE_DEPARTAMENTO</th><th>ID_COORDINADOR</th><th>NOMBRE_ENCARGADO</th>\r\n");
       out.write("                        </tr>\r\n");
@@ -340,7 +335,6 @@ while (res2.next()) {
       out.write("                            <td> ");
       out.print(res2.getString(4));
       out.write("</td>\r\n");
-      out.write("\r\n");
       out.write("                            <!--<td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('4', '");
       out.print(res2.getString(1));
       out.write("');\">SELECCIONAR</a></td>\r\n");
@@ -355,10 +349,10 @@ while (res2.next()) {
       out.write("                    ");
 }
       out.write(" \r\n");
-      out.write("\r\n");
       out.write("                </div>\r\n");
       out.write("            </div>\r\n");
       out.write("        </div>\r\n");
+      out.write("                \r\n");
       out.write("        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->\r\n");
       out.write("        <script src=\"js/jquery-1.12.1.min.js\"></script>\r\n");
       out.write("        <!-- Latest compiled and minified JavaScript -->\r\n");

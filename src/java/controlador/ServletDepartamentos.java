@@ -53,40 +53,42 @@ public class ServletDepartamentos extends HttpServlet {
         ResultSet rs;
         
                    
-         String m2Exito="Operacion exitosa, Felicidades!!!!"; 
-         String m2Error="Operacion Fallida, Lo siento mucho!!!!";
+         String MensajeExitoD="Operacion exitosa, Felicidades!!!!"; 
+         String MensajeErrorD="Operacion Fallida, Lo siento mucho!!!!";
          
          switch(opcion){
             case 1:// AGREGAR REGISTROS
                 if(DDepartamento.agregarRegistro()){
-                    request.setAttribute("mensajeD", m2Exito);
-                }else{request.setAttribute("mensajeD", m2Error);}
+                    request.setAttribute("mensajeD", MensajeExitoD);
+                }else{
+                    request.setAttribute("mensajeD", MensajeErrorD);
+                }
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 2://BORRAR REGISTROS
                 if(DDepartamento.borrarRegistro(codigoDepartamento)){
-                    request.setAttribute("mensajeD", m2Exito);
-                }else{request.setAttribute("mensajeD", m2Error);}
+                    request.setAttribute("mensajeD", MensajeExitoD);
+                }else{request.setAttribute("mensajeD", MensajeErrorD);}
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             break;    
-           /* case 3://ACTUALIZAR REGISTROS
-                if(DEmpleado.actualizarRegistro()){
-                    request.setAttribute("mensaje", mExito);
-                }else{request.setAttribute("mensaje", mError);}
+           case 3://ACTUALIZAR REGISTROS
+                if(DDepartamento.actualizarRegistro(codigoDepartamento)){
+                    request.setAttribute("mensajeD", MensajeExitoD);
+                }else{request.setAttribute("mensajeD", MensajeErrorD);}
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
-            case 4://CONSULTAR UN REGISTRO
-                rs=(ResultSet)DEmpleado.consultarRegistro();
+             case 4://CONSULTAR UN REGISTRO
+                rs=(ResultSet)DDepartamento.consultarRegistro(codigoDepartamento);
         try {
             while(rs.next()){
-                request.setAttribute("id", rs.getString(1));
-                request.setAttribute("nom", rs.getString(2));
-                request.setAttribute("ape", rs.getString(3));
-                request.setAttribute("dir", rs.getString(4));
-                request.setAttribute("tel", rs.getString(5));
+                request.setAttribute("cod_departamento", rs.getString(1));
+                request.setAttribute("nombre", rs.getString(2));
+                request.setAttribute("id_Coordinador", rs.getString(3));
+                request.setAttribute("nombre_Coordinador", rs.getString(4));
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServletEmpleado.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,7 +97,7 @@ public class ServletDepartamentos extends HttpServlet {
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
-            case 5://LISTAR TODOS LOS REGISTROS
+          /*  case 5://LISTAR TODOS LOS REGISTROS
                 rs=DEmpleado.listarTabla();
                 request.setAttribute("resultset", rs);
                 

@@ -62,20 +62,30 @@ public class DaoDepartamento extends ClassConex implements interfaceCRUD {
             listo=true;
            
         } catch (SQLException ex) {
-            Logger.getLogger(DaoEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DaoDepartamento.class.getName()).log(Level.SEVERE, null, ex);
       
         }
         return listo;
     }
 
-    @Override
-    public boolean actualizarRegistro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public boolean actualizarRegistro(int cod) {
+        try{st.executeUpdate("update departamento set nombre='"+nombre+"',id_coordinador='"+idEncargadoDepartamento+"' where cod_departamento='"+cod+"';");
+            listo=true;
+        }catch(SQLException ex){
+            Logger.getLogger(DaoDepartamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listo;
     }
 
-    @Override
-    public ResultSet consultarRegistro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public ResultSet consultarRegistro(int cod) {
+        try{
+            rs=st.executeQuery("select departamento.*,empleado.nombre from empleado inner join departamento on departamento.id_coordinador=empleado.ID where cod_departamento='"+cod+"'");        
+    }catch(SQLException ex){
+           Logger.getLogger(DaoDepartamento.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        return  rs;
     }
 
     @Override
@@ -85,6 +95,16 @@ public class DaoDepartamento extends ClassConex implements interfaceCRUD {
 
     @Override
     public boolean borrarRegistro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean actualizarRegistro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ResultSet consultarRegistro() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
