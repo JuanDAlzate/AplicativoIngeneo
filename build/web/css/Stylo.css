@@ -3,8 +3,9 @@ body{
     background-color: #212121;
     font-family: 'Raleway', sans-serif;
 }
-container{
+.container{
     padding-bottom: 30px;
+    width: 100%;
 }
 h2{
     color:#EEEEEE;
@@ -87,7 +88,7 @@ div.navbar{
 }
 #contenedor2,#contenedor3{
     
-    width: 100%;
+    
     background: #616161;
     
 }

@@ -81,7 +81,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        <ul class=\"nav navbar-nav navbar-right\">\r\n");
       out.write("                            <li class=\"active\"><a href=\"#contenedor1\">EMPLEADOS</a></li>\r\n");
       out.write("                            <li><a href=\"#contenedor2\">DEPARTAMENTOS</a></li>\r\n");
-      out.write("                            <li><a href=\"#\">CATEGORIA</a></li>\r\n");
+      out.write("                            <li><a href=\"#contenedor3\">CATEGORIA</a></li>\r\n");
       out.write("                            <li><a href=\"#\">NOMINA</a></li>\r\n");
       out.write("                            <li><a href=\"#\">CONTRATO</a></li>\r\n");
       out.write("                            <li class=\"dropdown\">\r\n");
@@ -157,7 +157,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <br>\r\n");
       out.write("                    <div class=\"btn-group col-md-12\">\r\n");
       out.write("                        <input id=\"redondo btn-ok\"  type=\"submit\" class=\"btn btn-primary btn-md btn-block active\" value=\"Ok\">\r\n");
-      out.write("                        <br><br><br>\r\n");
+      out.write("                        <br><br>\r\n");
       out.write("                        <div class=\"form-group col-md-6\">                        \r\n");
       out.write("                            <select id=\"listaOpciones\" class=\"form-control btn-info\" name=\"txtOpcion\">\r\n");
       out.write("                                <option value=\"1\">CREATE</option>\r\n");
@@ -223,29 +223,29 @@ while (rs.next()) {
 }
       out.write("\r\n");
       out.write("                </div>\r\n");
-      out.write("            </div>            \r\n");
+      out.write("            </div>                \r\n");
       out.write("        </div>\r\n");
-      out.write("        \r\n");
+      out.write("\r\n");
       out.write("        <!--Este es el siguiente contenedor con la funcionalidad de gestionar los departamentos-->\r\n");
       out.write("        <div id=\"contenedor2\" class=\"container\">           \r\n");
-      out.write("            <p class=\"titulo\">Gestion departamentos</p>\r\n");
+      out.write("            <p class=\"titulo\">Gestion de los departamentos</p>\r\n");
       out.write("            <br><br>\r\n");
       out.write("            <div class=\"contenedor col-md-4\">\r\n");
       out.write("                <center><h2>Registro de departamentos</h2></center>\r\n");
-      out.write("                <!--\r\n");
+      out.write("\r\n");
       out.write("                ");
  if (request.getAttribute("mensajeD") != null) { 
       out.write(" \r\n");
-      out.write("              <div class=\"col-md-12 alert alert-info\" role=\"alert\">\r\n");
+      out.write("                <div class=\"col-md-12 alert alert-info\" role=\"alert\">\r\n");
       out.write("\r\n");
-      out.write("                ");
+      out.write("                    ");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${mensajeD}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write(" \r\n");
-      out.write("            </div>\r\n");
+      out.write("                </div>\r\n");
       out.write("                ");
  }
       out.write(" \r\n");
-      out.write("                -->\r\n");
+      out.write("\r\n");
       out.write("                <br><br>\r\n");
       out.write("\r\n");
       out.write("                <form action=\"ServleDepartamento\" method=\"POST\">\r\n");
@@ -260,7 +260,22 @@ while (rs.next()) {
       out.write("                    <div class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Asignar </span>\r\n");
       out.write("                        <select class=\"form-control\" name=\"txtEmpleadoEncargado\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empledo\" required>                              \r\n");
+      out.write("                            ");
+if (request.getAttribute("nombre_Coordinador") != null) {
+      out.write("\r\n");
+      out.write("                            <option value=\"");
+      out.print(request.getAttribute("id_Coordinador"));
+      out.write('"');
+      out.write('>');
+      out.print( request.getAttribute("nombre_Coordinador"));
+      out.write("</option>\r\n");
+      out.write("                            ");
+} else {
+      out.write("\r\n");
       out.write("                            <option value=\"\">Empleado</option>\r\n");
+      out.write("                            ");
+}
+      out.write("\r\n");
       out.write("                            <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->\r\n");
       out.write("                            ");
 
@@ -281,12 +296,15 @@ while (rs.next()) {
       out.write("\r\n");
       out.write("                        </select>                        \r\n");
       out.write("                    </div>\r\n");
-      out.write("                        <br>\r\n");
+      out.write("                    <br>\r\n");
+      out.write("\r\n");
       out.write("                    <div class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Codigo del departamento a eliminar</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtCodigoDepartamentoEliminar\" placeholder=\"Cod_departamento\" aria-describedby=\"basic-addon1\" title=\"Es necesaria el nombre del departamento\"  value=\"0\"/>\r\n");
+      out.write("                        <input id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtCodigoDepartamentoEliminar\" placeholder=\"Cod_departamento\" aria-describedby=\"basic-addon1\" title=\"Es necesaria el nombre del departamento\"  value=\"");
+      out.print(request.getAttribute("cod_departamento"));
+      out.write("\"/>\r\n");
       out.write("                    </div>    \r\n");
-      out.write("                        \r\n");
+      out.write("\r\n");
       out.write("                    <br>\r\n");
       out.write("                    <div class=\"btn-group col-md-12\">\r\n");
       out.write("                        <input id=\"redondo btn-ok\"  type=\"submit\" class=\"btn btn-primary btn-md btn-block active\" value=\"Ok\">\r\n");
@@ -297,7 +315,6 @@ while (rs.next()) {
       out.write("                                <option value=\"2\">ELIMINAR</option>\r\n");
       out.write("                                <option value=\"3\">ACTUALIZAR</option>\r\n");
       out.write("                                <option value=\"4\">CONSULTAR </option>\r\n");
-      out.write("                                <option value=\"5\">LISTAR</option>\r\n");
       out.write("                            </select>\r\n");
       out.write("                        </div>\r\n");
       out.write("                    </div>\r\n");
@@ -312,8 +329,8 @@ while (rs.next()) {
       out.write("                <div id=\"resulset\" class=\"table-responsive\">\r\n");
       out.write("                    ");
  PreparedStatement consulta2 = conn.ObtenerConexion().prepareStatement("select departamento.*,empleado.nombre from empleado inner join departamento on departamento.id_coordinador=empleado.ID");
-                       ResultSet res2 = consulta2.executeQuery();
-                       if (res2 != null) {
+                        ResultSet res2 = consulta2.executeQuery();
+                        if (res2 != null) {
       out.write("\r\n");
       out.write("                    <table border=\"1\" class=\"table table-striped table-bordered table-hover table-condensed\">\r\n");
       out.write("                        <tr>\r\n");
@@ -352,7 +369,57 @@ while (res2.next()) {
       out.write("                </div>\r\n");
       out.write("            </div>\r\n");
       out.write("        </div>\r\n");
-      out.write("                \r\n");
+      out.write("\r\n");
+      out.write("        <!--En este div se estara presentados los campos y l ainformacion para gestionar la categoria profesional--> \r\n");
+      out.write("        <div id=\"contenedor3\" class=\"container\">\r\n");
+      out.write("            <p class=\"titulo\">Gestion de la categoria profesional</p>\r\n");
+      out.write("            <br><br>\r\n");
+      out.write("            <div class=\"contenedor col-md-4\">\r\n");
+      out.write("                <center><h2>Registro de una categoria profesional</h2></center>\r\n");
+      out.write("                    ");
+ if (request.getAttribute("mensaje") != null) { 
+      out.write(" \r\n");
+      out.write("                <div class=\"col-md-12 alert alert-info\" role=\"alert\">\r\n");
+      out.write("\r\n");
+      out.write("                    ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${mensaje}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write(" \r\n");
+      out.write("                </div>\r\n");
+      out.write("                ");
+ }
+      out.write("  \r\n");
+      out.write("                <br><br>\r\n");
+      out.write("                <form action=\"ServeltCategoria\" method=\"POST\">\r\n");
+      out.write("                    <legend>professional categories</legend>\r\n");
+      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Nombre de la categoria</span>\r\n");
+      out.write("                        <input type=\"text\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtNombreCategoria\" placeholder=\"Name\" title=\"Es necesaria un nombre para la categoria\" required/>\r\n");
+      out.write("                    </div>\r\n");
+      out.write("                    <br>\r\n");
+      out.write("                      <div class=\"input-group\">\r\n");
+      out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Codigo de la categoria a eliminar</span>\r\n");
+      out.write("                        <input type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtCodigoCategoria\" placeholder=\"Name\" title=\"Es necesaria el codigo de la categoria para poder eliminar\" required/>\r\n");
+      out.write("                    </div>\r\n");
+      out.write("                    <br>\r\n");
+      out.write("                    <div class=\"btn-group col-md-12\">\r\n");
+      out.write("                        <input id=\"redondo btn-ok\"  type=\"submit\" class=\"btn btn-primary btn-md btn-block active\" value=\"Ok\">\r\n");
+      out.write("                        <br><br>\r\n");
+      out.write("                        <div class=\"form-group col-md-6\">                        \r\n");
+      out.write("                            <select id=\"listaOpciones\" class=\"form-control btn-info\" name=\"txtOpcion\">\r\n");
+      out.write("                                <option value=\"1\">CREATE</option>\r\n");
+      out.write("                                <option value=\"2\">ELIMINAR</option>\r\n");
+      out.write("                                <option value=\"3\">ACTUALIZAR</option>\r\n");
+      out.write("                            </select>\r\n");
+      out.write("                        </div>\r\n");
+      out.write("                    </div> \r\n");
+      out.write("                </form>\r\n");
+      out.write("            </div>\r\n");
+      out.write("            <div class=\"col-md-1\"></div>\r\n");
+      out.write("            <div class=\"col-md-7\"></div>\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("        </div>\r\n");
+      out.write("\r\n");
       out.write("        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->\r\n");
       out.write("        <script src=\"js/jquery-1.12.1.min.js\"></script>\r\n");
       out.write("        <!-- Latest compiled and minified JavaScript -->\r\n");

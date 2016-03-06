@@ -241,14 +241,14 @@
             <br><br>
             <div class="contenedor col-md-4">
                 <center><h2>Registro de una categoria profesional</h2></center>
-                    <% if (request.getAttribute("mensaje") != null) { %> 
+                    <% if (request.getAttribute("Mensaje") != null) { %> 
                 <div class="col-md-12 alert alert-info" role="alert">
 
-                    ${mensaje} 
+                    ${Mensaje} 
                 </div>
                 <% }%>  
                 <br><br>
-                <form action="" method="POST">
+                <form action="ServeltCategoria" method="POST">
                     <legend>professional categories</legend>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Nombre de la categoria</span>
@@ -257,7 +257,7 @@
                     <br>
                       <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Codigo de la categoria a eliminar</span>
-                        <input type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCategoria" placeholder="Name" title="Es necesaria el codigo de la categoria para poder eliminar" required/>
+                        <input type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoCategoria" placeholder="cod_categoria" title="Es necesaria el codigo de la categoria para poder eliminar" required/>
                     </div>
                     <br>
                     <div class="btn-group col-md-12">
@@ -274,7 +274,32 @@
                 </form>
             </div>
             <div class="col-md-1"></div>
-            <div class="col-md-7"></div>
+            <div class="contenedor col-md-7">
+               <center><h2>Consulta de las cateorias profesionales</h2></center>
+                <br><br>
+                <legend>All the departamentos</legend>
+                <div id="resulset" class="table-responsive">
+                    <% PreparedStatement consulta3 = conn.ObtenerConexion().prepareStatement("SELECT * FROM categoria_profesional;");
+                        ResultSet res3 = consulta3.executeQuery();
+                        if (res3 != null) {%>
+                    <table border="1" class="table table-striped table-bordered table-hover table-condensed">
+                        <tr>
+                            <th>COD_CATEGORIA</th><th>NOMBRE</th>
+                        </tr>
+                        <%while (res3.next()) {%> 
+                        <tr> 
+                            <td> <%=res3.getString(1)%></td> 
+                            <td> <%=res3.getString(2)%></td> 
+                            
+                            <!--<td> <a href="#" alt="" onclick="valida_envia('4', '<%=res3.getString(1)%>');">SELECCIONAR</a></td>
+                            <td> <a href="#" alt="" onclick="valida_envia('2', '<%=res3.getString(1)%>');">BORRAR</a></td>-->
+                        </tr>
+                        <%}%>
+                    </table>
+                    <%}%> 
+                </div>
+                
+            </div>
 
 
         </div>
