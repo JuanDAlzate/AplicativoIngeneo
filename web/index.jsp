@@ -424,7 +424,7 @@
                     <br>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Seleccione </span>
-                        <select class="form-control" name="txtEmpleadoNomina" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la nomina" required>                              
+                        <select class="form-control" name="txtEmpleadoAContratar" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la contratacion" required>                              
                             <%if (request.getAttribute("nombre") != null) {%>
                             <option value="<%=request.getAttribute("id_empleado")%>"><%= request.getAttribute("nombre")%></option>
                             <%} else {%>
@@ -442,7 +442,7 @@
                     <br>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Seleccione </span>
-                        <select class="form-control" name="txtEmpleadoNomina" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la nomina" required>                              
+                        <select class="form-control" name="txtContratoCategoria" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la nomina" required>                              
                             <%if (request.getAttribute("nombre") != null) {%>
                             <option value="<%=request.getAttribute("id_empleado")%>"><%= request.getAttribute("nombreE")%></option>
                             <%} else {%>
@@ -489,12 +489,12 @@
                 <br><br>
                 <legend>All the contracts</legend>
                 <div id="resulset" class="table-responsive">
-                    <% PreparedStatement consultaContratos = conn.ObtenerConexion().prepareStatement("select nomina.*,empleado.nombreE from empleado inner join nomina on nomina.id_empleado=empleado.ID");
+                    <% PreparedStatement consultaContratos = conn.ObtenerConexion().prepareStatement("SELECT cod_contrato,fecha_inicio,fecha_fin,id_empleado,nombreE,apellido,codigo_categoria,nombreC from contrato c,empleado e,categoria_profesional cp where c.id_empleado=e.ID and c.codigo_categoria=cp.cod_categoria;");
                         ResultSet resContratos = consultaContratos.executeQuery();
                         if (resContratos != null) {%>
                     <table border="1" class="table table-striped table-bordered table-hover table-condensed">
                         <tr>
-                            <th>COD_NOMINA</th><th>FECHA</th><th>SALARIO</th><th>ID_EMPLEADO</th><th>NOMBRE_EMPLEADO</th>
+                            <th>COD_CONTRATO</th><th>FECHA_INICIO</th><th>FECHA_FINAL</th><th>ID_EMPLEADO</th><th>NOMBRE_EMPLEADO</th><th>APELLIDO</th><th>CODIGO_CATEGORIA</th><th>NOMBRE_CATEGORIA</th>
                         </tr>
                         <%while (resContratos.next()) {%> 
                         <tr> 
@@ -503,6 +503,9 @@
                             <td> <%=resContratos.getString(3)%></td> 
                             <td> <%=resContratos.getString(4)%></td> 
                             <td> <%=resContratos.getString(5)%></td> 
+                            <td> <%=resContratos.getString(6)%></td> 
+                            <td> <%=resContratos.getString(7)%></td> 
+                            <td> <%=resContratos.getString(8)%></td> 
 
                             <!--<td> <a href="#" alt="" onclick="valida_envia('4', '<%=resContratos.getString(1)%>');">SELECCIONAR</a></td>
                             <td> <a href="#" alt="" onclick="valida_envia('2', '<%=resContratos.getString(1)%>');">BORRAR</a></td>-->
