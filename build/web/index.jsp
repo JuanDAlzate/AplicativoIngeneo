@@ -105,8 +105,7 @@
                             </select>
                         </div>
                     </div>               
-
-                </form>   
+                 </form>   
 
             </div>            
             <div class="col-md-1">
@@ -235,7 +234,7 @@
             </div>
         </div>
 
-        <!--En este div se estara presentados los campos y l ainformacion para gestionar la categoria profesional--> 
+        <!--En este contenedor se estara presentados los campos y l ainformacion para gestionar la categoria profesional--> 
         <div id="contenedor3" class="container">
             <p class="titulo">Gestion de la categoria profesional</p>
             <br><br>
@@ -275,9 +274,9 @@
             </div>
             <div class="col-md-1"></div>
             <div class="contenedor col-md-7">
-               <center><h2>Consulta de las cateorias profesionales</h2></center>
+               <center><h2>Consulta de las categorias profesionales</h2></center>
                 <br><br>
-                <legend>All the departamentos</legend>
+                <legend>All the professional categories</legend>
                 <div id="resulset" class="table-responsive">
                     <% PreparedStatement consulta3 = conn.ObtenerConexion().prepareStatement("SELECT * FROM categoria_profesional;");
                         ResultSet res3 = consulta3.executeQuery();
@@ -297,12 +296,108 @@
                         <%}%>
                     </table>
                     <%}%> 
-                </div>
+                </div>                
+            </div>
+            </div>
                 
+            <!--En este contenedor se estara presentados los campos y la informacion para gestionar las categoria profesional -->    
+            <div id="contenedor4" class="container">
+            <p class="titulo">Gestion de las nominas de los empleados</p>
+            <br><br>
+            <div class="contenedor col-md-4">
+                <center><h2>Registro de una nomina</h2></center>
+                    <% if (request.getAttribute("MensajeN") != null) { %> 
+                <div class="col-md-12 alert alert-info" role="alert">
+
+                    ${MensajeN} 
+                </div>
+                <% }%>  
+                <br><br>
+                <form action="ServletNomina" method="POST">
+                    <legend>Payrolls an employee</legend>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" >Fecha</span>
+                        <input type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaNomina" placeholder="Date" title="Es necesario que ingrese la fecha" required value="<%= request.getAttribute("fecha")%>"/>
+                    </div>
+                    <br>
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" >Salario</span>
+                        <input type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtSalarioNomina" placeholder="Salario correspondiente" title="Es necesario agregar un salario" required value="<%= request.getAttribute("salario")%>"/>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" >Empleado </span>
+                        <select class="form-control" name="txtEmpleadoNomina" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la nomina" required>                              
+                            <%if (request.getAttribute("nombre") != null) {%>
+                            <option value="<%=request.getAttribute("id_empleado")%>"><%= request.getAttribute("nombre")%></option>
+                            <%} else {%>
+                            <option value="">Empleado</option>
+                            <%}%>
+                            <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->
+                            <%
+                                PreparedStatement consultaEmpleado = conn.ObtenerConexion().prepareStatement("SELECT * FROM empleado");
+                                ResultSet resEmpleado = consulta.executeQuery();
+                                while (resEmpleado.next()) {%>
+                            <option value="<%= resEmpleado.getString("ID")%>"><%= resEmpleado.getString("nombre")%></option>
+                            <%}%>
+                        </select>                        
+                    </div>
+                    <br>
+                    <div class="input-group col-md-7">
+                        <span class="input-group-addon" id="basic-addon1" >Cod_nomina</span>
+                        <input type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoNomina" placeholder="cod nomina" title="Es necesario agregar el codigo de la nomina si quieres eliminarla" value="<%= request.getAttribute("cod_nomina")%>"/>
+                    </div>
+                    <br>
+                    <div class="btn-group col-md-12">
+                        <input id="redondo btn-ok"  type="submit" class="btn btn-primary btn-md btn-block active" value="Ok">
+                        <br><br>
+                        <div class="form-group col-md-6">                        
+                            <select id="listaOpciones" class="form-control btn-info" name="txtOpcion">
+                                <option value="1">CREATE</option>
+                                <option value="2">ELIMINAR</option>
+                                <option value="3">ACTUALIZAR</option>
+                                <option value="4">CONSULTAR</option>
+                            </select>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+                
+                    <div class="col-md-1">
+                     
+                    </div>
+            
+            <div class="contenedor col-md-7">
+               <center><h2>Consulta de las nominas creadas</h2></center>
+                <br><br>
+                <legend>All the payrolls</legend>
+                <div id="resulset" class="table-responsive">
+                    <% PreparedStatement consulta4 = conn.ObtenerConexion().prepareStatement("select nomina.*,empleado.nombre from empleado inner join nomina on nomina.id_empleado=empleado.ID");
+                        ResultSet res4 = consulta4.executeQuery();
+                        if (res4 != null) {%>
+                    <table border="1" class="table table-striped table-bordered table-hover table-condensed">
+                        <tr>
+                            <th>COD_NOMINA</th><th>FECHA</th><th>SALARIO</th><th>ID_EMPLEADO</th><th>NOMBRE_EMPLEADO</th>
+                        </tr>
+                        <%while (res4.next()) {%> 
+                        <tr> 
+                            <td> <%=res4.getString(1)%></td> 
+                            <td> <%=res4.getString(2)%></td> 
+                            <td> <%=res4.getString(3)%></td> 
+                            <td> <%=res4.getString(4)%></td> 
+                            <td> <%=res4.getString(5)%></td> 
+                            
+                            <!--<td> <a href="#" alt="" onclick="valida_envia('4', '<%=res4.getString(1)%>');">SELECCIONAR</a></td>
+                            <td> <a href="#" alt="" onclick="valida_envia('2', '<%=res4.getString(1)%>');">BORRAR</a></td>-->
+                        </tr>
+                        <%}%>
+                    </table>
+                    <%}%> 
+                </div>                
+            </div>
             </div>
 
-
-        </div>
+        
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/jquery-1.12.1.min.js"></script>
