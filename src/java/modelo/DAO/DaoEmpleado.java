@@ -57,7 +57,7 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
    @Override
     public boolean agregarRegistro() { //opcion 1.
         try {
-            st.executeUpdate("insert into empleado (ID,nombre,apellido,direccion,telefono) values ('"+id+"','"+nombre+"','"+apellido+"','"+direccion+"','"+telefono+"');");
+            st.executeUpdate("insert into empleado (ID,nombreE,apellido,direccion,telefono) values ('"+id+"','"+nombre+"','"+apellido+"','"+direccion+"','"+telefono+"');");
             listo=true;
            
         } catch (SQLException ex) {
@@ -83,7 +83,7 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
     @Override
     public boolean actualizarRegistro() { //opcion 3.
         try {
-            st.executeUpdate("update  empleado set nombre='"+nombre+"',apellido='"+apellido+"',direccion='"+direccion+"',telefono='"+telefono+"' where ID='"+id+"';");
+            st.executeUpdate("update  empleado set nombreE='"+nombre+"',apellido='"+apellido+"',direccion='"+direccion+"',telefono='"+telefono+"' where ID='"+id+"';");
             listo=true;
            
         } catch (SQLException ex) {
@@ -96,7 +96,7 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
     @Override
     public ResultSet consultarRegistro() { //opcion 4.
          try {        
-            rs = st.executeQuery("SELECT ID,nombre,apellido,direccion,telefono  FROM empleado where ID='"+id+"';");
+            rs = st.executeQuery("SELECT ID,nombreE,apellido,direccion,telefono  FROM empleado where ID='"+id+"';");
         } catch (SQLException ex) {
             Logger.getLogger(DaoEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,7 +106,7 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
     @Override
     public ResultSet listarTabla() { //opcion 5.
         try {        
-                rs = st.executeQuery("SELECT ID,nombre,apellido,direccion,telefono  FROM empleado order by ID;");
+                rs = st.executeQuery("SELECT ID,nombreE,apellido,direccion,telefono  FROM empleado order by ID;");
         } catch (SQLException ex) {
             Logger.getLogger(DaoEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }

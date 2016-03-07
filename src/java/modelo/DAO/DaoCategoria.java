@@ -50,7 +50,7 @@ public class DaoCategoria  extends ClassConex implements interfaceCRUD{
     @Override
     public boolean agregarRegistro() {
         try{
-            st.executeUpdate("insert into categoria_profesional (nombre) values ('"+nombre+"');");
+            st.executeUpdate("insert into categoria_profesional (nombreC) values ('"+nombre+"');");
             listo=true;
         }catch(SQLException ex){
             Logger.getLogger(DaoCategoria.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,7 +72,7 @@ public class DaoCategoria  extends ClassConex implements interfaceCRUD{
    
     public boolean actualizarRegistro(int cod) {
         try{
-            st.executeUpdate("update categoria_profesional set nombre='"+nombre+"' where cod_categoria='"+cod+"'");
+            st.executeUpdate("update categoria_profesional set nombreC='"+nombre+"' where cod_categoria='"+cod+"'");
                listo=true;
         }catch(SQLException ex){
                Logger.getLogger(DaoCategoria.class.getName()).log(Level.SEVERE,null,ex);

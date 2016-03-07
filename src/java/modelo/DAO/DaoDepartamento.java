@@ -81,7 +81,7 @@ public class DaoDepartamento extends ClassConex implements interfaceCRUD {
     
     public ResultSet consultarRegistro(int cod) {
         try{
-            rs=st.executeQuery("select departamento.*,empleado.nombre from empleado inner join departamento on departamento.id_coordinador=empleado.ID where cod_departamento='"+cod+"'");        
+            rs=st.executeQuery("select departamento.*,empleado.nombreE from empleado inner join departamento on departamento.id_coordinador=empleado.ID where cod_departamento='"+cod+"'");        
     }catch(SQLException ex){
            Logger.getLogger(DaoDepartamento.class.getName()).log(Level.SEVERE, null, ex);
     }
