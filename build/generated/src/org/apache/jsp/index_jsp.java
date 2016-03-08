@@ -168,7 +168,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            </select>\r\n");
       out.write("                        </div>\r\n");
       out.write("                    </div>               \r\n");
-      out.write("                 </form>   \r\n");
+      out.write("                </form>   \r\n");
       out.write("\r\n");
       out.write("            </div>            \r\n");
       out.write("            <div class=\"col-md-1\">\r\n");
@@ -181,37 +181,41 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                <legend>All the employees</legend>\r\n");
       out.write("                <div id=\"resulset\" class=\"table-responsive\">\r\n");
       out.write("                    ");
-ResultSet rs = (ResultSet) request.getAttribute("resultset");
-                        if (rs != null) {
+  
+                         ClassConex conn = new ClassConex();
+                        PreparedStatement consulta1 = conn.ObtenerConexion().prepareStatement("select * from empleado");
+                        ResultSet res1 = consulta1.executeQuery();
+                        
+                        if (res1 != null) {
       out.write("\r\n");
       out.write("                    <table border=\"1\" class=\"table tabla-striped table-bordered table-hover table-condensed\">\r\n");
       out.write("                        <tr>\r\n");
       out.write("                            <th>ID</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th colspan=\"2\">OPCIONES</th>\r\n");
       out.write("                        </tr>\r\n");
       out.write("                        ");
-while (rs.next()) {
+while (res1.next()) {
       out.write(" \r\n");
       out.write("                        <tr> \r\n");
       out.write("                            <td> ");
-      out.print(rs.getString(1));
+      out.print(res1.getString(1));
       out.write("</td> \r\n");
       out.write("                            <td> ");
-      out.print(rs.getString(2));
+      out.print(res1.getString(2));
       out.write("</td> \r\n");
       out.write("                            <td> ");
-      out.print(rs.getString(3));
+      out.print(res1.getString(3));
       out.write("</td>\r\n");
       out.write("                            <td> ");
-      out.print(rs.getString(4));
+      out.print(res1.getString(4));
       out.write("</td>\r\n");
       out.write("                            <td> ");
-      out.print(rs.getString(5));
+      out.print(res1.getString(5));
       out.write("</td>\r\n");
       out.write("                            <td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('4', '");
-      out.print(rs.getString(1));
+      out.print(res1.getString(1));
       out.write("');\">SELECCIONAR</a></td>\r\n");
       out.write("                            <td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('2', '");
-      out.print(rs.getString(1));
+      out.print(res1.getString(1));
       out.write("');\">BORRAR</a></td>\r\n");
       out.write("                        </tr>\r\n");
       out.write("                        ");
@@ -278,8 +282,7 @@ if (request.getAttribute("nombre_Coordinador") != null) {
       out.write("                            <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->\r\n");
       out.write("                            ");
 
-                                ClassConex conn = new ClassConex();
-
+                               
                                 PreparedStatement consulta = conn.ObtenerConexion().prepareStatement("SELECT * FROM empleado");
                                 ResultSet res = consulta.executeQuery();
                                 while (res.next()) {
@@ -288,7 +291,7 @@ if (request.getAttribute("nombre_Coordinador") != null) {
       out.print( res.getString("ID"));
       out.write('"');
       out.write('>');
-      out.print( res.getString("nombre"));
+      out.print( res.getString("nombreE"));
       out.write("</option>\r\n");
       out.write("                            ");
 }
@@ -327,7 +330,7 @@ if (request.getAttribute("nombre_Coordinador") != null) {
       out.write("                <legend>All the departamentos</legend>\r\n");
       out.write("                <div id=\"resulset\" class=\"table-responsive\">\r\n");
       out.write("                    ");
- PreparedStatement consulta2 = conn.ObtenerConexion().prepareStatement("select departamento.*,empleado.nombre from empleado inner join departamento on departamento.id_coordinador=empleado.ID");
+ PreparedStatement consulta2 = conn.ObtenerConexion().prepareStatement("select departamento.*,empleado.nombreE from empleado inner join departamento on departamento.id_coordinador=empleado.ID");
                         ResultSet res2 = consulta2.executeQuery();
                         if (res2 != null) {
       out.write("\r\n");
@@ -395,7 +398,7 @@ while (res2.next()) {
       out.write("                        <input type=\"text\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtNombreCategoria\" placeholder=\"Name\" title=\"Es necesaria un nombre para la categoria\" required/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                      <div class=\"input-group\">\r\n");
+      out.write("                    <div class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Codigo de la categoria a eliminar</span>\r\n");
       out.write("                        <input type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtCodigoCategoria\" placeholder=\"cod_categoria\" title=\"Es necesaria el codigo de la categoria para poder eliminar\" required/>\r\n");
       out.write("                    </div>\r\n");
@@ -415,9 +418,9 @@ while (res2.next()) {
       out.write("            </div>\r\n");
       out.write("            <div class=\"col-md-1\"></div>\r\n");
       out.write("            <div class=\"contenedor col-md-7\">\r\n");
-      out.write("               <center><h2>Consulta de las cateorias profesionales</h2></center>\r\n");
+      out.write("                <center><h2>Consulta de las categorias profesionales</h2></center>\r\n");
       out.write("                <br><br>\r\n");
-      out.write("                <legend>All the departamentos</legend>\r\n");
+      out.write("                <legend>All the professional categories</legend>\r\n");
       out.write("                <div id=\"resulset\" class=\"table-responsive\">\r\n");
       out.write("                    ");
  PreparedStatement consulta3 = conn.ObtenerConexion().prepareStatement("SELECT * FROM categoria_profesional;");
@@ -438,11 +441,11 @@ while (res3.next()) {
       out.write("                            <td> ");
       out.print(res3.getString(2));
       out.write("</td> \r\n");
-      out.write("                            \r\n");
-      out.write("                            <!--<td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('4', '");
+      out.write("\r\n");
+      out.write("<!--<td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('4', '");
       out.print(res3.getString(1));
       out.write("');\">SELECCIONAR</a></td>\r\n");
-      out.write("                            <td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('2', '");
+      out.write("<td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('2', '");
       out.print(res3.getString(1));
       out.write("');\">BORRAR</a></td>-->\r\n");
       out.write("                        </tr>\r\n");
@@ -455,10 +458,10 @@ while (res3.next()) {
       out.write(" \r\n");
       out.write("                </div>                \r\n");
       out.write("            </div>\r\n");
-      out.write("            </div>\r\n");
-      out.write("                \r\n");
-      out.write("            <!--En este contenedor se estara presentados los campos y la informacion para gestionar las categoria profesional -->    \r\n");
-      out.write("            <div id=\"contenedor4\" class=\"container\">\r\n");
+      out.write("        </div>\r\n");
+      out.write("\r\n");
+      out.write("        <!--En este contenedor se estara presentados los campos y la informacion para gestionar las categoria profesional -->    \r\n");
+      out.write("        <div id=\"contenedor4\" class=\"container\">\r\n");
       out.write("            <p class=\"titulo\">Gestion de las nominas de los empleados</p>\r\n");
       out.write("            <br><br>\r\n");
       out.write("            <div class=\"contenedor col-md-4\">\r\n");
@@ -481,20 +484,20 @@ while (res3.next()) {
       out.write("                    <div class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Fecha</span>\r\n");
       out.write("                        <input type=\"date\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtFechaNomina\" placeholder=\"Date\" title=\"Es necesario que ingrese la fecha\" required value=\"");
-      out.print( request.getParameter("fecha") );
+      out.print( request.getAttribute("fecha"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                      <div class=\"input-group\">\r\n");
+      out.write("                    <div class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Salario</span>\r\n");
-      out.write("                        <input type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtSalario\" placeholder=\"Salario correspondiente\" title=\"Es necesario agregar un salario\" required value=\"");
-      out.print( request.getParameter("salario") );
+      out.write("                        <input type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtSalarioNomina\" placeholder=\"Salario correspondiente\" title=\"Es necesario agregar un salario\" required value=\"");
+      out.print( request.getAttribute("salario"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
       out.write("                    <div class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Empleado </span>\r\n");
-      out.write("                        <select class=\"form-control\" name=\"txtEmpleadoNomina\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empledo\" required>                              \r\n");
+      out.write("                        <select class=\"form-control\" name=\"txtEmpleadoNomina\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empleado para la nomina\" required>                              \r\n");
       out.write("                            ");
 if (request.getAttribute("nombre") != null) {
       out.write("\r\n");
@@ -522,7 +525,7 @@ if (request.getAttribute("nombre") != null) {
       out.print( resEmpleado.getString("ID"));
       out.write('"');
       out.write('>');
-      out.print( resEmpleado.getString("nombre"));
+      out.print( resEmpleado.getString("nombreE"));
       out.write("</option>\r\n");
       out.write("                            ");
 }
@@ -532,9 +535,9 @@ if (request.getAttribute("nombre") != null) {
       out.write("                    <br>\r\n");
       out.write("                    <div class=\"input-group col-md-7\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Cod_nomina</span>\r\n");
-      out.write("                        <input type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtCodigoNomina\" placeholder=\"Cod_eliminacion\" title=\"Es necesario agregar el codigo de la nomina si quieres eliminarla\" value=\"");
-      out.print( request.getParameter("cod_nomina") );
-      out.write("\" />\r\n");
+      out.write("                        <input type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtCodigoNomina\" placeholder=\"cod nomina\" title=\"Es necesario agregar el codigo de la nomina si quieres eliminarla\" value=\"");
+      out.print( request.getAttribute("cod_nomina"));
+      out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
       out.write("                    <div class=\"btn-group col-md-12\">\r\n");
@@ -551,16 +554,18 @@ if (request.getAttribute("nombre") != null) {
       out.write("                    </div> \r\n");
       out.write("                </form>\r\n");
       out.write("            </div>\r\n");
-      out.write("                \r\n");
-      out.write("            <div class=\"col-md-1\"></div>\r\n");
-      out.write("            \r\n");
+      out.write("\r\n");
+      out.write("            <div class=\"col-md-1\">\r\n");
+      out.write("\r\n");
+      out.write("            </div>\r\n");
+      out.write("\r\n");
       out.write("            <div class=\"contenedor col-md-7\">\r\n");
-      out.write("               <center><h2>Consulta de las cateorias profesionales</h2></center>\r\n");
+      out.write("                <center><h2>Consulta de las nominas creadas</h2></center>\r\n");
       out.write("                <br><br>\r\n");
-      out.write("                <legend>All the departamentos</legend>\r\n");
+      out.write("                <legend>All the payrolls</legend>\r\n");
       out.write("                <div id=\"resulset\" class=\"table-responsive\">\r\n");
       out.write("                    ");
- PreparedStatement consulta4 = conn.ObtenerConexion().prepareStatement("select nomina.*,empleado.nombre from empleado inner join nomina on nomina.id_empleado=empleado.ID");
+ PreparedStatement consulta4 = conn.ObtenerConexion().prepareStatement("select nomina.*,empleado.nombreE from empleado inner join nomina on nomina.id_empleado=empleado.ID");
                         ResultSet res4 = consulta4.executeQuery();
                         if (res4 != null) {
       out.write("\r\n");
@@ -587,11 +592,11 @@ while (res4.next()) {
       out.write("                            <td> ");
       out.print(res4.getString(5));
       out.write("</td> \r\n");
-      out.write("                            \r\n");
-      out.write("                            <!--<td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('4', '");
+      out.write("\r\n");
+      out.write("<!--<td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('4', '");
       out.print(res4.getString(1));
       out.write("');\">SELECCIONAR</a></td>\r\n");
-      out.write("                            <td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('2', '");
+      out.write("<td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('2', '");
       out.print(res4.getString(1));
       out.write("');\">BORRAR</a></td>-->\r\n");
       out.write("                        </tr>\r\n");
@@ -604,9 +609,210 @@ while (res4.next()) {
       out.write(" \r\n");
       out.write("                </div>                \r\n");
       out.write("            </div>\r\n");
-      out.write("            </div>\r\n");
+      out.write("        </div>\r\n");
       out.write("\r\n");
-      out.write("        \r\n");
+      out.write("        <!--En este contenedor se manejara la gestion de los contratos-->\r\n");
+      out.write("        <div id=\"contenedor5\" class=\"container\">\r\n");
+      out.write("            <p class=\"titulo\">Gestion de las contratos de los empleados</p>\r\n");
+      out.write("            <br><br>\r\n");
+      out.write("            <div class=\"contenedor col-md-4\">\r\n");
+      out.write("                <center><h2>Crear un contrato</h2></center>\r\n");
+      out.write("                    ");
+ if (request.getAttribute("MensajeN") != null) { 
+      out.write(" \r\n");
+      out.write("                <div class=\"col-md-12 alert alert-info\" role=\"alert\">\r\n");
+      out.write("\r\n");
+      out.write("                    ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${MensajeN}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write(" \r\n");
+      out.write("                </div>\r\n");
+      out.write("                ");
+ }
+      out.write("  \r\n");
+      out.write("                <br><br>\r\n");
+      out.write("                <form action=\"ServletNomina\" method=\"POST\">\r\n");
+      out.write("                    <legend>Contract of a employee</legend>\r\n");
+      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                        <span id=\"basic-addon1\" class=\"input-group-addon\">Fecha inicio</span>\r\n");
+      out.write("                        <input type=\"date\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtFechaInicio\" placeholder=\"Fecha ini\" title=\"Es necesario agregar una fecha para registrar este contrato\" value=\"");
+      out.print( request.getAttribute(""));
+      out.write("\"/>\r\n");
+      out.write("                    </div>\r\n");
+      out.write("                    <br>\r\n");
+      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                        <span id=\"basic-addon1\" class=\"input-group-addon\">Fecha final</span>\r\n");
+      out.write("                        <input type=\"date\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtFechaFinal\" placeholder=\"Fecha fin\" title=\"Es necesario agregar una fecha para registrar este contrato\" value=\"");
+      out.print( request.getAttribute(""));
+      out.write("\"/>\r\n");
+      out.write("                    </div>\r\n");
+      out.write("                    <br>\r\n");
+      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Seleccione </span>\r\n");
+      out.write("                        <select class=\"form-control\" name=\"txtEmpleadoAContratar\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empleado para la contratacion\" required>                              \r\n");
+      out.write("                            ");
+if (request.getAttribute("nombre") != null) {
+      out.write("\r\n");
+      out.write("                            <option value=\"");
+      out.print(request.getAttribute("id_empleado"));
+      out.write('"');
+      out.write('>');
+      out.print( request.getAttribute("nombre"));
+      out.write("</option>\r\n");
+      out.write("                            ");
+} else {
+      out.write("\r\n");
+      out.write("                            <option value=\"\">Empleado</option>\r\n");
+      out.write("                            ");
+}
+      out.write("\r\n");
+      out.write("                            <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->\r\n");
+      out.write("                            ");
+
+                                PreparedStatement consultaEmpleadoC = conn.ObtenerConexion().prepareStatement("SELECT * FROM empleado");
+                                ResultSet resEmpleadoC = consulta.executeQuery();
+                                while (resEmpleadoC.next()) {
+      out.write("\r\n");
+      out.write("                            <option value=\"");
+      out.print( resEmpleadoC.getString("ID"));
+      out.write('"');
+      out.write('>');
+      out.print( resEmpleadoC.getString("nombreE"));
+      out.write("</option>\r\n");
+      out.write("                            ");
+}
+      out.write("\r\n");
+      out.write("                        </select>                        \r\n");
+      out.write("                    </div>\r\n");
+      out.write("                    <br>\r\n");
+      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Seleccione </span>\r\n");
+      out.write("                        <select class=\"form-control\" name=\"txtContratoCategoria\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empleado para la nomina\" required>                              \r\n");
+      out.write("                            ");
+if (request.getAttribute("nombre") != null) {
+      out.write("\r\n");
+      out.write("                            <option value=\"");
+      out.print(request.getAttribute("id_empleado"));
+      out.write('"');
+      out.write('>');
+      out.print( request.getAttribute("nombreE"));
+      out.write("</option>\r\n");
+      out.write("                            ");
+} else {
+      out.write("\r\n");
+      out.write("                            <option value=\"\">Categoria</option>\r\n");
+      out.write("                            ");
+}
+      out.write("\r\n");
+      out.write("                            <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->\r\n");
+      out.write("                            ");
+
+                                PreparedStatement consultaCategoria= conn.ObtenerConexion().prepareStatement("SELECT * FROM categoria_profesional");
+                                ResultSet resCategoria = consultaCategoria.executeQuery();
+                                while (resCategoria.next()) {
+      out.write("\r\n");
+      out.write("                            <option value=\"");
+      out.print( resCategoria.getString("cod_categoria"));
+      out.write('"');
+      out.write('>');
+      out.print( resCategoria.getString("nombreC"));
+      out.write("</option>\r\n");
+      out.write("                            ");
+}
+      out.write("\r\n");
+      out.write("                        </select>                        \r\n");
+      out.write("                    </div>\r\n");
+      out.write("                    <br>\r\n");
+      out.write("                     <div class=\"input-group col-md-7 center-block\">\r\n");
+      out.write("                        <span id=\"basic-addon1\" class=\"input-group-addon\">Cod_contrato</span>\r\n");
+      out.write("                        \r\n");
+      out.write("                        <input type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtCodContrato\" placeholder=\"Utilizado para eliminar un contrato\" title=\"Es necesario agregar el codigo del contrato si lo desea eliminar\" value=\"");
+      out.print( request.getAttribute(""));
+      out.write("\"/>\r\n");
+      out.write("                    </div>\r\n");
+      out.write("                    <br>\r\n");
+      out.write("                    <br>\r\n");
+      out.write("                    <br>\r\n");
+      out.write("                    <div class=\"btn-group col-md-12\">\r\n");
+      out.write("                        <input id=\"redondo btn-ok\"  type=\"submit\" class=\"btn btn-primary btn-md btn-block active\" value=\"Ok\">\r\n");
+      out.write("                        <br><br>\r\n");
+      out.write("                        <div class=\"form-group col-md-6\">                        \r\n");
+      out.write("                            <select id=\"listaOpciones\" class=\"form-control btn-info\" name=\"txtOpcion\">\r\n");
+      out.write("                                <option value=\"1\">CREATE</option>\r\n");
+      out.write("                                <option value=\"2\">ELIMINAR</option>\r\n");
+      out.write("                                <option value=\"3\">ACTUALIZAR</option>\r\n");
+      out.write("                                <option value=\"4\">CONSULTAR</option>\r\n");
+      out.write("                            </select>\r\n");
+      out.write("                        </div>\r\n");
+      out.write("                    </div> \r\n");
+      out.write("                </form>   \r\n");
+      out.write("            </div>  \r\n");
+      out.write("                    \r\n");
+      out.write("            <div class=\"col-md-1\"></div>\r\n");
+      out.write("            \r\n");
+      out.write("            <div class=\"contenedor col-md-7\">\r\n");
+      out.write("                \r\n");
+      out.write("                <center><h2>Consulta de los contratos hechos</h2></center>\r\n");
+      out.write("                <br><br>\r\n");
+      out.write("                <legend>All the contracts</legend>\r\n");
+      out.write("                <div id=\"resulset\" class=\"table-responsive\">\r\n");
+      out.write("                    ");
+ PreparedStatement consultaContratos = conn.ObtenerConexion().prepareStatement("SELECT cod_contrato,fecha_inicio,fecha_fin,id_empleado,nombreE,apellido,codigo_categoria,nombreC from contrato c,empleado e,categoria_profesional cp where c.id_empleado=e.ID and c.codigo_categoria=cp.cod_categoria;");
+                        ResultSet resContratos = consultaContratos.executeQuery();
+                        if (resContratos != null) {
+      out.write("\r\n");
+      out.write("                    <table border=\"1\" class=\"table table-striped table-bordered table-hover table-condensed\">\r\n");
+      out.write("                        <tr>\r\n");
+      out.write("                            <th>COD_CONTRATO</th><th>FECHA_INICIO</th><th>FECHA_FINAL</th><th>ID_EMPLEADO</th><th>NOMBRE_EMPLEADO</th><th>APELLIDO</th><th>CODIGO_CATEGORIA</th><th>NOMBRE_CATEGORIA</th>\r\n");
+      out.write("                        </tr>\r\n");
+      out.write("                        ");
+while (resContratos.next()) {
+      out.write(" \r\n");
+      out.write("                        <tr> \r\n");
+      out.write("                            <td> ");
+      out.print(resContratos.getString(1));
+      out.write("</td> \r\n");
+      out.write("                            <td> ");
+      out.print(resContratos.getString(2));
+      out.write("</td> \r\n");
+      out.write("                            <td> ");
+      out.print(resContratos.getString(3));
+      out.write("</td> \r\n");
+      out.write("                            <td> ");
+      out.print(resContratos.getString(4));
+      out.write("</td> \r\n");
+      out.write("                            <td> ");
+      out.print(resContratos.getString(5));
+      out.write("</td> \r\n");
+      out.write("                            <td> ");
+      out.print(resContratos.getString(6));
+      out.write("</td> \r\n");
+      out.write("                            <td> ");
+      out.print(resContratos.getString(7));
+      out.write("</td> \r\n");
+      out.write("                            <td> ");
+      out.print(resContratos.getString(8));
+      out.write("</td> \r\n");
+      out.write("\r\n");
+      out.write("                            <!--<td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('4', '");
+      out.print(resContratos.getString(1));
+      out.write("');\">SELECCIONAR</a></td>\r\n");
+      out.write("                            <td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('2', '");
+      out.print(resContratos.getString(1));
+      out.write("');\">BORRAR</a></td>-->\r\n");
+      out.write("                        </tr>\r\n");
+      out.write("                        ");
+}
+      out.write("\r\n");
+      out.write("                    </table>\r\n");
+      out.write("                    ");
+}
+      out.write(" \r\n");
+      out.write("                </div>\r\n");
+      out.write("                \r\n");
+      out.write("            </div>\r\n");
+      out.write("        </div>    \r\n");
+      out.write("\r\n");
+      out.write("\r\n");
       out.write("\r\n");
       out.write("        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->\r\n");
       out.write("        <script src=\"js/jquery-1.12.1.min.js\"></script>\r\n");

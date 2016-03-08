@@ -87,7 +87,7 @@ public class DaoNomina extends ClassConex implements interfaceCRUD{
          try{
             rs=st.executeQuery("select nomina.*,empleado.nombreE from empleado inner join nomina on nomina.id_empleado=empleado.ID where cod_nomina='"+cod+"';");        
     }catch(SQLException ex){
-           Logger.getLogger(DaoNomina.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(DaoContrato.class.getName()).log(Level.SEVERE, null, ex);
     }
         return  rs;    
     

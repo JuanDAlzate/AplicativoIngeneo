@@ -117,21 +117,25 @@
                 <br><br>
                 <legend>All the employees</legend>
                 <div id="resulset" class="table-responsive">
-                    <%ResultSet rs = (ResultSet) request.getAttribute("resultset");
-                        if (rs != null) {%>
-                    <table border="1" class="table tabla-striped table-bordered table-hover table-condensed">
+                    <%  
+                         ClassConex conn = new ClassConex();
+                        PreparedStatement consulta1 = conn.ObtenerConexion().prepareStatement("select * from empleado");
+                        ResultSet res1 = consulta1.executeQuery();
+                        
+                        if (res1 != null) {%>
+                    <table border="1" class="table table-striped table-bordered table-hover table-condensed">
                         <tr>
                             <th>ID</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th colspan="2">OPCIONES</th>
                         </tr>
-                        <%while (rs.next()) {%> 
+                        <%while (res1.next()) {%> 
                         <tr> 
-                            <td> <%=rs.getString(1)%></td> 
-                            <td> <%=rs.getString(2)%></td> 
-                            <td> <%=rs.getString(3)%></td>
-                            <td> <%=rs.getString(4)%></td>
-                            <td> <%=rs.getString(5)%></td>
-                            <td> <a href="#" alt="" onclick="valida_envia('4', '<%=rs.getString(1)%>');">SELECCIONAR</a></td>
-                            <td> <a href="#" alt="" onclick="valida_envia('2', '<%=rs.getString(1)%>');">BORRAR</a></td>
+                            <td> <%=res1.getString(1)%></td> 
+                            <td> <%=res1.getString(2)%></td> 
+                            <td> <%=res1.getString(3)%></td>
+                            <td> <%=res1.getString(4)%></td>
+                            <td> <%=res1.getString(5)%></td>
+                            <td> <a href="#" alt="" onclick="valida_envia('4', '<%=res1.getString(1)%>');">SELECCIONAR</a></td>
+                            <td> <a href="#" alt="" onclick="valida_envia('2', '<%=res1.getString(1)%>');">BORRAR</a></td>
                         </tr>
                         <%}%>
                     </table>
@@ -173,8 +177,7 @@
                             <%}%>
                             <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->
                             <%
-                                ClassConex conn = new ClassConex();
-
+                               
                                 PreparedStatement consulta = conn.ObtenerConexion().prepareStatement("SELECT * FROM empleado");
                                 ResultSet res = consulta.executeQuery();
                                 while (res.next()) {%>
@@ -403,30 +406,30 @@
             <br><br>
             <div class="contenedor col-md-4">
                 <center><h2>Crear un contrato</h2></center>
-                    <% if (request.getAttribute("MensajeN") != null) { %> 
+                    <% if (request.getAttribute("mensajeContrato") != null) { %> 
                 <div class="col-md-12 alert alert-info" role="alert">
 
-                    ${MensajeN} 
+                    ${mensajeContrato} 
                 </div>
                 <% }%>  
                 <br><br>
-                <form action="ServletNomina" method="POST">
+                <form action="ServletContrato" method="POST">
                     <legend>Contract of a employee</legend>
                     <div class="input-group">
                         <span id="basic-addon1" class="input-group-addon">Fecha inicio</span>
-                        <input type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaInicio" placeholder="Fecha ini" title="Es necesario agregar una fecha para registrar este contrato" value="<%= request.getAttribute("")%>"/>
+                        <input type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaInicio" placeholder="Fecha ini" title="Es necesario agregar una fecha para registrar este contrato" value="<%= request.getAttribute("fechaInicio")%>"/>
                     </div>
                     <br>
                     <div class="input-group">
                         <span id="basic-addon1" class="input-group-addon">Fecha final</span>
-                        <input type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaFinal" placeholder="Fecha fin" title="Es necesario agregar una fecha para registrar este contrato" value="<%= request.getAttribute("")%>"/>
+                        <input type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaFinal" placeholder="Fecha fin" title="Es necesario agregar una fecha para registrar este contrato" value="<%= request.getAttribute("fechaFinal")%>"/>
                     </div>
                     <br>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Seleccione </span>
                         <select class="form-control" name="txtEmpleadoAContratar" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la contratacion" required>                              
-                            <%if (request.getAttribute("nombre") != null) {%>
-                            <option value="<%=request.getAttribute("id_empleado")%>"><%= request.getAttribute("nombre")%></option>
+                            <%if (request.getAttribute("nombreEmpleado") != null) {%>
+                            <option value="<%=request.getAttribute("id_empleado")%>"><%= request.getAttribute("nombreEmpleado")%></option>
                             <%} else {%>
                             <option value="">Empleado</option>
                             <%}%>
@@ -443,8 +446,8 @@
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Seleccione </span>
                         <select class="form-control" name="txtContratoCategoria" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la nomina" required>                              
-                            <%if (request.getAttribute("nombre") != null) {%>
-                            <option value="<%=request.getAttribute("id_empleado")%>"><%= request.getAttribute("nombreE")%></option>
+                            <%if (request.getAttribute("nombreCategoria") != null) {%>
+                            <option value="<%=request.getAttribute("codigoCategoria")%>"><%= request.getAttribute("nombreCategoria")%></option>
                             <%} else {%>
                             <option value="">Categoria</option>
                             <%}%>
@@ -461,7 +464,7 @@
                      <div class="input-group col-md-7 center-block">
                         <span id="basic-addon1" class="input-group-addon">Cod_contrato</span>
                         
-                        <input type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodContrato" placeholder="Utilizado para eliminar un contrato" title="Es necesario agregar el codigo del contrato si lo desea eliminar" value="<%= request.getAttribute("")%>"/>
+                        <input type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoContrato" placeholder="Utilizado para eliminar un contrato" title="Es necesario agregar el codigo del contrato si lo desea eliminar" value="<%= request.getAttribute("codigoContrato")%>"/>
                     </div>
                     <br>
                     <br>
@@ -481,7 +484,9 @@
                 </form>   
             </div>  
                     
-            <div class="col-md-1"></div>
+                    <div class="col-md-1">
+                       
+                    </div>
             
             <div class="contenedor col-md-7">
                 
