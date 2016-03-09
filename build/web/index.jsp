@@ -35,8 +35,8 @@
                             <li class="active"><a href="#contenedor1">EMPLEADOS</a></li>
                             <li><a href="#contenedor2">DEPARTAMENTOS</a></li>
                             <li><a href="#contenedor3">CATEGORIA</a></li>
-                            <li><a href="#">NOMINA</a></li>
-                            <li><a href="#">CONTRATO</a></li>
+                            <li><a href="#contenedor4">NOMINA</a></li>
+                            <li><a href="#contenedor5">CONTRATO</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">SOCIAL MEDIA<b class="caret"></b></a>
                                 <ul class="dropdown-menu">

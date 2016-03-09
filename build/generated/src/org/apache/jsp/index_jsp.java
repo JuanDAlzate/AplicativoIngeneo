@@ -188,7 +188,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
                         
                         if (res1 != null) {
       out.write("\r\n");
-      out.write("                    <table border=\"1\" class=\"table tabla-striped table-bordered table-hover table-condensed\">\r\n");
+      out.write("                    <table border=\"1\" class=\"table table-striped table-bordered table-hover table-condensed\">\r\n");
       out.write("                        <tr>\r\n");
       out.write("                            <th>ID</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th colspan=\"2\">OPCIONES</th>\r\n");
       out.write("                        </tr>\r\n");
@@ -618,31 +618,31 @@ while (res4.next()) {
       out.write("            <div class=\"contenedor col-md-4\">\r\n");
       out.write("                <center><h2>Crear un contrato</h2></center>\r\n");
       out.write("                    ");
- if (request.getAttribute("MensajeN") != null) { 
+ if (request.getAttribute("mensajeContrato") != null) { 
       out.write(" \r\n");
       out.write("                <div class=\"col-md-12 alert alert-info\" role=\"alert\">\r\n");
       out.write("\r\n");
       out.write("                    ");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${MensajeN}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${mensajeContrato}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write(" \r\n");
       out.write("                </div>\r\n");
       out.write("                ");
  }
       out.write("  \r\n");
       out.write("                <br><br>\r\n");
-      out.write("                <form action=\"ServletNomina\" method=\"POST\">\r\n");
+      out.write("                <form action=\"ServletContrato\" method=\"POST\">\r\n");
       out.write("                    <legend>Contract of a employee</legend>\r\n");
       out.write("                    <div class=\"input-group\">\r\n");
       out.write("                        <span id=\"basic-addon1\" class=\"input-group-addon\">Fecha inicio</span>\r\n");
       out.write("                        <input type=\"date\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtFechaInicio\" placeholder=\"Fecha ini\" title=\"Es necesario agregar una fecha para registrar este contrato\" value=\"");
-      out.print( request.getAttribute(""));
+      out.print( request.getAttribute("fechaInicio"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
       out.write("                    <div class=\"input-group\">\r\n");
       out.write("                        <span id=\"basic-addon1\" class=\"input-group-addon\">Fecha final</span>\r\n");
       out.write("                        <input type=\"date\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtFechaFinal\" placeholder=\"Fecha fin\" title=\"Es necesario agregar una fecha para registrar este contrato\" value=\"");
-      out.print( request.getAttribute(""));
+      out.print( request.getAttribute("fechaFinal"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
@@ -650,13 +650,13 @@ while (res4.next()) {
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Seleccione </span>\r\n");
       out.write("                        <select class=\"form-control\" name=\"txtEmpleadoAContratar\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empleado para la contratacion\" required>                              \r\n");
       out.write("                            ");
-if (request.getAttribute("nombre") != null) {
+if (request.getAttribute("nombreEmpleado") != null) {
       out.write("\r\n");
       out.write("                            <option value=\"");
       out.print(request.getAttribute("id_empleado"));
       out.write('"');
       out.write('>');
-      out.print( request.getAttribute("nombre"));
+      out.print( request.getAttribute("nombreEmpleado"));
       out.write("</option>\r\n");
       out.write("                            ");
 } else {
@@ -688,13 +688,13 @@ if (request.getAttribute("nombre") != null) {
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Seleccione </span>\r\n");
       out.write("                        <select class=\"form-control\" name=\"txtContratoCategoria\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empleado para la nomina\" required>                              \r\n");
       out.write("                            ");
-if (request.getAttribute("nombre") != null) {
+if (request.getAttribute("nombreCategoria") != null) {
       out.write("\r\n");
       out.write("                            <option value=\"");
-      out.print(request.getAttribute("id_empleado"));
+      out.print(request.getAttribute("codigoCategoria"));
       out.write('"');
       out.write('>');
-      out.print( request.getAttribute("nombreE"));
+      out.print( request.getAttribute("nombreCategoria"));
       out.write("</option>\r\n");
       out.write("                            ");
 } else {
@@ -725,8 +725,8 @@ if (request.getAttribute("nombre") != null) {
       out.write("                     <div class=\"input-group col-md-7 center-block\">\r\n");
       out.write("                        <span id=\"basic-addon1\" class=\"input-group-addon\">Cod_contrato</span>\r\n");
       out.write("                        \r\n");
-      out.write("                        <input type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtCodContrato\" placeholder=\"Utilizado para eliminar un contrato\" title=\"Es necesario agregar el codigo del contrato si lo desea eliminar\" value=\"");
-      out.print( request.getAttribute(""));
+      out.write("                        <input type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtCodigoContrato\" placeholder=\"Utilizado para eliminar un contrato\" title=\"Es necesario agregar el codigo del contrato si lo desea eliminar\" value=\"");
+      out.print( request.getAttribute("codigoContrato"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
@@ -747,7 +747,9 @@ if (request.getAttribute("nombre") != null) {
       out.write("                </form>   \r\n");
       out.write("            </div>  \r\n");
       out.write("                    \r\n");
-      out.write("            <div class=\"col-md-1\"></div>\r\n");
+      out.write("                    <div class=\"col-md-1\">\r\n");
+      out.write("                       \r\n");
+      out.write("                    </div>\r\n");
       out.write("            \r\n");
       out.write("            <div class=\"contenedor col-md-7\">\r\n");
       out.write("                \r\n");
