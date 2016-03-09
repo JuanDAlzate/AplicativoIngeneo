@@ -16,9 +16,24 @@
         <link rel="stylesheet" href="css/Stylo.css"/>      
         <!--LLamado a las fuentes-->
         <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+         <script src="js/jquery-1.12.1.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#listaOpciones').change(function(){
+                    var selectedOption=$('#listaOpciones option:selected');
+                     if(selectedOption.val()==2 || selectedOption.val()==4){
+                         $("#nom,#ape,#dir,#tel,#jefe").hide("slow");
+                     }else{
+                         $("#nom,#ape,#dir,#tel,#jefe").show("slow");
+                     }
+                });
+                
+            });
+        </script>
 
 
     </head>
+    
     <body>
         <div id="contenedor1" class="container"> 
             <div class="navbar navbar-default navbar-fixed-top">
@@ -66,30 +81,51 @@
                 <br><br>
                 <form action="ServletEmpleado" action="POST">
                     <legend>employee data</legend>
+                   
 
-                    <div class="input-group">
+                    <div id="iden" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Identificacion</span>
-                        <input id="redondo" type="number" class="form-control" name="txtIdentificacion" placeholder="ID/CC" aria-describedby="basic-addon1" title="Es necesaria su identificacion" required value="<%=request.getAttribute("id")%>"/>
+                        <input id="redondo" type="number" class="form-control" name="txtIdentificacion" placeholder="ID/CC" aria-describedby="basic-addon1" title="Es necesaria su identificacion"  value="<%=request.getAttribute("id")%>"/>
                     </div>
                     <br>
-                    <div class="input-group">
+                    <div id="nom" class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Nombre</span>
-                        <input id="redondo" type="text" class="form-control" name="txtNombre" placeholder="First name" aria-describedby="basic-addon1" title="Es necesaria su nombre, y debe contener letras" required value="<%= request.getAttribute("nom")%>"/>
+                        <input id="redondo" type="text" class="form-control" name="txtNombre" placeholder="First name" aria-describedby="basic-addon1" title="Es necesaria su nombre, y debe contener letras"  value="<%= request.getAttribute("nom")%>"/>
                     </div>
                     <br>
-                    <div class="input-group">
+                    <div id="ape" class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Apellido</span>
-                        <input id="redondo" type="text" class="form-control" name="txtApellido" placeholder="Last name" aria-describedby="basic-addon1" title="Es necesaria su apellido, y debe contener letras" required value="<%=request.getAttribute("ape")%>"/>
+                        <input id="redondo" type="text" class="form-control" name="txtApellido" placeholder="Last name" aria-describedby="basic-addon1" title="Es necesaria su apellido, y debe contener letras"  value="<%=request.getAttribute("ape")%>"/>
                     </div>
                     <br>
-                    <div class="input-group">
+                    <div id="dir" class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Direccion</span>
-                        <input id="redondo" type="text" class="form-control" name="txtDireccion" placeholder="(Cr 11 #23-12)" aria-describedby="basic-addon1"  title="Es necesaria su direccion ,y debe contener letras" required value="<%=request.getAttribute("dir")%>"/>
+                        <input id="redondo" type="text" class="form-control" name="txtDireccion" placeholder="(Cr 11 #23-12)" aria-describedby="basic-addon1"  title="Es necesaria su direccion ,y debe contener letras"  value="<%=request.getAttribute("dir")%>"/>
                     </div>
                     <br>
-                    <div class="input-group">
+                    <div id="tel" class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Telefono</span>
-                        <input id="redondo" type="number" class="form-control" name="txtTelefono" placeholder="Phone number" aria-describedby="basic-addon1"  title="Es necesaria su telefono, y debe contener numeros" required="Solo se permite numeros" value="<%=request.getAttribute("tel")%>"/>
+                        <input id="redondo" type="number" class="form-control" name="txtTelefono" placeholder="Phone number" aria-describedby="basic-addon1"  title="Es necesaria su telefono, y debe contener numeros"  value="<%=request.getAttribute("tel")%>"/>
+                    </div>
+                    <br>
+                    <div id="jefe"  class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" >Asignar </span>
+                        <select class="form-control" name="txtEmpleadoJefe" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empledo" required>                              
+                            <%if (request.getAttribute("name_jefe") != null) {%>
+                            <option value="<%=request.getAttribute("id_jefe")%>"><%= request.getAttribute("name_jefe")%></option>
+                            <%} else {%>
+                            <option value="">Empleado</option>
+                            <%}%>
+                            <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->
+                            <%
+                                 
+                                ClassConex conn = new ClassConex();
+                                PreparedStatement consultaEmpleado = conn.ObtenerConexion().prepareStatement("SELECT ID,nombreE FROM empleado");
+                                ResultSet res = consultaEmpleado.executeQuery();
+                                while (res.next()) {%>
+                            <option value="<%= res.getString("ID")%>"><%= res.getString("nombreE")%></option>
+                            <%}%>
+                        </select>                        
                     </div>
                     <br>
                     <div class="btn-group col-md-12">
@@ -118,14 +154,13 @@
                 <legend>All the employees</legend>
                 <div id="resulset" class="table-responsive">
                     <%  
-                         ClassConex conn = new ClassConex();
-                        PreparedStatement consulta1 = conn.ObtenerConexion().prepareStatement("select * from empleado");
-                        ResultSet res1 = consulta1.executeQuery();
+                        PreparedStatement consultaEmpleados = conn.ObtenerConexion().prepareStatement("select empleado.ID,empleado.cod_empleado,empleado.nombreE,empleado.apellido,empleado.direccion,empleado.telefono,jefe.ID,jefe.nombreE from empleado left join empleado jefe on empleado.id_responsable=jefe.ID");
+                        ResultSet res1 = consultaEmpleados.executeQuery();
                         
                         if (res1 != null) {%>
                     <table border="1" class="table table-striped table-bordered table-hover table-condensed">
                         <tr>
-                            <th>ID</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th colspan="2">OPCIONES</th>
+                            <th>ID</th><th>CODIGO_EMPLEADO</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th>ID_RESPONSABLE</th><th>NOMBRE_RESPONSABLE</th><!--<th colspan="2">OPCIONES</th>-->
                         </tr>
                         <%while (res1.next()) {%> 
                         <tr> 
@@ -134,8 +169,11 @@
                             <td> <%=res1.getString(3)%></td>
                             <td> <%=res1.getString(4)%></td>
                             <td> <%=res1.getString(5)%></td>
-                            <td> <a href="#" alt="" onclick="valida_envia('4', '<%=res1.getString(1)%>');">SELECCIONAR</a></td>
-                            <td> <a href="#" alt="" onclick="valida_envia('2', '<%=res1.getString(1)%>');">BORRAR</a></td>
+                            <td> <%=res1.getString(6)%></td>
+                            <td> <%=res1.getString(7)%></td>
+                            <td> <%=res1.getString(8)%></td>
+                           <!-- <td> <a href="#" alt="" onclick="valida_envia('4', '<%=res1.getString(1)%>');">SELECCIONAR</a></td>
+                            <td> <a href="#" alt="" onclick="valida_envia('2', '<%=res1.getString(1)%>');">BORRAR</a></td>-->
                         </tr>
                         <%}%>
                     </table>
@@ -178,10 +216,10 @@
                             <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->
                             <%
                                
-                                PreparedStatement consulta = conn.ObtenerConexion().prepareStatement("SELECT * FROM empleado");
-                                ResultSet res = consulta.executeQuery();
-                                while (res.next()) {%>
-                            <option value="<%= res.getString("ID")%>"><%= res.getString("nombreE")%></option>
+                                PreparedStatement consultaApartamentosEmpleados = conn.ObtenerConexion().prepareStatement("SELECT ID,nombreE FROM empleado");
+                                ResultSet resApartamentos = consultaApartamentosEmpleados.executeQuery();
+                                while (resApartamentos.next()) {%>
+                            <option value="<%= resApartamentos.getString("ID")%>"><%= resApartamentos.getString("nombreE")%></option>
                             <%}%>
                         </select>                        
                     </div>
@@ -338,10 +376,10 @@
                             <%}%>
                             <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->
                             <%
-                                PreparedStatement consultaEmpleado = conn.ObtenerConexion().prepareStatement("SELECT * FROM empleado");
-                                ResultSet resEmpleado = consulta.executeQuery();
-                                while (resEmpleado.next()) {%>
-                            <option value="<%= resEmpleado.getString("ID")%>"><%= resEmpleado.getString("nombreE")%></option>
+                                PreparedStatement consultaEmpleadoNomina = conn.ObtenerConexion().prepareStatement("SELECT ID,nombreE FROM empleado");
+                                ResultSet resEmpleadoNomina = consultaEmpleadoNomina.executeQuery();
+                                while (resEmpleadoNomina.next()) {%>
+                            <option value="<%= resEmpleadoNomina.getString("ID")%>"><%= resEmpleadoNomina.getString("nombreE")%></option>
                             <%}%>
                         </select>                        
                     </div>
@@ -435,8 +473,8 @@
                             <%}%>
                             <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->
                             <%
-                                PreparedStatement consultaEmpleadoC = conn.ObtenerConexion().prepareStatement("SELECT * FROM empleado");
-                                ResultSet resEmpleadoC = consulta.executeQuery();
+                                PreparedStatement consultaEmpleadoContrato = conn.ObtenerConexion().prepareStatement("SELECT ID,nombreE FROM empleado");
+                                ResultSet resEmpleadoC = consultaEmpleadoContrato.executeQuery();
                                 while (resEmpleadoC.next()) {%>
                             <option value="<%= resEmpleadoC.getString("ID")%>"><%= resEmpleadoC.getString("nombreE")%></option>
                             <%}%>

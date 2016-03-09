@@ -14,13 +14,15 @@ public class BeanEmpleado {
     private String apellidoEmpleado;
     private String direccionEmpleado;
     private String telefonoEmpleado;
+    public int empleadoJefe;
 
-    public BeanEmpleado(int idEmpleado, String nombreEmpleado, String apellidoEmpleado, String direccionEmpleado,String telefonoEmpleado) {
+    public BeanEmpleado(int idEmpleado, String nombreEmpleado, String apellidoEmpleado, String direccionEmpleado,String telefonoEmpleado,int empleadoJefe) {
         this.idEmpleado = idEmpleado;
         this.nombreEmpleado = nombreEmpleado;
         this.apellidoEmpleado = apellidoEmpleado;
         this.direccionEmpleado = direccionEmpleado;
         this.telefonoEmpleado=telefonoEmpleado;
+        this.empleadoJefe=empleadoJefe;
     }
 
     public BeanEmpleado() {
@@ -61,6 +63,14 @@ public class BeanEmpleado {
     }
     public void setTelefono(String telefonoEmpleado){
         this.telefonoEmpleado=telefonoEmpleado;
+    }
+
+    public int getEmpleadoJefe() {
+        return empleadoJefe;
+    }
+
+    public void setEmpleadoJefe(int empleadoJefe) {
+        this.empleadoJefe = empleadoJefe;
     }
     
     

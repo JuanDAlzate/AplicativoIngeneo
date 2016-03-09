@@ -63,9 +63,24 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <link rel=\"stylesheet\" href=\"css/Stylo.css\"/>      \r\n");
       out.write("        <!--LLamado a las fuentes-->\r\n");
       out.write("        <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>\r\n");
+      out.write("         <script src=\"js/jquery-1.12.1.min.js\"></script>\r\n");
+      out.write("        <script type=\"text/javascript\">\r\n");
+      out.write("            $(document).ready(function(){\r\n");
+      out.write("                $('#listaOpciones').change(function(){\r\n");
+      out.write("                    var selectedOption=$('#listaOpciones option:selected');\r\n");
+      out.write("                     if(selectedOption.val()==2 || selectedOption.val()==4){\r\n");
+      out.write("                         $(\"#nom,#ape,#dir,#tel\").hide(\"slow\");\r\n");
+      out.write("                     }else{\r\n");
+      out.write("                         $(\"#nom,#ape,#dir,#tel\").show(\"slow\");\r\n");
+      out.write("                     }\r\n");
+      out.write("                });\r\n");
+      out.write("                \r\n");
+      out.write("            });\r\n");
+      out.write("        </script>\r\n");
       out.write("\r\n");
       out.write("\r\n");
       out.write("    </head>\r\n");
+      out.write("    \r\n");
       out.write("    <body>\r\n");
       out.write("        <div id=\"contenedor1\" class=\"container\"> \r\n");
       out.write("            <div class=\"navbar navbar-default navbar-fixed-top\">\r\n");
@@ -82,8 +97,8 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            <li class=\"active\"><a href=\"#contenedor1\">EMPLEADOS</a></li>\r\n");
       out.write("                            <li><a href=\"#contenedor2\">DEPARTAMENTOS</a></li>\r\n");
       out.write("                            <li><a href=\"#contenedor3\">CATEGORIA</a></li>\r\n");
-      out.write("                            <li><a href=\"#\">NOMINA</a></li>\r\n");
-      out.write("                            <li><a href=\"#\">CONTRATO</a></li>\r\n");
+      out.write("                            <li><a href=\"#contenedor4\">NOMINA</a></li>\r\n");
+      out.write("                            <li><a href=\"#contenedor5\">CONTRATO</a></li>\r\n");
       out.write("                            <li class=\"dropdown\">\r\n");
       out.write("                                <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">SOCIAL MEDIA<b class=\"caret\"></b></a>\r\n");
       out.write("                                <ul class=\"dropdown-menu\">\r\n");
@@ -119,40 +134,81 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                <br><br>\r\n");
       out.write("                <form action=\"ServletEmpleado\" action=\"POST\">\r\n");
       out.write("                    <legend>employee data</legend>\r\n");
+      out.write("                   \r\n");
       out.write("\r\n");
-      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                    <div id=\"iden\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Identificacion</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtIdentificacion\" placeholder=\"ID/CC\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su identificacion\" required value=\"");
+      out.write("                        <input id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtIdentificacion\" placeholder=\"ID/CC\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su identificacion\"  value=\"");
       out.print(request.getAttribute("id"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                    <div id=\"nom\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\">Nombre</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtNombre\" placeholder=\"First name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su nombre, y debe contener letras\" required value=\"");
+      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtNombre\" placeholder=\"First name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su nombre, y debe contener letras\"  value=\"");
       out.print( request.getAttribute("nom"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                    <div id=\"ape\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\">Apellido</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtApellido\" placeholder=\"Last name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su apellido, y debe contener letras\" required value=\"");
+      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtApellido\" placeholder=\"Last name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su apellido, y debe contener letras\"  value=\"");
       out.print(request.getAttribute("ape"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                    <div id=\"dir\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\">Direccion</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtDireccion\" placeholder=\"(Cr 11 #23-12)\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria su direccion ,y debe contener letras\" required value=\"");
+      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtDireccion\" placeholder=\"(Cr 11 #23-12)\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria su direccion ,y debe contener letras\"  value=\"");
       out.print(request.getAttribute("dir"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                    <div id=\"tel\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\">Telefono</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtTelefono\" placeholder=\"Phone number\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria su telefono, y debe contener numeros\" required=\"Solo se permite numeros\" value=\"");
+      out.write("                        <input id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtTelefono\" placeholder=\"Phone number\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria su telefono, y debe contener numeros\"  value=\"");
       out.print(request.getAttribute("tel"));
       out.write("\"/>\r\n");
+      out.write("                    </div>\r\n");
+      out.write("                    <br>\r\n");
+      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Asignar </span>\r\n");
+      out.write("                        <select class=\"form-control\" name=\"txtEmpleadoJefe\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empledo\" required>                              \r\n");
+      out.write("                            ");
+if (request.getAttribute("nombre_Coordinador") != null) {
+      out.write("\r\n");
+      out.write("                            <option value=\"");
+      out.print(request.getAttribute("id_Coordinador"));
+      out.write('"');
+      out.write('>');
+      out.print( request.getAttribute("nombre_Coordinador"));
+      out.write("</option>\r\n");
+      out.write("                            ");
+} else {
+      out.write("\r\n");
+      out.write("                            <option value=\"\">Empleado</option>\r\n");
+      out.write("                            ");
+}
+      out.write("\r\n");
+      out.write("                            <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->\r\n");
+      out.write("                            ");
+
+                                 
+                                ClassConex conn = new ClassConex();
+                                PreparedStatement consultaEmpleado = conn.ObtenerConexion().prepareStatement("SELECT ID,nombreE FROM empleado");
+                                ResultSet res = consultaEmpleado.executeQuery();
+                                while (res.next()) {
+      out.write("\r\n");
+      out.write("                            <option value=\"");
+      out.print( res.getString("ID"));
+      out.write('"');
+      out.write('>');
+      out.print( res.getString("nombreE"));
+      out.write("</option>\r\n");
+      out.write("                            ");
+}
+      out.write("\r\n");
+      out.write("                        </select>                        \r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
       out.write("                    <div class=\"btn-group col-md-12\">\r\n");
@@ -182,15 +238,14 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                <div id=\"resulset\" class=\"table-responsive\">\r\n");
       out.write("                    ");
   
-                         ClassConex conn = new ClassConex();
-                        PreparedStatement consulta1 = conn.ObtenerConexion().prepareStatement("select * from empleado");
-                        ResultSet res1 = consulta1.executeQuery();
+                        PreparedStatement consultaEmpleados = conn.ObtenerConexion().prepareStatement("select empleado.ID,empleado.cod_empleado,empleado.nombreE,empleado.apellido,empleado.direccion,empleado.telefono,jefe.ID,jefe.nombreE from empleado left join empleado jefe on empleado.id_responsable=jefe.ID");
+                        ResultSet res1 = consultaEmpleados.executeQuery();
                         
                         if (res1 != null) {
       out.write("\r\n");
       out.write("                    <table border=\"1\" class=\"table table-striped table-bordered table-hover table-condensed\">\r\n");
       out.write("                        <tr>\r\n");
-      out.write("                            <th>ID</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th colspan=\"2\">OPCIONES</th>\r\n");
+      out.write("                            <th>ID</th><th>CODIGO_EMPLEADO</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th>ID_RESPONSABLE</th><th>NOMBRE_RESPONSABLE</th><!--<th colspan=\"2\">OPCIONES</th>-->\r\n");
       out.write("                        </tr>\r\n");
       out.write("                        ");
 while (res1.next()) {
@@ -211,12 +266,21 @@ while (res1.next()) {
       out.write("                            <td> ");
       out.print(res1.getString(5));
       out.write("</td>\r\n");
-      out.write("                            <td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('4', '");
+      out.write("                            <td> ");
+      out.print(res1.getString(6));
+      out.write("</td>\r\n");
+      out.write("                            <td> ");
+      out.print(res1.getString(7));
+      out.write("</td>\r\n");
+      out.write("                            <td> ");
+      out.print(res1.getString(8));
+      out.write("</td>\r\n");
+      out.write("                           <!-- <td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('4', '");
       out.print(res1.getString(1));
       out.write("');\">SELECCIONAR</a></td>\r\n");
       out.write("                            <td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('2', '");
       out.print(res1.getString(1));
-      out.write("');\">BORRAR</a></td>\r\n");
+      out.write("');\">BORRAR</a></td>-->\r\n");
       out.write("                        </tr>\r\n");
       out.write("                        ");
 }
@@ -283,15 +347,15 @@ if (request.getAttribute("nombre_Coordinador") != null) {
       out.write("                            ");
 
                                
-                                PreparedStatement consulta = conn.ObtenerConexion().prepareStatement("SELECT * FROM empleado");
-                                ResultSet res = consulta.executeQuery();
-                                while (res.next()) {
+                                PreparedStatement consultaApartamentosEmpleados = conn.ObtenerConexion().prepareStatement("SELECT ID,nombreE FROM empleado");
+                                ResultSet resApartamentos = consultaApartamentosEmpleados.executeQuery();
+                                while (resApartamentos.next()) {
       out.write("\r\n");
       out.write("                            <option value=\"");
-      out.print( res.getString("ID"));
+      out.print( resApartamentos.getString("ID"));
       out.write('"');
       out.write('>');
-      out.print( res.getString("nombreE"));
+      out.print( resApartamentos.getString("nombreE"));
       out.write("</option>\r\n");
       out.write("                            ");
 }
@@ -517,15 +581,15 @@ if (request.getAttribute("nombre") != null) {
       out.write("                            <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->\r\n");
       out.write("                            ");
 
-                                PreparedStatement consultaEmpleado = conn.ObtenerConexion().prepareStatement("SELECT * FROM empleado");
-                                ResultSet resEmpleado = consulta.executeQuery();
-                                while (resEmpleado.next()) {
+                                PreparedStatement consultaEmpleadoNomina = conn.ObtenerConexion().prepareStatement("SELECT ID,nombreE FROM empleado");
+                                ResultSet resEmpleadoNomina = consultaEmpleadoNomina.executeQuery();
+                                while (resEmpleadoNomina.next()) {
       out.write("\r\n");
       out.write("                            <option value=\"");
-      out.print( resEmpleado.getString("ID"));
+      out.print( resEmpleadoNomina.getString("ID"));
       out.write('"');
       out.write('>');
-      out.print( resEmpleado.getString("nombreE"));
+      out.print( resEmpleadoNomina.getString("nombreE"));
       out.write("</option>\r\n");
       out.write("                            ");
 }
@@ -668,8 +732,8 @@ if (request.getAttribute("nombreEmpleado") != null) {
       out.write("                            <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->\r\n");
       out.write("                            ");
 
-                                PreparedStatement consultaEmpleadoC = conn.ObtenerConexion().prepareStatement("SELECT * FROM empleado");
-                                ResultSet resEmpleadoC = consulta.executeQuery();
+                                PreparedStatement consultaEmpleadoContrato = conn.ObtenerConexion().prepareStatement("SELECT ID,nombreE FROM empleado");
+                                ResultSet resEmpleadoC = consultaEmpleadoContrato.executeQuery();
                                 while (resEmpleadoC.next()) {
       out.write("\r\n");
       out.write("                            <option value=\"");

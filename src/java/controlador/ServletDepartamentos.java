@@ -42,10 +42,17 @@ public class ServletDepartamentos extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
+        Integer codigoDepartamento;
+        if(request.getParameter("txtCodigoDepartamentoEliminar").length()==0){
+           codigoDepartamento=0;
+        }else{
+           codigoDepartamento=Integer.parseInt(request.getParameter("txtCodigoDepartamentoEliminar"));
+        }
         int opcion=Integer.parseInt(request.getParameter("txtOpcionDepartamento"));       
         String nombreDepartamento=request.getParameter("txtNombreDepartamento");
         int idEncargadoDepartamento=Integer.parseInt(request.getParameter("txtEmpleadoEncargado"));
-        int codigoDepartamento=Integer.parseInt(request.getParameter("txtCodigoDepartamentoEliminar"));
+         
+        
         
     //___________________________________________________________________________________    
         BeanDepartamento BDepartamento=new BeanDepartamento(nombreDepartamento,idEncargadoDepartamento);

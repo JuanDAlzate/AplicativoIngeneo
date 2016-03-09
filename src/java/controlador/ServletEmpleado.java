@@ -46,9 +46,10 @@ public class ServletEmpleado extends HttpServlet {
         String apellido=request.getParameter("txtApellido");
         String direccion=request.getParameter("txtDireccion");
         String telefono=request.getParameter("txtTelefono");
+        int empleadoJefe=Integer.parseInt(request.getParameter("txtEmpleadoJefe"));
         
     //___________________________________________________________________________________    
-        BeanEmpleado BEmpleado=new BeanEmpleado(id,nombre,apellido,direccion,telefono);
+        BeanEmpleado BEmpleado=new BeanEmpleado(id,nombre,apellido,direccion,telefono,empleadoJefe);
         DaoEmpleado DEmpleado=new DaoEmpleado(BEmpleado);
         ResultSet rs;
         
@@ -85,10 +86,13 @@ public class ServletEmpleado extends HttpServlet {
         try {
             while(rs.next()){
                 request.setAttribute("id", rs.getString(1));
-                request.setAttribute("nom", rs.getString(2));
-                request.setAttribute("ape", rs.getString(3));
-                request.setAttribute("dir", rs.getString(4));
-                request.setAttribute("tel", rs.getString(5));
+                request.setAttribute("nom", rs.getString(3));
+                request.setAttribute("ape", rs.getString(4));
+                request.setAttribute("dir", rs.getString(5));
+                request.setAttribute("tel", rs.getString(6));
+                request.setAttribute("id_jefe", rs.getString(7));
+                request.setAttribute("name_jefe", rs.getString(8));
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServletEmpleado.class.getName()).log(Level.SEVERE, null, ex);

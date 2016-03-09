@@ -29,6 +29,7 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
     public String apellido="";
     public String direccion="";
     public String telefono="";
+    public int empleadoJefe;
     
     
     
@@ -47,6 +48,7 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
             apellido =empleado.getApellidoEmpleado();
             direccion =empleado.getDireccionEmpleado();            
             telefono=empleado.getTelefonoEmpleado();
+            empleadoJefe=empleado.getEmpleadoJefe();
             
         } catch (SQLException ex) {
             Logger.getLogger(DaoEmpleado.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,7 +59,7 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
    @Override
     public boolean agregarRegistro() { //opcion 1.
         try {
-            st.executeUpdate("insert into empleado (ID,nombreE,apellido,direccion,telefono) values ('"+id+"','"+nombre+"','"+apellido+"','"+direccion+"','"+telefono+"');");
+            st.executeUpdate("insert into empleado (ID,nombreE,apellido,direccion,telefono,id_responsable) values ('"+id+"','"+nombre+"','"+apellido+"','"+direccion+"','"+telefono+"','"+empleadoJefe+"');");
             listo=true;
            
         } catch (SQLException ex) {
@@ -83,7 +85,7 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
     @Override
     public boolean actualizarRegistro() { //opcion 3.
         try {
-            st.executeUpdate("update  empleado set nombreE='"+nombre+"',apellido='"+apellido+"',direccion='"+direccion+"',telefono='"+telefono+"' where ID='"+id+"';");
+            st.executeUpdate("update  empleado set nombreE='"+nombre+"',apellido='"+apellido+"',direccion='"+direccion+"',telefono='"+telefono+"',id_responsable='"+empleadoJefe+"' where ID='"+id+"';");
             listo=true;
            
         } catch (SQLException ex) {
@@ -96,7 +98,7 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
     @Override
     public ResultSet consultarRegistro() { //opcion 4.
          try {        
-            rs = st.executeQuery("SELECT ID,nombreE,apellido,direccion,telefono  FROM empleado where ID='"+id+"';");
+            rs = st.executeQuery("select empleado.ID,empleado.cod_empleado,empleado.nombreE,empleado.apellido,empleado.direccion,empleado.telefono,jefe.ID,jefe.nombreE from empleado left join empleado jefe on empleado.id_responsable=jefe.ID where empleado.ID='"+id+"'");
         } catch (SQLException ex) {
             Logger.getLogger(DaoEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
