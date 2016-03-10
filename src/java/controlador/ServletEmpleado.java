@@ -40,13 +40,20 @@ public class ServletEmpleado extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
+        String nombre="0";
+        String apellido="0";
+        String direccion="0";
+        String telefono="0";
+        int empleadoJefe=0;
+        
+        
         int opcion=Integer.parseInt(request.getParameter("txtOpcion"));
         int id=Integer.parseInt(request.getParameter("txtIdentificacion"));
-        String nombre=request.getParameter("txtNombre");
-        String apellido=request.getParameter("txtApellido");
-        String direccion=request.getParameter("txtDireccion");
-        String telefono=request.getParameter("txtTelefono");
-        int empleadoJefe=Integer.parseInt(request.getParameter("txtEmpleadoJefe"));
+        nombre=request.getParameter("txtNombre");
+         apellido=request.getParameter("txtApellido");
+         direccion=request.getParameter("txtDireccion");
+         telefono=request.getParameter("txtTelefono");
+         empleadoJefe=Integer.parseInt(request.getParameter("txtEmpleadoJefe"));
         
     //___________________________________________________________________________________    
         BeanEmpleado BEmpleado=new BeanEmpleado(id,nombre,apellido,direccion,telefono,empleadoJefe);

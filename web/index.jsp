@@ -22,11 +22,19 @@
                 $('#listaOpciones').change(function(){
                     var selectedOption=$('#listaOpciones option:selected');
                      if(selectedOption.val()==2 || selectedOption.val()==4){
-                         $("#nom,#ape,#dir,#tel,#jefe").hide("slow");
+                         $("#divNomE,#divApeE,#divDirE,#divTelE,#divJefE").hide("slow");
+                         $("#inputNomE,#inputApeE,#inputDirE,#inputTelE,#inputIdenJE").removeAttr("required");
+                         $('#divAcciones').css('margin-top','-100px'); 
+                         
+                         
                      }else{
-                         $("#nom,#ape,#dir,#tel,#jefe").show("slow");
+                         $("#divNomE,#divApeE,#divDirE,#divTelE,#divJefE").show("slow");
+                          $("#inputNomE,#inputApeE,#inputDirE,#inputTelE,#inputIdenJE").prop("required", true);
+                          $('#divAcciones').css('margin-top','');
                      }
                 });
+               
+                
                 
             });
         </script>
@@ -83,38 +91,57 @@
                     <legend>employee data</legend>
                    
 
-                    <div id="iden" class="input-group">
+                    <div id="divIdenE" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Identificacion</span>
-                        <input id="redondo" type="number" class="form-control" name="txtIdentificacion" placeholder="ID/CC" aria-describedby="basic-addon1" title="Es necesaria su identificacion"  value="<%=request.getAttribute("id")%>"/>
+                        <input id="inputIdenE" id="redondo" type="number" class="form-control" name="txtIdentificacion" placeholder="ID/CC" aria-describedby="basic-addon1" title="Es necesaria su identificacion"  required value="<%=request.getAttribute("id")%>"/>
                     </div>
                     <br>
-                    <div id="nom" class="input-group">
+                    <div id="divNomE" class="input-group">
+                        
                         <span class="input-group-addon" id="basic-addon1">Nombre</span>
-                        <input id="redondo" type="text" class="form-control" name="txtNombre" placeholder="First name" aria-describedby="basic-addon1" title="Es necesaria su nombre, y debe contener letras"  value="<%= request.getAttribute("nom")%>"/>
+                        <% if(request.getAttribute("nom")==null){ %>
+                           <input id="inputNomE" id="redondo" type="text" class="form-control" name="txtNombre" placeholder="First name" aria-describedby="basic-addon1" title="Es necesaria su nombre, y debe contener letras"  required value="ingrese su nombre"/>
+                   
+                        <%}else{%>
+                        <input id="inputNomE" id="redondo" type="text" class="form-control" name="txtNombre" placeholder="First name" aria-describedby="basic-addon1" title="Es necesaria su nombre, y debe contener letras"  required value="<%= request.getAttribute("nom")%>"/>
+                       <%}%>
                     </div>
                     <br>
-                    <div id="ape" class="input-group">
+                    <div id="divApeE" class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Apellido</span>
-                        <input id="redondo" type="text" class="form-control" name="txtApellido" placeholder="Last name" aria-describedby="basic-addon1" title="Es necesaria su apellido, y debe contener letras"  value="<%=request.getAttribute("ape")%>"/>
+                        <% if(request.getAttribute("ape")==null){%>
+                        <input id="inputApeE" id="redondo" type="text" class="form-control" name="txtApellido" placeholder="Last name" aria-describedby="basic-addon1"  required title="Es necesaria su apellido, y debe contener letras"  value="Ingrese su apellido"/>
+                        <% }else {%>
+                        <input id="inputApeE" id="redondo" type="text" class="form-control" name="txtApellido" placeholder="Last name" aria-describedby="basic-addon1"  required title="Es necesaria su apellido, y debe contener letras"  value="<%=request.getAttribute("ape")%>"/>
+                        <% }%>
                     </div>
                     <br>
-                    <div id="dir" class="input-group">
+                    <div id="divDirE" class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Direccion</span>
-                        <input id="redondo" type="text" class="form-control" name="txtDireccion" placeholder="(Cr 11 #23-12)" aria-describedby="basic-addon1"  title="Es necesaria su direccion ,y debe contener letras"  value="<%=request.getAttribute("dir")%>"/>
+                        <% if(request.getAttribute("dir")==null){%>
+                        <input id="inputDirE" id="redondo" type="text" class="form-control" name="txtDireccion" placeholder="(Cr 11 #23-12)" aria-describedby="basic-addon1"  required title="Es necesaria su direccion ,y debe contener letras"  value="Ingrese una direccion"/>
+                        <% }else{%>
+                         <input id="inputDirE" id="redondo" type="text" class="form-control" name="txtDireccion" placeholder="(Cr 11 #23-12)" aria-describedby="basic-addon1"  required title="Es necesaria su direccion ,y debe contener letras"  value="<%=request.getAttribute("dir")%>"/>
+                       
+                        <% }%>
                     </div>
                     <br>
-                    <div id="tel" class="input-group">
+                    <div id="divTelE" class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Telefono</span>
-                        <input id="redondo" type="number" class="form-control" name="txtTelefono" placeholder="Phone number" aria-describedby="basic-addon1"  title="Es necesaria su telefono, y debe contener numeros"  value="<%=request.getAttribute("tel")%>"/>
+                        <% if(request.getAttribute("tel")==null){%>
+                        <input id="inputTelE" id="tel" id="redondo" type="number" required class="form-control" name="txtTelefono" placeholder="Phone number" aria-describedby="basic-addon1"  title="Es necesaria su telefono, y debe contener numeros"  value="Ingrese un telefono"/>
+                        <% }else{%>
+                         <input id="inputTelE" id="tel" id="redondo" type="number" required class="form-control" name="txtTelefono" placeholder="Phone number" aria-describedby="basic-addon1"  title="Es necesaria su telefono, y debe contener numeros"  value="<%=request.getAttribute("tel")%>"/>
+                        <% }%>
                     </div>
                     <br>
-                    <div id="jefe"  class="input-group">
-                        <span class="input-group-addon" id="basic-addon1" >Asignar </span>
-                        <select class="form-control" name="txtEmpleadoJefe" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empledo" required>                              
+                    <div id="divJefE"  class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" >Asignar un </span>
+                        <select id="inputIdenJE" class="form-control" name="txtEmpleadoJefe" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empledo" required>                              
                             <%if (request.getAttribute("name_jefe") != null) {%>
                             <option value="<%=request.getAttribute("id_jefe")%>"><%= request.getAttribute("name_jefe")%></option>
                             <%} else {%>
-                            <option value="">Empleado</option>
+                            <option value="0">Jefe</option>
                             <%}%>
                             <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->
                             <%
@@ -128,7 +155,7 @@
                         </select>                        
                     </div>
                     <br>
-                    <div class="btn-group col-md-12">
+                    <div id="divAcciones" class="btn-group col-md-12">
                         <input id="redondo btn-ok"  type="submit" class="btn btn-primary btn-md btn-block active" value="Ok">
                         <br><br>
                         <div class="form-group col-md-6">                        
@@ -137,7 +164,7 @@
                                 <option value="2">ELIMINAR</option>
                                 <option value="3">ACTUALIZAR</option>
                                 <option value="4">CONSULTAR </option>
-                                <option value="5">LISTAR</option>
+                                
                             </select>
                         </div>
                     </div>               

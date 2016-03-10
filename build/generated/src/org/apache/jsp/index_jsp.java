@@ -69,9 +69,9 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                $('#listaOpciones').change(function(){\r\n");
       out.write("                    var selectedOption=$('#listaOpciones option:selected');\r\n");
       out.write("                     if(selectedOption.val()==2 || selectedOption.val()==4){\r\n");
-      out.write("                         $(\"#nom,#ape,#dir,#tel\").hide(\"slow\");\r\n");
+      out.write("                         $(\"#nom,#ape,#dir,#tel,#jefe\").hide(\"slow\");\r\n");
       out.write("                     }else{\r\n");
-      out.write("                         $(\"#nom,#ape,#dir,#tel\").show(\"slow\");\r\n");
+      out.write("                         $(\"#nom,#ape,#dir,#tel,#jefe\").show(\"slow\");\r\n");
       out.write("                     }\r\n");
       out.write("                });\r\n");
       out.write("                \r\n");
@@ -171,17 +171,17 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                    <div id=\"jefe\"  class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Asignar </span>\r\n");
       out.write("                        <select class=\"form-control\" name=\"txtEmpleadoJefe\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empledo\" required>                              \r\n");
       out.write("                            ");
-if (request.getAttribute("nombre_Coordinador") != null) {
+if (request.getAttribute("name_jefe") != null) {
       out.write("\r\n");
       out.write("                            <option value=\"");
-      out.print(request.getAttribute("id_Coordinador"));
+      out.print(request.getAttribute("id_jefe"));
       out.write('"');
       out.write('>');
-      out.print( request.getAttribute("nombre_Coordinador"));
+      out.print( request.getAttribute("name_jefe"));
       out.write("</option>\r\n");
       out.write("                            ");
 } else {
