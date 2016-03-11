@@ -15,6 +15,11 @@ public class BeanEmpleado {
     private String direccionEmpleado;
     private String telefonoEmpleado;
     public int empleadoJefe;
+    
+    public BeanEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
+       
+    }
 
     public BeanEmpleado(int idEmpleado, String nombreEmpleado, String apellidoEmpleado, String direccionEmpleado,String telefonoEmpleado,int empleadoJefe) {
         this.idEmpleado = idEmpleado;

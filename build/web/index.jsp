@@ -17,28 +17,7 @@
         <!--LLamado a las fuentes-->
         <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
          <script src="js/jquery-1.12.1.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $('#listaOpciones').change(function(){
-                    var selectedOption=$('#listaOpciones option:selected');
-                     if(selectedOption.val()==2 || selectedOption.val()==4){
-                         $("#divNomE,#divApeE,#divDirE,#divTelE,#divJefE").hide("slow");
-                         $("#inputNomE,#inputApeE,#inputDirE,#inputTelE,#inputIdenJE").removeAttr("required");
-                         $('#divAcciones').css('margin-top','-100px'); 
-                         
-                         
-                     }else{
-                         $("#divNomE,#divApeE,#divDirE,#divTelE,#divJefE").show("slow");
-                          $("#inputNomE,#inputApeE,#inputDirE,#inputTelE,#inputIdenJE").prop("required", true);
-                          $('#divAcciones').css('margin-top','');
-                     }
-                });
-               
-                
-                
-            });
-        </script>
-
+        <script src="js/Javascript.js" type="text/javascript"></script>
 
     </head>
     
@@ -100,7 +79,7 @@
                         
                         <span class="input-group-addon" id="basic-addon1">Nombre</span>
                         <% if(request.getAttribute("nom")==null){ %>
-                           <input id="inputNomE" id="redondo" type="text" class="form-control" name="txtNombre" placeholder="First name" aria-describedby="basic-addon1" title="Es necesaria su nombre, y debe contener letras"  required value="ingrese su nombre"/>
+                           <input id="inputNomE" id="redondo" type="text" class="form-control" name="txtNombre" placeholder="First name" aria-describedby="basic-addon1" title="Es necesaria su nombre, y debe contener letras"  required value=""/>
                    
                         <%}else{%>
                         <input id="inputNomE" id="redondo" type="text" class="form-control" name="txtNombre" placeholder="First name" aria-describedby="basic-addon1" title="Es necesaria su nombre, y debe contener letras"  required value="<%= request.getAttribute("nom")%>"/>
@@ -110,7 +89,7 @@
                     <div id="divApeE" class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Apellido</span>
                         <% if(request.getAttribute("ape")==null){%>
-                        <input id="inputApeE" id="redondo" type="text" class="form-control" name="txtApellido" placeholder="Last name" aria-describedby="basic-addon1"  required title="Es necesaria su apellido, y debe contener letras"  value="Ingrese su apellido"/>
+                        <input id="inputApeE" id="redondo" type="text" class="form-control" name="txtApellido" placeholder="Last name" aria-describedby="basic-addon1"  required title="Es necesaria su apellido, y debe contener letras"  value=""/>
                         <% }else {%>
                         <input id="inputApeE" id="redondo" type="text" class="form-control" name="txtApellido" placeholder="Last name" aria-describedby="basic-addon1"  required title="Es necesaria su apellido, y debe contener letras"  value="<%=request.getAttribute("ape")%>"/>
                         <% }%>
@@ -119,7 +98,7 @@
                     <div id="divDirE" class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Direccion</span>
                         <% if(request.getAttribute("dir")==null){%>
-                        <input id="inputDirE" id="redondo" type="text" class="form-control" name="txtDireccion" placeholder="(Cr 11 #23-12)" aria-describedby="basic-addon1"  required title="Es necesaria su direccion ,y debe contener letras"  value="Ingrese una direccion"/>
+                        <input id="inputDirE" id="redondo" type="text" class="form-control" name="txtDireccion" placeholder="(Cr 11 #23-12)" aria-describedby="basic-addon1"  required title="Es necesaria su direccion ,y debe contener letras"  value=""/>
                         <% }else{%>
                          <input id="inputDirE" id="redondo" type="text" class="form-control" name="txtDireccion" placeholder="(Cr 11 #23-12)" aria-describedby="basic-addon1"  required title="Es necesaria su direccion ,y debe contener letras"  value="<%=request.getAttribute("dir")%>"/>
                        
@@ -129,7 +108,7 @@
                     <div id="divTelE" class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Telefono</span>
                         <% if(request.getAttribute("tel")==null){%>
-                        <input id="inputTelE" id="tel" id="redondo" type="number" required class="form-control" name="txtTelefono" placeholder="Phone number" aria-describedby="basic-addon1"  title="Es necesaria su telefono, y debe contener numeros"  value="Ingrese un telefono"/>
+                        <input id="inputTelE" id="tel" id="redondo" type="number" required class="form-control" name="txtTelefono" placeholder="Phone number" aria-describedby="basic-addon1"  title="Es necesaria su telefono, y debe contener numeros"  value=""/>
                         <% }else{%>
                          <input id="inputTelE" id="tel" id="redondo" type="number" required class="form-control" name="txtTelefono" placeholder="Phone number" aria-describedby="basic-addon1"  title="Es necesaria su telefono, y debe contener numeros"  value="<%=request.getAttribute("tel")%>"/>
                         <% }%>
@@ -141,7 +120,7 @@
                             <%if (request.getAttribute("name_jefe") != null) {%>
                             <option value="<%=request.getAttribute("id_jefe")%>"><%= request.getAttribute("name_jefe")%></option>
                             <%} else {%>
-                            <option value="0">Jefe</option>
+                            <option value="">Jefe</option>
                             <%}%>
                             <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->
                             <%
@@ -227,14 +206,18 @@
 
                 <form action="ServleDepartamento" method="POST">
                     <legend>Apartaments</legend>
-                    <div class="input-group">
+                    <div id="divNomD" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Nombre del departamento</span>
-                        <input id="redondo" type="text" class="form-control" name="txtNombreDepartamento" placeholder="Name" aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento" required value="<%=request.getAttribute("nombre")%>"/>
+                        <% if(request.getAttribute("nombre")==null) {%>
+                        <input id="inputNomD" id="redondo" type="text" class="form-control" name="txtNombreDepartamento" placeholder="Name" aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento" required value="Name"/>
+                       <% }else{%>
+                       <input id="inputNomD" id="redondo" type="text" class="form-control" name="txtNombreDepartamento" placeholder="Name" aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento" required value="<%=request.getAttribute("nombre")%>"/>
+                       <%}%>
                     </div>
                     <br>
-                    <div class="input-group">
+                    <div id="divSelectJefeD" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Asignar </span>
-                        <select class="form-control" name="txtEmpleadoEncargado" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empledo" required>                              
+                        <select id="inputIdenEn" class="form-control" name="txtEmpleadoEncargado" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empledo" required>                              
                             <%if (request.getAttribute("nombre_Coordinador") != null) {%>
                             <option value="<%=request.getAttribute("id_Coordinador")%>"><%= request.getAttribute("nombre_Coordinador")%></option>
                             <%} else {%>
@@ -252,17 +235,17 @@
                     </div>
                     <br>
 
-                    <div class="input-group">
+                    <div id="divCodD" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Codigo del departamento a eliminar</span>
-                        <input id="redondo" type="number" class="form-control" name="txtCodigoDepartamentoEliminar" placeholder="Cod_departamento" aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento"  value="<%=request.getAttribute("cod_departamento")%>"/>
+                        <input id="inputCodE" id="redondo" type="number" class="form-control" name="txtCodigoDepartamentoEliminar" placeholder="Cod_departamento" required aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento"  value="<%=request.getAttribute("cod_departamento")%>"/>
                     </div>    
 
                     <br>
-                    <div class="btn-group col-md-12">
+                    <div id="divAcciones2" class="btn-group col-md-12">
                         <input id="redondo btn-ok"  type="submit" class="btn btn-primary btn-md btn-block active" value="Ok">
-                        <br><br><br>
+                        <br><br>
                         <div class="form-group col-md-6">                        
-                            <select id="listaOpciones" class="form-control btn-info" name="txtOpcionDepartamento" required>
+                            <select id="listaOpciones2" class="form-control btn-info" name="txtOpcionDepartamento" required>
                                 <option value="1">CREATE</option>
                                 <option value="2">ELIMINAR</option>
                                 <option value="3">ACTUALIZAR</option>

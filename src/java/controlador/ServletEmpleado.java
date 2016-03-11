@@ -40,24 +40,17 @@ public class ServletEmpleado extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String nombre="0";
-        String apellido="0";
-        String direccion="0";
-        String telefono="0";
-        int empleadoJefe=0;
         
-        
-        int opcion=Integer.parseInt(request.getParameter("txtOpcion"));
-        int id=Integer.parseInt(request.getParameter("txtIdentificacion"));
-        nombre=request.getParameter("txtNombre");
-         apellido=request.getParameter("txtApellido");
-         direccion=request.getParameter("txtDireccion");
-         telefono=request.getParameter("txtTelefono");
-         empleadoJefe=Integer.parseInt(request.getParameter("txtEmpleadoJefe"));
+         int opcion=Integer.parseInt(request.getParameter("txtOpcion"));
+         int id;
+         String nombre="";
+         String apellido="";
+         String direccion="";
+         String telefono="";
+         int empleadoJefe;
         
     //___________________________________________________________________________________    
-        BeanEmpleado BEmpleado=new BeanEmpleado(id,nombre,apellido,direccion,telefono,empleadoJefe);
-        DaoEmpleado DEmpleado=new DaoEmpleado(BEmpleado);
+        
         ResultSet rs;
         
                    
@@ -66,6 +59,16 @@ public class ServletEmpleado extends HttpServlet {
          
          switch(opcion){
             case 1:// AGREGAR REGISTROS
+                id=Integer.parseInt(request.getParameter("txtIdentificacion"));   
+                nombre=request.getParameter("txtNombre");
+                apellido=request.getParameter("txtApellido");
+                direccion=request.getParameter("txtDireccion");
+                telefono=request.getParameter("txtTelefono");
+                empleadoJefe=Integer.parseInt(request.getParameter("txtEmpleadoJefe"));
+                
+                BeanEmpleado BEmpleado=new BeanEmpleado(id,nombre,apellido,direccion,telefono,empleadoJefe);
+                DaoEmpleado DEmpleado=new DaoEmpleado(BEmpleado);
+
                 if(DEmpleado.agregarRegistro()){
                     request.setAttribute("mensaje", mExito);
                 }else{request.setAttribute("mensaje", mError);}
@@ -73,23 +76,40 @@ public class ServletEmpleado extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 2://BORRAR REGISTROS
-
+                id=Integer.parseInt(request.getParameter("txtIdentificacion"));                
+                BeanEmpleado BEmpleadoB=new BeanEmpleado(id);
+                DaoEmpleado DEmpleadoB=new DaoEmpleado(BEmpleadoB);
                 
-                if(DEmpleado.borrarRegistro()){
+                if(DEmpleadoB.borrarRegistro()){
                     request.setAttribute("mensaje", mExito);
-                }else{request.setAttribute("mensaje", mError);}
-                
+                }else{
+                    request.setAttribute("mensaje", mError);
+                }                
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             break;    
             case 3://ACTUALIZAR REGISTROS
-                if(DEmpleado.actualizarRegistro()){
+                id=Integer.parseInt(request.getParameter("txtIdentificacion"));   
+                nombre=request.getParameter("txtNombre");
+                apellido=request.getParameter("txtApellido");
+                direccion=request.getParameter("txtDireccion");
+                telefono=request.getParameter("txtTelefono");
+                empleadoJefe=Integer.parseInt(request.getParameter("txtEmpleadoJefe"));                
+                
+                id=Integer.parseInt(request.getParameter("txtIdentificacion"));                
+                BeanEmpleado BEmpleadoA=new BeanEmpleado(id,nombre,apellido,direccion,telefono,empleadoJefe);
+                DaoEmpleado DEmpleadoA=new DaoEmpleado(BEmpleadoA);                
+                
+                if(DEmpleadoA.actualizarRegistro()){
                     request.setAttribute("mensaje", mExito);
                 }else{request.setAttribute("mensaje", mError);}
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 4://CONSULTAR UN REGISTRO
-                rs=(ResultSet)DEmpleado.consultarRegistro();
+                 id=Integer.parseInt(request.getParameter("txtIdentificacion"));                
+                BeanEmpleado BEmpleadoC=new BeanEmpleado(id);
+                DaoEmpleado DEmpleadoC=new DaoEmpleado(BEmpleadoC);
+                rs=(ResultSet)DEmpleadoC.consultarRegistro();
         try {
             while(rs.next()){
                 request.setAttribute("id", rs.getString(1));
@@ -108,12 +128,12 @@ public class ServletEmpleado extends HttpServlet {
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
-            case 5://LISTAR TODOS LOS REGISTROS
+            /*case 5://LISTAR TODOS LOS REGISTROS
                 rs=DEmpleado.listarTabla();
                 request.setAttribute("resultset", rs);
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-                break;
+                break;*/
             default:
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
