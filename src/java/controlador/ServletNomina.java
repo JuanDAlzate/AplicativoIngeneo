@@ -40,23 +40,26 @@ public class ServletNomina extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
         int opcion = Integer.parseInt(request.getParameter("txtOpcion"));
-        String fecha = request.getParameter("txtFechaNomina");
-        double salario = Double.parseDouble(request.getParameter("txtSalarioNomina"));
-        int codEmpleadoNomina = Integer.parseInt(request.getParameter("txtEmpleadoNomina"));
-        int codigoNomina = Integer.parseInt(request.getParameter("txtCodigoNomina"));
-        
-        BeanNomina BNomina = new BeanNomina(fecha, salario, codEmpleadoNomina);
-        DaoNomina DNomina = new DaoNomina(BNomina);
+        String fecha = "";
+        double salario;
+        int codEmpleadoNomina;
+        int codigoNomina;
+
         ResultSet rs;
-        
+
         String mensajexitosoN = "Operacion exitosa,Felicidades";
         String mensajeErrorN = "Operacion fallida,Lo siento";
-        
+
         switch (opcion) {
             case 1:
-                
+                fecha = request.getParameter("txtFechaNomina");
+                salario = Double.parseDouble(request.getParameter("txtSalarioNomina"));
+                codEmpleadoNomina = Integer.parseInt(request.getParameter("txtEmpleadoNomina"));
+
+                BeanNomina BNomina = new BeanNomina(fecha, salario, codEmpleadoNomina);
+                DaoNomina DNomina = new DaoNomina(BNomina);
                 if (DNomina.agregarRegistro()) {
                     request.setAttribute("MensajeN", mensajexitosoN);
                 } else {
@@ -65,7 +68,12 @@ public class ServletNomina extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 2:
-                if (DNomina.borrarRegistro(codigoNomina)) {
+
+                codigoNomina = Integer.parseInt(request.getParameter("txtCodigoNomina"));
+                BeanNomina BNominaBorrar = new BeanNomina();
+                DaoNomina DNominaBorrar = new DaoNomina(BNominaBorrar);
+
+                if (DNominaBorrar.borrarRegistro(codigoNomina)) {
                     request.setAttribute("MensajeN", mensajexitosoN);
                 } else {
                     request.setAttribute("MensajeN", mensajeErrorN);
@@ -73,15 +81,29 @@ public class ServletNomina extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 3:
-                  if(DNomina.actualizarRegistro(codigoNomina)){
-                     request.setAttribute("MensajeN", mensajexitosoN);
-                  }else{
-                     request.setAttribute("MensajeN", mensajeErrorN);
-                  }
-                  request.getRequestDispatcher("index.jsp").forward(request, response);
-                
+
+                fecha = request.getParameter("txtFechaNomina");
+                salario = Double.parseDouble(request.getParameter("txtSalarioNomina"));
+                codEmpleadoNomina = Integer.parseInt(request.getParameter("txtEmpleadoNomina"));
+                codigoNomina = Integer.parseInt(request.getParameter("txtCodigoNomina"));
+
+                BeanNomina BNominaActualizar = new BeanNomina(fecha, salario, codEmpleadoNomina);
+                DaoNomina DNominaActualizar = new DaoNomina(BNominaActualizar);
+
+                if (DNominaActualizar.actualizarRegistro(codigoNomina)) {
+                    request.setAttribute("MensajeN", mensajexitosoN);
+                } else {
+                    request.setAttribute("MensajeN", mensajeErrorN);
+                }
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+
             case 4://CONSULTAR UN REGISTRO
-                rs = (ResultSet) DNomina.consultarRegistro(codigoNomina);
+                codigoNomina = Integer.parseInt(request.getParameter("txtCodigoNomina"));
+                
+                BeanNomina BNominaConsultar = new BeanNomina();
+                DaoNomina DNominaconsultar = new DaoNomina(BNominaConsultar);
+                
+                rs = (ResultSet) DNominaconsultar.consultarRegistro(codigoNomina);
                 try {
                     while (rs.next()) {
                         request.setAttribute("cod_nomina", rs.getString(1));
@@ -97,9 +119,9 @@ public class ServletNomina extends HttpServlet {
                 //request.setAttribute("resultset", rs);
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-                break;
+                break;*/
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

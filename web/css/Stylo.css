@@ -47,7 +47,7 @@ input:valid{
     
     box-shadow: 0px 0px 5px 2px #9FF781;
 }
-#listaOpciones,#listaOpciones2{
+#listaOpciones,#listaOpciones2,#listaOpciones3,#listaOpciones4{
   color: #fff;
   background-color: #337ab7;
   border-color: #2e6da4; 
@@ -106,6 +106,4 @@ div.collapse>ul.nav>li>a:hover{
 #contenedor5{
     
 }
-#divCodD{
-    display:none;
-}
+

@@ -379,7 +379,7 @@ if (request.getAttribute("nombre_Coordinador") != null) {
       out.write("                            ");
 } else {
       out.write("\r\n");
-      out.write("                            <option value=\"\">Empleado</option>\r\n");
+      out.write("                            <option value=\"\">Coordinador</option>\r\n");
       out.write("                            ");
 }
       out.write("\r\n");
@@ -406,7 +406,7 @@ if (request.getAttribute("nombre_Coordinador") != null) {
       out.write("\r\n");
       out.write("                    <div id=\"divCodD\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Codigo del departamento a eliminar</span>\r\n");
-      out.write("                        <input id=\"inputCodE\" id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtCodigoDepartamentoEliminar\" placeholder=\"Cod_departamento\" required aria-describedby=\"basic-addon1\" title=\"Es necesaria el nombre del departamento\"  value=\"");
+      out.write("                        <input id=\"inputCodE\" id=\"redondo\" disabled type=\"number\" class=\"form-control\" name=\"txtCodigoDepartamentoEliminar\" placeholder=\"Cod_departamento\" required aria-describedby=\"basic-addon1\" title=\"Es necesaria el nombre del departamento\"  value=\"");
       out.print(request.getAttribute("cod_departamento"));
       out.write("\"/>\r\n");
       out.write("                    </div>   \r\n");

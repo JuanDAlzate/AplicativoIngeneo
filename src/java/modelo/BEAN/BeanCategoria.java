@@ -5,6 +5,8 @@ public class BeanCategoria {
     
     private String nombre;
     
+    public BeanCategoria(){}
+    
     public BeanCategoria(String nombre){
         this.nombre=nombre;
     }

@@ -37,18 +37,21 @@ public class ServeltCategoria extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         int opcionCategoria=Integer.parseInt(request.getParameter("txtOpcion"));
-        String nombreCategoria=request.getParameter("txtNombreCategoria");
-        int codCategoria=Integer.parseInt(request.getParameter("txtCodigoCategoria"));
+        String nombreCategoria="";
+        int codCategoria;
         
         //---------------------------------------------------------
-        BeanCategoria BCategoria=new BeanCategoria(nombreCategoria);
-        DaoCategoria DCategoria=new DaoCategoria(BCategoria);
+        
         //--------------------------------------------------
         String mExito="Felicidades,operacion exitosa";
         String mError="Lo siento mucho ,operacion fallida";
         
         switch(opcionCategoria){
-            case 1://AGREGAR CATEGORIA                
+            case 1://AGREGAR CATEGORIA       
+                 nombreCategoria=request.getParameter("txtNombreCategoria");
+                 BeanCategoria BCategoria=new BeanCategoria(nombreCategoria);
+                 DaoCategoria DCategoria=new DaoCategoria(BCategoria);
+                 
                 if(DCategoria.agregarRegistro()){
                    request.setAttribute("Mensaje", mExito);
                 }else{
@@ -57,7 +60,10 @@ public class ServeltCategoria extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request,response);
                 break;
             case 2://BORRAR CATEGORIA
-                    if(DCategoria.borrarRegistro(codCategoria)){
+                   codCategoria=Integer.parseInt(request.getParameter("txtCodigoCategoria"));
+                   BeanCategoria BCategoriaBorrar=new BeanCategoria();
+                   DaoCategoria DCategoriaBorrar=new DaoCategoria(BCategoriaBorrar);
+                    if(DCategoriaBorrar.borrarRegistro(codCategoria)){
                        request.setAttribute("Mensaje", mExito);
                     }else{
                        request.setAttribute("Mensaje", mError);
@@ -65,7 +71,11 @@ public class ServeltCategoria extends HttpServlet {
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                     break;
             case 3://ACTUALIZAR CATEGORIA
-                    if(DCategoria.actualizarRegistro(codCategoria)){
+                    codCategoria=Integer.parseInt(request.getParameter("txtCodigoCategoria"));
+                    nombreCategoria=request.getParameter("txtNombreCategoria");                    
+                    BeanCategoria BCategoriaActualizar=new BeanCategoria(nombreCategoria);
+                    DaoCategoria DCategoriaActualizar=new DaoCategoria(BCategoriaActualizar);
+                    if(DCategoriaActualizar.actualizarRegistro(codCategoria)){
                       request.setAttribute("Mensaje", mExito);
                     }else{
                       request.setAttribute("Mensaje", mError);

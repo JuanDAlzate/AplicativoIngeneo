@@ -17,7 +17,7 @@ public Connection conexion;
     public ClassConex(){
         driver="com.mysql.jdbc.Driver";
         usrbd ="root";
-        passbd ="1094940683";
+        passbd ="1094";
         urlbd="jdbc:mysql://localhost/aplicativoingeneo";
                                       
 

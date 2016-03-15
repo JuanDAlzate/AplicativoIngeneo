@@ -237,7 +237,7 @@
 
                     <div id="divCodD" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Codigo del departamento a eliminar</span>
-                        <input id="inputCodE" id="redondo" type="number" class="form-control" name="txtCodigoDepartamentoEliminar" placeholder="Cod_departamento" required aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento"  value="<%=request.getAttribute("cod_departamento")%>"/>
+                        <input id="inputCodE" id="redondo" disabled type="number" class="form-control" name="txtCodigoDepartamentoEliminar" placeholder="Cod_departamento" required aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento"  value="<%=request.getAttribute("cod_departamento")%>"/>
                     </div>   
                     <br>
                     <div id="divAcciones2" class="btn-group col-md-12">
@@ -299,21 +299,21 @@
                 <br><br>
                 <form action="ServeltCategoria" method="POST">
                     <legend>professional categories</legend>
-                    <div class="input-group">
+                    <div id="divNombreCate" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Nombre de la categoria</span>
-                        <input type="text" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtNombreCategoria" placeholder="Name" title="Es necesaria un nombre para la categoria" required/>
+                        <input id="inputNomcate" type="text" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtNombreCategoria" placeholder="Name" title="Es necesaria un nombre para la categoria" required/>
                     </div>
                     <br>
-                    <div class="input-group">
+                    <div id="divCodigoCate" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Codigo de la categoria a eliminar</span>
-                        <input type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoCategoria" placeholder="cod_categoria" title="Es necesaria el codigo de la categoria para poder eliminar" required/>
+                        <input id="inputCodCate" type="number"  disabled id="redondo"  class="form-control" aria-describedby="basic-addon1" name="txtCodigoCategoria" placeholder="cod_categoria" title="Es necesaria el codigo de la categoria para poder eliminar" required/>
                     </div>
                     <br>
-                    <div class="btn-group col-md-12">
+                    <div id="divAcciones3" class="btn-group col-md-12">
                         <input id="redondo btn-ok"  type="submit" class="btn btn-primary btn-md btn-block active" value="Ok">
                         <br><br>
                         <div class="form-group col-md-6">                        
-                            <select id="listaOpciones" class="form-control btn-info" name="txtOpcion">
+                            <select id="listaOpciones3" class="form-control btn-info" name="txtOpcion">
                                 <option value="1">CREATE</option>
                                 <option value="2">ELIMINAR</option>
                                 <option value="3">ACTUALIZAR</option>
@@ -365,19 +365,19 @@
                 <br><br>
                 <form action="ServletNomina" method="POST">
                     <legend>Payrolls an employee</legend>
-                    <div class="input-group">
+                    <div id="divFechaNomina" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Fecha</span>
-                        <input type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaNomina" placeholder="Date" title="Es necesario que ingrese la fecha" required value="<%= request.getAttribute("fecha")%>"/>
+                        <input id="inputFechaNomina" type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaNomina" placeholder="Date" title="Es necesario que ingrese la fecha" required value="<%= request.getAttribute("fecha")%>"/>
                     </div>
                     <br>
-                    <div class="input-group">
+                    <div id="divSalarioNomina" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Salario</span>
-                        <input type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtSalarioNomina" placeholder="Salario correspondiente" title="Es necesario agregar un salario" required value="<%= request.getAttribute("salario")%>"/>
+                        <input id="inputSalarioNomina" type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtSalarioNomina" placeholder="Salario correspondiente" title="Es necesario agregar un salario" required value="<%= request.getAttribute("salario")%>"/>
                     </div>
                     <br>
-                    <div class="input-group">
+                    <div id="divCodEmpleadoNomina" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Empleado </span>
-                        <select class="form-control" name="txtEmpleadoNomina" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la nomina" required>                              
+                        <select id="inputCodEmpleadoNomina" class="form-control" name="txtEmpleadoNomina" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la nomina" required>                              
                             <%if (request.getAttribute("nombre") != null) {%>
                             <option value="<%=request.getAttribute("id_empleado")%>"><%= request.getAttribute("nombre")%></option>
                             <%} else {%>
@@ -393,16 +393,16 @@
                         </select>                        
                     </div>
                     <br>
-                    <div class="input-group col-md-7">
+                    <div id="divCodnomina" class="input-group col-md-7">
                         <span class="input-group-addon" id="basic-addon1" >Cod_nomina</span>
-                        <input type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoNomina" placeholder="cod nomina" title="Es necesario agregar el codigo de la nomina si quieres eliminarla" value="<%= request.getAttribute("cod_nomina")%>"/>
+                        <input id="inputCodNomina" disabled type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoNomina" placeholder="cod nomina" title="Es necesario agregar el codigo de la nomina si quieres eliminarla" value="<%= request.getAttribute("cod_nomina")%>"/>
                     </div>
                     <br>
                     <div class="btn-group col-md-12">
                         <input id="redondo btn-ok"  type="submit" class="btn btn-primary btn-md btn-block active" value="Ok">
                         <br><br>
                         <div class="form-group col-md-6">                        
-                            <select id="listaOpciones" class="form-control btn-info" name="txtOpcion">
+                            <select id="listaOpciones4" class="form-control btn-info" name="txtOpcion">
                                 <option value="1">CREATE</option>
                                 <option value="2">ELIMINAR</option>
                                 <option value="3">ACTUALIZAR</option>
