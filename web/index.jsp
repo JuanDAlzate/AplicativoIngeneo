@@ -437,8 +437,8 @@
                             <td> <%=res4.getString(4)%></td> 
                             <td> <%=res4.getString(5)%></td> 
 
-<!--<td> <a href="#" alt="" onclick="valida_envia('4', '<%=res4.getString(1)%>');">SELECCIONAR</a></td>
-<td> <a href="#" alt="" onclick="valida_envia('2', '<%=res4.getString(1)%>');">BORRAR</a></td>-->
+                        <!--<td> <a href="#" alt="" onclick="valida_envia('4', '<%=res4.getString(1)%>');">SELECCIONAR</a></td>
+                        <td> <a href="#" alt="" onclick="valida_envia('2', '<%=res4.getString(1)%>');">BORRAR</a></td>-->
                         </tr>
                         <%}%>
                     </table>
@@ -462,19 +462,19 @@
                 <br><br>
                 <form action="ServletContrato" method="POST">
                     <legend>Contract of a employee</legend>
-                    <div class="input-group">
+                    <div id="divFechaInicioContrato" class="input-group">
                         <span id="basic-addon1" class="input-group-addon">Fecha inicio</span>
-                        <input type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaInicio" placeholder="Fecha ini" title="Es necesario agregar una fecha para registrar este contrato" value="<%= request.getAttribute("fechaInicio")%>"/>
+                        <input id="inputFechaInicioContrato" type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaInicio" placeholder="Fecha ini" required title="Es necesario agregar una fecha para registrar este contrato" value="<%= request.getAttribute("fechaInicio")%>"/>
                     </div>
                     <br>
-                    <div class="input-group">
+                    <div id="divFechaFinalContrato" class="input-group">
                         <span id="basic-addon1" class="input-group-addon">Fecha final</span>
-                        <input type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaFinal" placeholder="Fecha fin" title="Es necesario agregar una fecha para registrar este contrato" value="<%= request.getAttribute("fechaFinal")%>"/>
+                        <input id="inputFechaFinalContrato" type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaFinal" placeholder="Fecha fin" title="Es necesario agregar una fecha para registrar este contrato" value="<%= request.getAttribute("fechaFinal")%>"/>
                     </div>
                     <br>
-                    <div class="input-group">
+                    <div id="divEmpleadoContrato" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Seleccione </span>
-                        <select class="form-control" name="txtEmpleadoAContratar" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la contratacion" required>                              
+                        <select id="inputEmpleadoContrato" class="form-control" name="txtEmpleadoAContratar" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la contratacion" required>                              
                             <%if (request.getAttribute("nombreEmpleado") != null) {%>
                             <option value="<%=request.getAttribute("id_empleado")%>"><%= request.getAttribute("nombreEmpleado")%></option>
                             <%} else {%>
@@ -490,9 +490,9 @@
                         </select>                        
                     </div>
                     <br>
-                    <div class="input-group">
+                    <div id="divCategoriaContrato" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Seleccione </span>
-                        <select class="form-control" name="txtContratoCategoria" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la nomina" required>                              
+                        <select id="inputCategoriaContrato" class="form-control" name="txtContratoCategoria" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la nomina" required>                              
                             <%if (request.getAttribute("nombreCategoria") != null) {%>
                             <option value="<%=request.getAttribute("codigoCategoria")%>"><%= request.getAttribute("nombreCategoria")%></option>
                             <%} else {%>
@@ -508,19 +508,19 @@
                         </select>                        
                     </div>
                     <br>
-                     <div class="input-group col-md-7 center-block">
+                     <div id="divCodigoContrato" class="input-group col-md-7 center-block">
                         <span id="basic-addon1" class="input-group-addon">Cod_contrato</span>
                         
-                        <input type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoContrato" placeholder="Utilizado para eliminar un contrato" title="Es necesario agregar el codigo del contrato si lo desea eliminar" value="<%= request.getAttribute("codigoContrato")%>"/>
+                        <input id="inputCodigoContrato" disabled type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoContrato" placeholder="Utilizado para eliminar un contrato" required title="Es necesario agregar el codigo del contrato si lo desea eliminar" required value="<%= request.getAttribute("codigoContrato")%>"/>
                     </div>
                     <br>
                     <br>
                     <br>
-                    <div class="btn-group col-md-12">
+                    <div  id="divAcciones5" class="btn-group col-md-12">
                         <input id="redondo btn-ok"  type="submit" class="btn btn-primary btn-md btn-block active" value="Ok">
                         <br><br>
                         <div class="form-group col-md-6">                        
-                            <select id="listaOpciones" class="form-control btn-info" name="txtOpcion">
+                            <select id="listaOpciones5" class="form-control btn-info" name="txtOpcion">
                                 <option value="1">CREATE</option>
                                 <option value="2">ELIMINAR</option>
                                 <option value="3">ACTUALIZAR</option>

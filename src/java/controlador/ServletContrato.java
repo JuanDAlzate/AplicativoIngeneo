@@ -40,15 +40,14 @@ public class ServletContrato extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        String fechaInicio = request.getParameter("txtFechaInicio");
-        String fechaFinal = request.getParameter("txtFechaFinal");
-        int empleadoContrato = Integer.parseInt(request.getParameter("txtEmpleadoAContratar"));
-        int categoriaContrato = Integer.parseInt(request.getParameter("txtContratoCategoria"));
-        int codigoContrato = Integer.parseInt(request.getParameter("txtCodigoContrato"));
+        String fechaInicio = "";
+        String fechaFinal = "";
+        int empleadoContrato ;
+        int categoriaContrato;
+        int codigoContrato;
         int opcion = Integer.parseInt(request.getParameter("txtOpcion"));
         //-----------------------------------------------------------//
-        BeanContrato BContrato = new BeanContrato(fechaInicio, fechaFinal, empleadoContrato, categoriaContrato);
-        DaoContrato DContrato = new DaoContrato(BContrato);
+        
         ResultSet rs;
         //-----------------------------------------------
         String mExito = "Operacion exitosa, Felicidades!!!!";
@@ -56,6 +55,14 @@ public class ServletContrato extends HttpServlet {
 
         switch (opcion) {
             case 1:
+                  fechaInicio = request.getParameter("txtFechaInicio");
+                  fechaFinal = request.getParameter("txtFechaFinal");
+                  empleadoContrato = Integer.parseInt(request.getParameter("txtEmpleadoAContratar"));
+                  categoriaContrato = Integer.parseInt(request.getParameter("txtContratoCategoria"));
+                  
+                  BeanContrato BContrato = new BeanContrato(fechaInicio, fechaFinal, empleadoContrato, categoriaContrato);
+                  DaoContrato DContrato = new DaoContrato(BContrato);                
+                
                 if (DContrato.agregarRegistro()) {
                     request.setAttribute("mensajeContrato", mExito);
                 } else {
@@ -64,15 +71,30 @@ public class ServletContrato extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 2:
-                if (DContrato.borrarRegistro(codigoContrato)) {
+                  codigoContrato = Integer.parseInt(request.getParameter("txtCodigoContrato")); 
+                  
+                  BeanContrato BContratoBorrar = new BeanContrato();
+                  DaoContrato DContratoBorrar = new DaoContrato(BContratoBorrar);
+                 
+                if(DContratoBorrar.borrarRegistro(codigoContrato)) {
                     request.setAttribute("mensajeContrato", mExito);
                 } else {
                     request.setAttribute("mensajeContrato", mError);
                 }
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
-            case 3:
-                if (DContrato.actualizarRegistro(codigoContrato)) {
+           case 3:
+               
+                codigoContrato = Integer.parseInt(request.getParameter("txtCodigoContrato"));                
+                fechaInicio = request.getParameter("txtFechaInicio");
+                fechaFinal = request.getParameter("txtFechaFinal");
+                empleadoContrato = Integer.parseInt(request.getParameter("txtEmpleadoAContratar"));
+                categoriaContrato = Integer.parseInt(request.getParameter("txtContratoCategoria"));
+               
+                  BeanContrato BContratoActualizar = new BeanContrato(fechaInicio, fechaFinal, empleadoContrato, categoriaContrato);
+                  DaoContrato DContratoActualizar = new DaoContrato(BContratoActualizar);               
+               
+                if (DContratoActualizar.actualizarRegistro(codigoContrato)) {
                     request.setAttribute("mensajeContrato", mExito);
                 } else {
                     request.setAttribute("mensajeContrato", mError);
@@ -80,7 +102,12 @@ public class ServletContrato extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 4:
-                 rs=(ResultSet)DContrato.consultarRegistro(codigoContrato);
+                
+                  codigoContrato = Integer.parseInt(request.getParameter("txtCodigoContrato")); 
+                  BeanContrato BContratoConsultar = new BeanContrato();
+                  DaoContrato DContratoConsultar = new DaoContrato(BContratoConsultar);       
+                 
+                 rs=(ResultSet)DContratoConsultar.consultarRegistro(codigoContrato);
                  try{
                     while(rs.next()){
                       request.setAttribute("codigoContrato", rs.getString(1));

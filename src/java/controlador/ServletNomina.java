@@ -119,7 +119,7 @@ public class ServletNomina extends HttpServlet {
                 //request.setAttribute("resultset", rs);
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-                break;*/
+                break;
         }
 
     }

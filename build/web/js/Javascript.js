@@ -157,9 +157,71 @@ $(document).ready(function(){
                             $("#inputCodNomina").css("background","");
                         }
                         
-                        
-                        
                     });
+                    
+                     //--------------------------------------------------//
+                    //Manejo del formulario para la gestion de los contratos
+                     $("#listaOpciones5").change(function (){
+                        var optionSelected=$("#listaOpciones5 option:selected");
+                        
+                        //Manejo del formulario cuando se maneja la opcion crear
+                         if(optionSelected.val()==1){
+                             $("#divCodigoContrato").hide("slow");
+                             $("#inputCodigoContrato").removeAttr("required");
+                             $("#divAcciones5").css("margin-top","-60px");
+                        }else{
+                             $("#divCodigoContrato").show("slow");
+                             $("#inputCodigoContrato").prop("required","true");
+                             $("#divAcciones5").css("margin-top","");
+                        }
+                        
+                        //Manejo del formulario cuando se maneja la opcion eliminar
+                        if(optionSelected.val()==2 || optionSelected.val()==4){
+                            $("#inputCodigoContrato").removeAttr("disabled");                            
+                            $("#divCodigoContrato").show("slow");
+                            $("#inputCodigoContrato").prop("required","true");
+                            $("#divCodigoContrato").css("margin-top","-30px");
+                            
+                            $("#divFechaInicioContrato").hide("slow");
+                            $("#inputFechaInicioContrato").removeAttr("required");
+                            $("#divFechaFinalContrato").hide("slow");
+                            $("#inputFechaFinalContrato").removeAttr("required");
+                            $("#divEmpleadoContrato").hide("slow");
+                            $("#inputEmpleadoContrato").removeAttr("required");
+                            $("#divCategoriaContrato").hide("slow");
+                            $("#inputCategoriaContrato").removeAttr("required");
+                        }else{
+                            $("#inputCodigoContrato").prop("required","true");
+                            $("#divCodigoContrato").hide("slow");
+                            $("#inputCodigoContrato").removeAttr("required");
+                            $("#divCodigoContrato").css("margin-top","");
+                            
+                            $("#divFechaInicioContrato").show("slow");
+                            $("#inputFechaInicioContrato").prop("required","true");
+                            $("#divFechaFinalContrato").show("slow");
+                            $("#inputFechaFinalContrato").prop("required","true");
+                            $("#divEmpleadoContrato").show("slow");
+                            $("#inputEmpleadoContrato").prop("required","true");
+                            $("#divCategoriaContrato").show("slow");
+                            $("#inputCategoriaContrato").prop("required","true");
+                            
+                        }
+                        
+                        //Manejo del formulario cuando se maneja la opcion actualizar
+                         if(optionSelected.val()==3){
+                             $("#divCodigoContrato").show("slow");
+                             $("#divCodigoContrato").css("margin-top","140px");
+                             $("#inputCodigoContrato").prop("required","true");
+                             $("#inputCodigoContrato").css("background","#9FF781");
+                             $("#inputCodigoContrato").removeAttr("disabled");
+                         }else{
+                             $("#inputCodigoContrato").css("background","");
+                             $("#divCodigoContrato").css("margin-top","");
+                             $("#inputCodigoContrato").prop("disabled","true");
+                         }
+                         
+                         
+                     });
                     
                 
                 
