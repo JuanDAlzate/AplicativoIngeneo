@@ -209,7 +209,7 @@
                     <div id="divNomD" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Nombre del departamento</span>
                         <% if(request.getAttribute("nombre")==null) {%>
-                        <input id="inputNomD" id="redondo" type="text" class="form-control" name="txtNombreDepartamento" placeholder="Name" aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento" required value="Name"/>
+                        <input id="inputNomD" id="redondo" type="text" class="form-control" name="txtNombreDepartamento" placeholder="Name" aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento" required value=""/>
                        <% }else{%>
                        <input id="inputNomD" id="redondo" type="text" class="form-control" name="txtNombreDepartamento" placeholder="Name" aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento" required value="<%=request.getAttribute("nombre")%>"/>
                        <%}%>
@@ -221,7 +221,7 @@
                             <%if (request.getAttribute("nombre_Coordinador") != null) {%>
                             <option value="<%=request.getAttribute("id_Coordinador")%>"><%= request.getAttribute("nombre_Coordinador")%></option>
                             <%} else {%>
-                            <option value="">Empleado</option>
+                            <option value="">Coordinador</option>
                             <%}%>
                             <!--Con estas lineas de codigo llamamos los empleados que estan en el sistema-->
                             <%
@@ -238,8 +238,7 @@
                     <div id="divCodD" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Codigo del departamento a eliminar</span>
                         <input id="inputCodE" id="redondo" type="number" class="form-control" name="txtCodigoDepartamentoEliminar" placeholder="Cod_departamento" required aria-describedby="basic-addon1" title="Es necesaria el nombre del departamento"  value="<%=request.getAttribute("cod_departamento")%>"/>
-                    </div>    
-
+                    </div>   
                     <br>
                     <div id="divAcciones2" class="btn-group col-md-12">
                         <input id="redondo btn-ok"  type="submit" class="btn btn-primary btn-md btn-block active" value="Ok">

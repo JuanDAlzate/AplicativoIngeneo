@@ -64,20 +64,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <!--LLamado a las fuentes-->\r\n");
       out.write("        <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>\r\n");
       out.write("         <script src=\"js/jquery-1.12.1.min.js\"></script>\r\n");
-      out.write("        <script type=\"text/javascript\">\r\n");
-      out.write("            $(document).ready(function(){\r\n");
-      out.write("                $('#listaOpciones').change(function(){\r\n");
-      out.write("                    var selectedOption=$('#listaOpciones option:selected');\r\n");
-      out.write("                     if(selectedOption.val()==2 || selectedOption.val()==4){\r\n");
-      out.write("                         $(\"#nom,#ape,#dir,#tel,#jefe\").hide(\"slow\");\r\n");
-      out.write("                     }else{\r\n");
-      out.write("                         $(\"#nom,#ape,#dir,#tel,#jefe\").show(\"slow\");\r\n");
-      out.write("                     }\r\n");
-      out.write("                });\r\n");
-      out.write("                \r\n");
-      out.write("            });\r\n");
-      out.write("        </script>\r\n");
-      out.write("\r\n");
+      out.write("        <script src=\"js/Javascript.js\" type=\"text/javascript\"></script>\r\n");
       out.write("\r\n");
       out.write("    </head>\r\n");
       out.write("    \r\n");
@@ -136,44 +123,87 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <legend>employee data</legend>\r\n");
       out.write("                   \r\n");
       out.write("\r\n");
-      out.write("                    <div id=\"iden\" class=\"input-group\">\r\n");
+      out.write("                    <div id=\"divIdenE\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Identificacion</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtIdentificacion\" placeholder=\"ID/CC\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su identificacion\"  value=\"");
+      out.write("                        <input id=\"inputIdenE\" id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtIdentificacion\" placeholder=\"ID/CC\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su identificacion\"  required value=\"");
       out.print(request.getAttribute("id"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div id=\"nom\" class=\"input-group\">\r\n");
+      out.write("                    <div id=\"divNomE\" class=\"input-group\">\r\n");
+      out.write("                        \r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\">Nombre</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtNombre\" placeholder=\"First name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su nombre, y debe contener letras\"  value=\"");
+      out.write("                        ");
+ if(request.getAttribute("nom")==null){ 
+      out.write("\r\n");
+      out.write("                           <input id=\"inputNomE\" id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtNombre\" placeholder=\"First name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su nombre, y debe contener letras\"  required value=\"\"/>\r\n");
+      out.write("                   \r\n");
+      out.write("                        ");
+}else{
+      out.write("\r\n");
+      out.write("                        <input id=\"inputNomE\" id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtNombre\" placeholder=\"First name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su nombre, y debe contener letras\"  required value=\"");
       out.print( request.getAttribute("nom"));
       out.write("\"/>\r\n");
+      out.write("                       ");
+}
+      out.write("\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div id=\"ape\" class=\"input-group\">\r\n");
+      out.write("                    <div id=\"divApeE\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\">Apellido</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtApellido\" placeholder=\"Last name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su apellido, y debe contener letras\"  value=\"");
+      out.write("                        ");
+ if(request.getAttribute("ape")==null){
+      out.write("\r\n");
+      out.write("                        <input id=\"inputApeE\" id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtApellido\" placeholder=\"Last name\" aria-describedby=\"basic-addon1\"  required title=\"Es necesaria su apellido, y debe contener letras\"  value=\"\"/>\r\n");
+      out.write("                        ");
+ }else {
+      out.write("\r\n");
+      out.write("                        <input id=\"inputApeE\" id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtApellido\" placeholder=\"Last name\" aria-describedby=\"basic-addon1\"  required title=\"Es necesaria su apellido, y debe contener letras\"  value=\"");
       out.print(request.getAttribute("ape"));
       out.write("\"/>\r\n");
+      out.write("                        ");
+ }
+      out.write("\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div id=\"dir\" class=\"input-group\">\r\n");
+      out.write("                    <div id=\"divDirE\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\">Direccion</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtDireccion\" placeholder=\"(Cr 11 #23-12)\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria su direccion ,y debe contener letras\"  value=\"");
+      out.write("                        ");
+ if(request.getAttribute("dir")==null){
+      out.write("\r\n");
+      out.write("                        <input id=\"inputDirE\" id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtDireccion\" placeholder=\"(Cr 11 #23-12)\" aria-describedby=\"basic-addon1\"  required title=\"Es necesaria su direccion ,y debe contener letras\"  value=\"\"/>\r\n");
+      out.write("                        ");
+ }else{
+      out.write("\r\n");
+      out.write("                         <input id=\"inputDirE\" id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtDireccion\" placeholder=\"(Cr 11 #23-12)\" aria-describedby=\"basic-addon1\"  required title=\"Es necesaria su direccion ,y debe contener letras\"  value=\"");
       out.print(request.getAttribute("dir"));
       out.write("\"/>\r\n");
+      out.write("                       \r\n");
+      out.write("                        ");
+ }
+      out.write("\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div id=\"tel\" class=\"input-group\">\r\n");
+      out.write("                    <div id=\"divTelE\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\">Telefono</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtTelefono\" placeholder=\"Phone number\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria su telefono, y debe contener numeros\"  value=\"");
+      out.write("                        ");
+ if(request.getAttribute("tel")==null){
+      out.write("\r\n");
+      out.write("                        <input id=\"inputTelE\" id=\"tel\" id=\"redondo\" type=\"number\" required class=\"form-control\" name=\"txtTelefono\" placeholder=\"Phone number\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria su telefono, y debe contener numeros\"  value=\"\"/>\r\n");
+      out.write("                        ");
+ }else{
+      out.write("\r\n");
+      out.write("                         <input id=\"inputTelE\" id=\"tel\" id=\"redondo\" type=\"number\" required class=\"form-control\" name=\"txtTelefono\" placeholder=\"Phone number\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria su telefono, y debe contener numeros\"  value=\"");
       out.print(request.getAttribute("tel"));
       out.write("\"/>\r\n");
+      out.write("                        ");
+ }
+      out.write("\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div id=\"jefe\"  class=\"input-group\">\r\n");
-      out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Asignar </span>\r\n");
-      out.write("                        <select class=\"form-control\" name=\"txtEmpleadoJefe\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empledo\" required>                              \r\n");
+      out.write("                    <div id=\"divJefE\"  class=\"input-group\">\r\n");
+      out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Asignar un </span>\r\n");
+      out.write("                        <select id=\"inputIdenJE\" class=\"form-control\" name=\"txtEmpleadoJefe\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empledo\" required>                              \r\n");
       out.write("                            ");
 if (request.getAttribute("name_jefe") != null) {
       out.write("\r\n");
@@ -186,7 +216,7 @@ if (request.getAttribute("name_jefe") != null) {
       out.write("                            ");
 } else {
       out.write("\r\n");
-      out.write("                            <option value=\"\">Empleado</option>\r\n");
+      out.write("                            <option value=\"\">Jefe</option>\r\n");
       out.write("                            ");
 }
       out.write("\r\n");
@@ -211,7 +241,7 @@ if (request.getAttribute("name_jefe") != null) {
       out.write("                        </select>                        \r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div class=\"btn-group col-md-12\">\r\n");
+      out.write("                    <div id=\"divAcciones\" class=\"btn-group col-md-12\">\r\n");
       out.write("                        <input id=\"redondo btn-ok\"  type=\"submit\" class=\"btn btn-primary btn-md btn-block active\" value=\"Ok\">\r\n");
       out.write("                        <br><br>\r\n");
       out.write("                        <div class=\"form-group col-md-6\">                        \r\n");
@@ -220,7 +250,7 @@ if (request.getAttribute("name_jefe") != null) {
       out.write("                                <option value=\"2\">ELIMINAR</option>\r\n");
       out.write("                                <option value=\"3\">ACTUALIZAR</option>\r\n");
       out.write("                                <option value=\"4\">CONSULTAR </option>\r\n");
-      out.write("                                <option value=\"5\">LISTAR</option>\r\n");
+      out.write("                                \r\n");
       out.write("                            </select>\r\n");
       out.write("                        </div>\r\n");
       out.write("                    </div>               \r\n");
@@ -317,16 +347,26 @@ while (res1.next()) {
       out.write("\r\n");
       out.write("                <form action=\"ServleDepartamento\" method=\"POST\">\r\n");
       out.write("                    <legend>Apartaments</legend>\r\n");
-      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                    <div id=\"divNomD\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Nombre del departamento</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtNombreDepartamento\" placeholder=\"Name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria el nombre del departamento\" required value=\"");
+      out.write("                        ");
+ if(request.getAttribute("nombre")==null) {
+      out.write("\r\n");
+      out.write("                        <input id=\"inputNomD\" id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtNombreDepartamento\" placeholder=\"Name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria el nombre del departamento\" required value=\"\"/>\r\n");
+      out.write("                       ");
+ }else{
+      out.write("\r\n");
+      out.write("                       <input id=\"inputNomD\" id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtNombreDepartamento\" placeholder=\"Name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria el nombre del departamento\" required value=\"");
       out.print(request.getAttribute("nombre"));
       out.write("\"/>\r\n");
+      out.write("                       ");
+}
+      out.write("\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                    <div id=\"divSelectJefeD\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Asignar </span>\r\n");
-      out.write("                        <select class=\"form-control\" name=\"txtEmpleadoEncargado\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empledo\" required>                              \r\n");
+      out.write("                        <select id=\"inputIdenEn\" class=\"form-control\" name=\"txtEmpleadoEncargado\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empledo\" required>                              \r\n");
       out.write("                            ");
 if (request.getAttribute("nombre_Coordinador") != null) {
       out.write("\r\n");
@@ -364,19 +404,18 @@ if (request.getAttribute("nombre_Coordinador") != null) {
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
       out.write("\r\n");
-      out.write("                    <div class=\"input-group\">\r\n");
+      out.write("                    <div id=\"divCodD\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Codigo del departamento a eliminar</span>\r\n");
-      out.write("                        <input id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtCodigoDepartamentoEliminar\" placeholder=\"Cod_departamento\" aria-describedby=\"basic-addon1\" title=\"Es necesaria el nombre del departamento\"  value=\"");
+      out.write("                        <input id=\"inputCodE\" id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtCodigoDepartamentoEliminar\" placeholder=\"Cod_departamento\" required aria-describedby=\"basic-addon1\" title=\"Es necesaria el nombre del departamento\"  value=\"");
       out.print(request.getAttribute("cod_departamento"));
       out.write("\"/>\r\n");
-      out.write("                    </div>    \r\n");
-      out.write("\r\n");
+      out.write("                    </div>   \r\n");
       out.write("                    <br>\r\n");
-      out.write("                    <div class=\"btn-group col-md-12\">\r\n");
+      out.write("                    <div id=\"divAcciones2\" class=\"btn-group col-md-12\">\r\n");
       out.write("                        <input id=\"redondo btn-ok\"  type=\"submit\" class=\"btn btn-primary btn-md btn-block active\" value=\"Ok\">\r\n");
-      out.write("                        <br><br><br>\r\n");
+      out.write("                        <br><br>\r\n");
       out.write("                        <div class=\"form-group col-md-6\">                        \r\n");
-      out.write("                            <select id=\"listaOpciones\" class=\"form-control btn-info\" name=\"txtOpcionDepartamento\" required>\r\n");
+      out.write("                            <select id=\"listaOpciones2\" class=\"form-control btn-info\" name=\"txtOpcionDepartamento\" required>\r\n");
       out.write("                                <option value=\"1\">CREATE</option>\r\n");
       out.write("                                <option value=\"2\">ELIMINAR</option>\r\n");
       out.write("                                <option value=\"3\">ACTUALIZAR</option>\r\n");
