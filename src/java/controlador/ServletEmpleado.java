@@ -84,15 +84,20 @@ public class ServletEmpleado extends HttpServlet {
                 
                 //Validacion para que un empleado no sea eliminado si es un coordinador
                 if(DEmpleadoB.buscarCoordinador(id)){
-                    if(DEmpleadoB.borrarRegistro()){
+                   request.setAttribute("mensaje", "El empleado es un coordinador, debe de cambiarlo si quiere eliminarlo ");
+                 
+                }else if(DEmpleadoB.buscarNomina(id)){
+                   request.setAttribute("mensaje", "El empleado tiene asignadas nominas, debe de manejar esto si desea eliminarlo ");
+                }else if(DEmpleadoB.buscarContratos(id)){
+                   request.setAttribute("mensaje", "Al empleado se le han hecho contratos, maneje esto primero y despues si podra eliminarlo");
+                }else{
+                   if(DEmpleadoB.borrarRegistro()){
                     request.setAttribute("mensaje", mExito);
                 }else{
                     request.setAttribute("mensaje", mError);
                 }   
-                }else{
-                   request.setAttribute("mensaje", "El empleado es un coordinador, debe de cambiarlo si quiere eliminarlo ");
-                }
-                
+                } 
+                   
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             break;    
             case 3://ACTUALIZAR REGISTROS

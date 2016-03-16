@@ -120,7 +120,33 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
         public boolean buscarCoordinador(int id_empleado){
         try{
              rs=st.executeQuery("SELECT departamento.id_coordinador FROM departamento inner join empleado on departamento.id_coordinador=empleado.ID WHERE id_coordinador='"+id_empleado+"'; ");
-             if(rs.getRow()==1){
+             if(rs.next()){
+                listo=true;
+             }
+        }catch(SQLException ex){
+                Logger.getLogger(DaoEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           return listo;
+        }
+        
+         //consulta para saber si el empleado tiene nominas asignadas
+        public boolean buscarNomina(int id_empleado){
+        try{
+             rs=st.executeQuery("SELECT nomina.id_empleado FROM nomina inner join empleado on nomina.id_empleado=empleado.ID WHERE id_empleado='"+id_empleado+"'; ");
+             if(rs.next()){
+               listo=true;
+             }
+        }catch(SQLException ex){
+                Logger.getLogger(DaoEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           return listo;
+        }
+        
+        //consulta para saber si el empleado tiene contratos asignadas
+        public boolean buscarContratos(int id_empleado){
+        try{
+             rs=st.executeQuery("SELECT contrato.id_empleado FROM contrato inner join empleado on contrato.id_empleado=empleado.ID WHERE id_empleado='"+id_empleado+"'; ");
+             if(rs.next()){
                listo=true;
              }
         }catch(SQLException ex){

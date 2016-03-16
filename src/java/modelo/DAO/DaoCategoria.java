@@ -101,6 +101,18 @@ public class DaoCategoria  extends ClassConex implements interfaceCRUD{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
         
+    //Busqueda de que una categoria no este en un contrato
+    public boolean buscarCategoriaContrato(int cod_categoria){
+        try{
+             rs=st.executeQuery("SELECT contrato.codigo_categoria FROM contrato inner join categoria_profesional on contrato.codigo_categoria=categoria_profesional.cod_categoria WHERE cod_categoria='"+cod_categoria+"'; ");
+             if(rs.next()){
+                listo=true;
+             }
+        }catch(SQLException ex){
+                Logger.getLogger(DaoEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           return listo;
+        }
     
     
 }

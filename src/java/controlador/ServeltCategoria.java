@@ -60,14 +60,24 @@ public class ServeltCategoria extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request,response);
                 break;
             case 2://BORRAR CATEGORIA
+                
                    codCategoria=Integer.parseInt(request.getParameter("txtCodigoCategoria"));
                    BeanCategoria BCategoriaBorrar=new BeanCategoria();
                    DaoCategoria DCategoriaBorrar=new DaoCategoria(BCategoriaBorrar);
-                    if(DCategoriaBorrar.borrarRegistro(codCategoria)){
+                   
+                   if(DCategoriaBorrar.buscarCategoriaContrato(codCategoria)){
+                   
+                      request.setAttribute("Mensaje", "La categoria esta siendo utilizada en un contrato hecho");
+                   }else{
+                      
+                       if(DCategoriaBorrar.borrarRegistro(codCategoria)){
                        request.setAttribute("Mensaje", mExito);
                     }else{
                        request.setAttribute("Mensaje", mError);
                     }
+                       
+                   }
+                    
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                     break;
             case 3://ACTUALIZAR CATEGORIA
