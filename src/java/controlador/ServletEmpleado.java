@@ -76,15 +76,23 @@ public class ServletEmpleado extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 2://BORRAR REGISTROS
+                
+                
                 id=Integer.parseInt(request.getParameter("txtIdentificacion"));                
                 BeanEmpleado BEmpleadoB=new BeanEmpleado(id);
                 DaoEmpleado DEmpleadoB=new DaoEmpleado(BEmpleadoB);
                 
-                if(DEmpleadoB.borrarRegistro()){
+                //Validacion para que un empleado no sea eliminado si es un coordinador
+                if(DEmpleadoB.buscarCoordinador(id)){
+                    if(DEmpleadoB.borrarRegistro()){
                     request.setAttribute("mensaje", mExito);
                 }else{
                     request.setAttribute("mensaje", mError);
-                }                
+                }   
+                }else{
+                   request.setAttribute("mensaje", "El empleado es un coordinador, debe de cambiarlo si quiere eliminarlo ");
+                }
+                
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             break;    
             case 3://ACTUALIZAR REGISTROS
@@ -111,7 +119,7 @@ public class ServletEmpleado extends HttpServlet {
                 DaoEmpleado DEmpleadoC=new DaoEmpleado(BEmpleadoC);
                 rs=(ResultSet)DEmpleadoC.consultarRegistro();
         try {
-            while(rs.next()){
+             while(rs.next()){
                 request.setAttribute("id", rs.getString(1));
                 request.setAttribute("nom", rs.getString(3));
                 request.setAttribute("ape", rs.getString(4));

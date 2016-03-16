@@ -116,4 +116,17 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
         
     }
     
+        //consulta para saber si el empleado tiene encargado un departamento
+        public boolean buscarCoordinador(int id_empleado){
+        try{
+             rs=st.executeQuery("SELECT departamento.id_coordinador FROM departamento inner join empleado on departamento.id_coordinador=empleado.ID WHERE id_coordinador='"+id_empleado+"'; ");
+             if(rs.getRow()==1){
+               listo=true;
+             }
+        }catch(SQLException ex){
+                Logger.getLogger(DaoEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           return listo;
+        }
+    
 }
