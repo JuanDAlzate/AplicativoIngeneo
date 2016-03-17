@@ -64,9 +64,9 @@ public class ServletEmpleado extends HttpServlet {
                 apellido=request.getParameter("txtApellido");
                 direccion=request.getParameter("txtDireccion");
                 telefono=request.getParameter("txtTelefono");
-                empleadoJefe=Integer.parseInt(request.getParameter("txtEmpleadoJefe"));
+               
                 
-                BeanEmpleado BEmpleado=new BeanEmpleado(id,nombre,apellido,direccion,telefono,empleadoJefe);
+                BeanEmpleado BEmpleado=new BeanEmpleado(id,nombre,apellido,direccion,telefono);
                 DaoEmpleado DEmpleado=new DaoEmpleado(BEmpleado);
 
                 if(DEmpleado.agregarRegistro()){

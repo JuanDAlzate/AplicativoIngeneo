@@ -20,6 +20,15 @@ public class BeanEmpleado {
         this.idEmpleado = idEmpleado;
        
     }
+    
+      public BeanEmpleado(int idEmpleado, String nombreEmpleado, String apellidoEmpleado, String direccionEmpleado,String telefonoEmpleado) {
+        this.idEmpleado = idEmpleado;
+        this.nombreEmpleado = nombreEmpleado;
+        this.apellidoEmpleado = apellidoEmpleado;
+        this.direccionEmpleado = direccionEmpleado;
+        this.telefonoEmpleado=telefonoEmpleado;
+        this.empleadoJefe=empleadoJefe;
+    }
 
     public BeanEmpleado(int idEmpleado, String nombreEmpleado, String apellidoEmpleado, String direccionEmpleado,String telefonoEmpleado,int empleadoJefe) {
         this.idEmpleado = idEmpleado;

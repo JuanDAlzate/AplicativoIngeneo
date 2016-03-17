@@ -59,7 +59,7 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
    @Override
     public boolean agregarRegistro() { //opcion 1.
         try {
-            st.executeUpdate("insert into empleado (ID,nombreE,apellido,direccion,telefono,id_responsable) values ('"+id+"','"+nombre+"','"+apellido+"','"+direccion+"','"+telefono+"','"+empleadoJefe+"');");
+            st.executeUpdate("insert into empleado (ID,nombreE,apellido,direccion,telefono) values ('"+id+"','"+nombre+"','"+apellido+"','"+direccion+"','"+telefono+"');");
             listo=true;
            
         } catch (SQLException ex) {

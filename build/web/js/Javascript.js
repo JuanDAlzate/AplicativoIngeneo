@@ -17,8 +17,10 @@ $(document).ready(function(){
                      if(selectedOption.val()==3){
                          
                          $("#inputIdenE").css("background","#9FF781");
+                         $("#inputIdenJE").removeAttr("disabled");
                      }else{
                          $("#inputIdenE").css("background","");
+                         $("#inputIdenJE").prop("disabled","true");
                      }
                 });
                 //----------------------------------------------------//                
@@ -180,7 +182,7 @@ $(document).ready(function(){
                             $("#inputCodigoContrato").removeAttr("disabled");                            
                             $("#divCodigoContrato").show("slow");
                             $("#inputCodigoContrato").prop("required","true");
-                            $("#divCodigoContrato").css("margin-top","-30px");
+                            $("#divCodigoContrato").css("margin-top","-40px");
                             
                             $("#divFechaInicioContrato").hide("slow");
                             $("#inputFechaInicioContrato").removeAttr("required");
@@ -216,8 +218,8 @@ $(document).ready(function(){
                              $("#inputCodigoContrato").removeAttr("disabled");
                          }else{
                              $("#inputCodigoContrato").css("background","");
-                             $("#divCodigoContrato").css("margin-top","");
-                             $("#inputCodigoContrato").prop("disabled","true");
+                             
+                             
                          }
                          
                          

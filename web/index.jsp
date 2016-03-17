@@ -23,7 +23,7 @@
     
     <body>
         <div id="contenedor1" class="container"> 
-            <div class="navbar navbar-default navbar-fixed-top">
+            <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container">
                     <a id="txtnavbar" href="#" class="navbar-brand">INGENEO WEB</a>
                     <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
@@ -116,7 +116,7 @@
                     <br>
                     <div id="divJefE"  class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Asignar un </span>
-                        <select id="inputIdenJE" class="form-control" name="txtEmpleadoJefe" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un jefe a este empleado" required>                              
+                        <select disabled id="inputIdenJE" class="form-control" name="txtEmpleadoJefe" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un jefe a este empleado">                              
                             <%if (request.getAttribute("name_jefe") != null) {%>
                             <option value="<%=request.getAttribute("id_jefe")%>"><%= request.getAttribute("name_jefe")%></option>
                             <%} else {%>
@@ -510,7 +510,6 @@
                     <br>
                      <div id="divCodigoContrato" class="input-group col-md-7 center-block">
                         <span id="basic-addon1" class="input-group-addon">Cod_contrato</span>
-                        
                         <input id="inputCodigoContrato" disabled type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoContrato" placeholder="Utilizado para eliminar un contrato" required title="Es necesario agregar el codigo del contrato si lo desea eliminar" required value="<%= request.getAttribute("codigoContrato")%>"/>
                     </div>
                     <br>
