@@ -58,7 +58,7 @@
 
                 <center><h2>Registro de empleados</h2></center>
 
-                <% if (session.getAttribute("mensaje") != null) { %> 
+                <% if (request.getAttribute("mensaje") != null) { %> 
                 <div class="col-md-12 alert alert-info" role="alert">
 
                     ${mensaje} 
@@ -160,13 +160,13 @@
                 <legend>All the employees</legend>
                 <div id="resulset" class="table-responsive">
                     <%  
-                        PreparedStatement consultaEmpleados = conn.ObtenerConexion().prepareStatement("select empleado.ID,empleado.cod_empleado,empleado.nombreE,empleado.apellido,empleado.direccion,empleado.telefono,jefe.ID,jefe.nombreE from empleado left join empleado jefe on empleado.id_responsable=jefe.ID");
+                        PreparedStatement consultaEmpleados = conn.ObtenerConexion().prepareStatement("select empleado.ID,empleado.cod_empleado,empleado.nombreE,empleado.apellido,empleado.direccion,empleado.telefono,jefe.ID,jefe.nombreE,jefe.apellido,ct.cod_categoria,ct.nombreC from empleado left join empleado jefe on empleado.id_responsable=jefe.ID left join categoria_profesional ct on empleado.cod_categoria=ct.cod_categoria;");
                         ResultSet res1 = consultaEmpleados.executeQuery();
                         
                         if (res1 != null) {%>
                     <table border="1" class="table table-striped table-bordered table-hover table-condensed">
                         <tr>
-                            <th>ID</th><th>CODIGO_EMPLEADO</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th>ID_RESPONSABLE</th><th>NOMBRE_RESPONSABLE</th><!--<th colspan="2">OPCIONES</th>-->
+                            <th>ID</th><th>CODIGO_EMPLEADO</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th>ID_RESPONSABLE</th><th>NOMBRE_RESPONSABLE</th><th>APELLIDO_RESPONSABLE</th><th>CODIGO_CATEGORIA</th><th>NOMBRE_CATEGORIA</th><!--<th colspan="2">OPCIONES</th>-->
                         </tr>
                         <%while (res1.next()) {%> 
                         <tr> 
@@ -178,6 +178,11 @@
                             <td> <%=res1.getString(6)%></td>
                             <td> <%=res1.getString(7)%></td>
                             <td> <%=res1.getString(8)%></td>
+                            <td> <%=res1.getString(9)%></td>
+                            <td> <%=res1.getString(10)%></td>
+                            <td> <%=res1.getString(11)%></td>
+                           
+                            
                            <!-- <td> <a href="#" alt="" onclick="valida_envia('4', '<%=res1.getString(1)%>');">SELECCIONAR</a></td>
                             <td> <a href="#" alt="" onclick="valida_envia('2', '<%=res1.getString(1)%>');">BORRAR</a></td>-->
                         </tr>

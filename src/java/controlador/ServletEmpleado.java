@@ -47,12 +47,10 @@ public class ServletEmpleado extends HttpServlet {
          String apellido="";
          String direccion="";
          String telefono="";
-         int empleadoJefe;
-        
+         int empleadoJefe;      
     //___________________________________________________________________________________    
         
-        ResultSet rs;
-        
+        ResultSet rs;        
                    
          String mExito="Operacion exitosa, Felicidades!!!!"; 
          String mError="Operacion Fallida, Lo siento mucho!!!!";
@@ -70,7 +68,9 @@ public class ServletEmpleado extends HttpServlet {
 
                 if(DEmpleado.agregarRegistro()){
                     request.setAttribute("mensaje", mExito);
-                }else{request.setAttribute("mensaje", mError);}
+                }else{
+                    request.setAttribute("mensaje", mError);
+                }
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);               
                 break;
@@ -111,6 +111,7 @@ public class ServletEmpleado extends HttpServlet {
                 DaoEmpleado DEmpleadoA=new DaoEmpleado(BEmpleadoA);                
                 
                 if(DEmpleadoA.actualizarRegistro()){
+                    
                     request.setAttribute("mensaje", mExito);
                 }else{request.setAttribute("mensaje", mError);}
                 

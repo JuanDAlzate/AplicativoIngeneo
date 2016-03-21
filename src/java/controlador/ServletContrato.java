@@ -67,9 +67,12 @@ public class ServletContrato extends HttpServlet {
                   DaoContrato DContrato = new DaoContrato(BContrato);                
                 
                 if (DContrato.agregarRegistro()) {
-                       mensaje=mExito;
-                       session.setAttribute("mensajeContrato", mensaje);                      
-                        //request.setAttribute("mensajeContrato", mExito);
+                       if(DContrato.actualizarCategoriaEmpleado()){
+                          mensaje=mExito;
+                          session.setAttribute("mensajeContrato", mensaje); 
+                          //request.setAttribute("mensajeContrato", mExito);
+                       }                                            
+                        
                 } else {
                       mensaje=mError;
                       session.setAttribute("mensajeContrato", mensaje);
@@ -118,9 +121,11 @@ public class ServletContrato extends HttpServlet {
                   DaoContrato DContratoActualizar = new DaoContrato(BContratoActualizar);               
                
                 if (DContratoActualizar.actualizarRegistro(codigoContrato)) {
-                   mensaje=mExito;
-                   session.setAttribute("mensajeContrato", mExito);
-                   //request.setAttribute("mensajeContrato", mExito);
+                     if(DContratoActualizar.actualizarCategoriaEmpleado()){
+                        mensaje=mExito;
+                        session.setAttribute("mensajeContrato", mExito);
+                        //request.setAttribute("mensajeContrato", mExito);
+                     }
                 } else {
                     mensaje=mError;
                     session.setAttribute("mensajeContrato", mError);

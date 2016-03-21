@@ -90,5 +90,15 @@ public class DaoContrato extends ClassConex {
         }
         return rs;
     }
+    
+    public boolean actualizarCategoriaEmpleado(){
+        try{
+          st.executeUpdate("update empleado set cod_categoria='"+categoriaContrato+"' where ID='"+empleadoContrato+"'");
+          listo=true;
+        }catch(SQLException ex){
+          Logger.getLogger(DaoContrato.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        return listo;
+    }
 
 }
