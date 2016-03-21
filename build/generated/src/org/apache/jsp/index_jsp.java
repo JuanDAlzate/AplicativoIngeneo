@@ -70,7 +70,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    \r\n");
       out.write("    <body>\r\n");
       out.write("        <div id=\"contenedor1\" class=\"container\"> \r\n");
-      out.write("            <div class=\"navbar navbar-default navbar-fixed-top\">\r\n");
+      out.write("            <div class=\"navbar navbar-inverse navbar-fixed-top\">\r\n");
       out.write("                <div class=\"container\">\r\n");
       out.write("                    <a id=\"txtnavbar\" href=\"#\" class=\"navbar-brand\">INGENEO WEB</a>\r\n");
       out.write("                    <button class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navHeaderCollapse\">\r\n");
@@ -203,7 +203,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <br>\r\n");
       out.write("                    <div id=\"divJefE\"  class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Asignar un </span>\r\n");
-      out.write("                        <select id=\"inputIdenJE\" class=\"form-control\" name=\"txtEmpleadoJefe\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un jefe a este empleado\" required>                              \r\n");
+      out.write("                        <select disabled id=\"inputIdenJE\" class=\"form-control\" name=\"txtEmpleadoJefe\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un jefe a este empleado\">                              \r\n");
       out.write("                            ");
 if (request.getAttribute("name_jefe") != null) {
       out.write("\r\n");
@@ -827,7 +827,6 @@ if (request.getAttribute("nombreCategoria") != null) {
       out.write("                    <br>\r\n");
       out.write("                     <div id=\"divCodigoContrato\" class=\"input-group col-md-7 center-block\">\r\n");
       out.write("                        <span id=\"basic-addon1\" class=\"input-group-addon\">Cod_contrato</span>\r\n");
-      out.write("                        \r\n");
       out.write("                        <input id=\"inputCodigoContrato\" disabled type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtCodigoContrato\" placeholder=\"Utilizado para eliminar un contrato\" required title=\"Es necesario agregar el codigo del contrato si lo desea eliminar\" required value=\"");
       out.print( request.getAttribute("codigoContrato"));
       out.write("\"/>\r\n");

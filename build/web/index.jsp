@@ -58,7 +58,7 @@
 
                 <center><h2>Registro de empleados</h2></center>
 
-                <% if (request.getAttribute("mensaje") != null) { %> 
+                <% if (session.getAttribute("mensaje") != null) { %> 
                 <div class="col-md-12 alert alert-info" role="alert">
 
                     ${mensaje} 
@@ -195,7 +195,7 @@
             <div class="contenedor col-md-4">
                 <center><h2>Registro de departamentos</h2></center>
 
-                <% if (request.getAttribute("mensajeD") != null) { %> 
+                <% if (session.getAttribute("mensajeD") != null) { %> 
                 <div class="col-md-12 alert alert-info" role="alert">
 
                     ${mensajeD} 
@@ -208,18 +208,18 @@
                     <legend>Apartaments</legend>
                     <div id="divNomD" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Nombre del departamento</span>
-                        <% if(request.getAttribute("nombre")==null) {%>
+                        <% if(session.getAttribute("nombre")==null) {%>
                         <input id="inputNomD" id="redondo" type="text" class="form-control" name="txtNombreDepartamento" placeholder="Name" aria-describedby="basic-addon1" title="Es necesaria agregar un  nombre al departamento" required value=""/>
                        <% }else{%>
-                       <input id="inputNomD" id="redondo" type="text" class="form-control" name="txtNombreDepartamento" placeholder="Name" aria-describedby="basic-addon1" title="Es necesaria agregar un nombre al departamento" required value="<%=request.getAttribute("nombre")%>"/>
+                       <input id="inputNomD" id="redondo" type="text" class="form-control" name="txtNombreDepartamento" placeholder="Name" aria-describedby="basic-addon1" title="Es necesaria agregar un nombre al departamento" required value="<%=session.getAttribute("nombre")%>"/>
                        <%}%>
                     </div>
                     <br>
                     <div id="divSelectJefeD" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Asignar </span>
                         <select id="inputIdenEn" class="form-control" name="txtEmpleadoEncargado" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un coordinador a este departamento" required>                              
-                            <%if (request.getAttribute("nombre_Coordinador") != null) {%>
-                            <option value="<%=request.getAttribute("id_Coordinador")%>"><%= request.getAttribute("nombre_Coordinador")%></option>
+                            <%if (session.getAttribute("nombre_Coordinador") != null) {%>
+                            <option value="<%=session.getAttribute("id_Coordinador")%>"><%= session.getAttribute("nombre_Coordinador")%></option>
                             <%} else {%>
                             <option value="">Coordinador</option>
                             <%}%>
@@ -237,7 +237,7 @@
 
                     <div id="divCodD" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Codigo del departamento a eliminar</span>
-                        <input id="inputCodE" id="redondo" disabled type="number" class="form-control" name="txtCodigoDepartamentoEliminar" placeholder="Cod_departamento" required aria-describedby="basic-addon1" title="Es necesaria agregar el codigo del departamento que va a eliminar"  value="<%=request.getAttribute("cod_departamento")%>"/>
+                        <input id="inputCodE" id="redondo" disabled type="number" class="form-control" name="txtCodigoDepartamentoEliminar" placeholder="Cod_departamento" required aria-describedby="basic-addon1" title="Es necesaria agregar el codigo del departamento que va a eliminar"  value="<%=session.getAttribute("cod_departamento")%>"/>
                     </div>   
                     <br>
                     <div id="divAcciones2" class="btn-group col-md-12">
@@ -290,7 +290,7 @@
             <br><br>
             <div class="contenedor col-md-4">
                 <center><h2>Registro de una categoria profesional</h2></center>
-                    <% if (request.getAttribute("Mensaje") != null) { %> 
+                    <% if (session.getAttribute("Mensaje") != null) { %> 
                 <div class="col-md-12 alert alert-info" role="alert">
 
                     ${Mensaje} 
@@ -356,7 +356,7 @@
             <br><br>
             <div class="contenedor col-md-4">
                 <center><h2>Registro de una nomina</h2></center>
-                    <% if (request.getAttribute("MensajeN") != null) { %> 
+                    <% if (session.getAttribute("MensajeN") != null) { %> 
                 <div class="col-md-12 alert alert-info" role="alert">
 
                     ${MensajeN} 
@@ -367,19 +367,19 @@
                     <legend>Payrolls an employee</legend>
                     <div id="divFechaNomina" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Fecha</span>
-                        <input id="inputFechaNomina" type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaNomina" placeholder="Date" title="Es necesario que ingrese una fecha" required value="<%= request.getAttribute("fecha")%>"/>
+                        <input id="inputFechaNomina" type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaNomina" placeholder="Date" title="Es necesario que ingrese una fecha" required value="<%= session.getAttribute("fecha")%>"/>
                     </div>
                     <br>
                     <div id="divSalarioNomina" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Salario</span>
-                        <input id="inputSalarioNomina" type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtSalarioNomina" placeholder="Salario correspondiente" title="Es necesario agregar un salario" required value="<%= request.getAttribute("salario")%>"/>
+                        <input id="inputSalarioNomina" type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtSalarioNomina" placeholder="Salario correspondiente" title="Es necesario agregar un salario" required value="<%= session.getAttribute("salario")%>"/>
                     </div>
                     <br>
                     <div id="divCodEmpleadoNomina" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Empleado </span>
                         <select id="inputCodEmpleadoNomina" class="form-control" name="txtEmpleadoNomina" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la esta nomina" required>                              
-                            <%if (request.getAttribute("nombre") != null) {%>
-                            <option value="<%=request.getAttribute("id_empleado")%>"><%= request.getAttribute("nombre")%></option>
+                            <%if (session.getAttribute("nombre") != null) {%>
+                            <option value="<%=session.getAttribute("id_empleado")%>"><%= session.getAttribute("nombre")%></option>
                             <%} else {%>
                             <option value="">Empleado</option>
                             <%}%>
@@ -395,7 +395,7 @@
                     <br>
                     <div id="divCodnomina" class="input-group col-md-7">
                         <span class="input-group-addon" id="basic-addon1" >Cod_nomina</span>
-                        <input id="inputCodNomina" disabled type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoNomina" placeholder="cod nomina" title="Es necesario agregar el codigo de la nomina si quieres eliminarla" value="<%= request.getAttribute("cod_nomina")%>"/>
+                        <input id="inputCodNomina" disabled type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoNomina" placeholder="cod nomina" title="Es necesario agregar el codigo de la nomina si quieres eliminarla" value="<%= session.getAttribute("cod_nomina")%>"/>
                     </div>
                     <br>
                     <div class="btn-group col-md-12">
@@ -453,7 +453,7 @@
             <br><br>
             <div class="contenedor col-md-4">
                 <center><h2>Crear un contrato</h2></center>
-                    <% if (request.getAttribute("mensajeContrato") != null) { %> 
+                    <% if (session.getAttribute("mensajeContrato") != null) { %> 
                 <div class="col-md-12 alert alert-info" role="alert">
 
                     ${mensajeContrato} 
@@ -464,19 +464,19 @@
                     <legend>Contract of a employee</legend>
                     <div id="divFechaInicioContrato" class="input-group">
                         <span id="basic-addon1" class="input-group-addon">Fecha inicio</span>
-                        <input id="inputFechaInicioContrato" type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaInicio" placeholder="Fecha ini" required title="Es necesario agregar una fecha inical para registrar este contrato" value="<%= request.getAttribute("fechaInicio")%>"/>
+                        <input id="inputFechaInicioContrato" type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaInicio" placeholder="Fecha ini" required title="Es necesario agregar una fecha inical para registrar este contrato" value="<%= session.getAttribute("fechaInicio")%>"/>
                     </div>
                     <br>
                     <div id="divFechaFinalContrato" class="input-group">
                         <span id="basic-addon1" class="input-group-addon">Fecha final</span>
-                        <input id="inputFechaFinalContrato" type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaFinal" placeholder="Fecha fin" title="Es necesario agregar una fecha final para registrar este contrato" value="<%= request.getAttribute("fechaFinal")%>"/>
+                        <input id="inputFechaFinalContrato" type="date" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtFechaFinal" placeholder="Fecha fin" title="Es necesario agregar una fecha final para registrar este contrato" value="<%= session.getAttribute("fechaFinal")%>"/>
                     </div>
                     <br>
                     <div id="divEmpleadoContrato" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Seleccione </span>
                         <select id="inputEmpleadoContrato" class="form-control" name="txtEmpleadoAContratar" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la contratacion" required>                              
-                            <%if (request.getAttribute("nombreEmpleado") != null) {%>
-                            <option value="<%=request.getAttribute("id_empleado")%>"><%= request.getAttribute("nombreEmpleado")%></option>
+                            <%if (session.getAttribute("nombreEmpleado") != null) {%>
+                            <option value="<%=session.getAttribute("id_empleado")%>"><%= session.getAttribute("nombreEmpleado")%></option>
                             <%} else {%>
                             <option value="">Empleado</option>
                             <%}%>
@@ -493,8 +493,8 @@
                     <div id="divCategoriaContrato" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Seleccione </span>
                         <select id="inputCategoriaContrato" class="form-control" name="txtContratoCategoria" id="sel1" aria-describedby="basic-addon1"  title="Es necesaria asignar un empleado para la nomina" required>                              
-                            <%if (request.getAttribute("nombreCategoria") != null) {%>
-                            <option value="<%=request.getAttribute("codigoCategoria")%>"><%= request.getAttribute("nombreCategoria")%></option>
+                            <%if (session.getAttribute("nombreCategoria") != null) {%>
+                            <option value="<%=session.getAttribute("codigoCategoria")%>"><%= session.getAttribute("nombreCategoria")%></option>
                             <%} else {%>
                             <option value="">Categoria</option>
                             <%}%>
@@ -510,7 +510,7 @@
                     <br>
                      <div id="divCodigoContrato" class="input-group col-md-7 center-block">
                         <span id="basic-addon1" class="input-group-addon">Cod_contrato</span>
-                        <input id="inputCodigoContrato" disabled type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoContrato" placeholder="Utilizado para eliminar un contrato" required title="Es necesario agregar el codigo del contrato si lo desea eliminar" required value="<%= request.getAttribute("codigoContrato")%>"/>
+                        <input id="inputCodigoContrato" disabled type="number" id="redondo" class="form-control" aria-describedby="basic-addon1" name="txtCodigoContrato" placeholder="Utilizado para eliminar un contrato" required title="Es necesario agregar el codigo del contrato si lo desea eliminar" required value="<%= session.getAttribute("codigoContrato")%>"/>
                     </div>
                     <br>
                     <br>

@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modelo.BEAN.BeanDepartamento;
 import modelo.BEAN.BeanEmpleado;
 import modelo.DAO.DaoDepartamento;
@@ -28,9 +29,8 @@ import modelo.DAO.DaoEmpleado;
 public class ServletDepartamentos extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -42,98 +42,130 @@ public class ServletDepartamentos extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
+        
+
         Integer codigoDepartamento;
-        
-        int opcion=Integer.parseInt(request.getParameter("txtOpcionDepartamento"));       
-        String nombreDepartamento="";
+
+        int opcion = Integer.parseInt(request.getParameter("txtOpcionDepartamento"));
+        String nombreDepartamento = "";
         int idEncargadoDepartamento;
-         
-        
-        
-    //___________________________________________________________________________________    
-        
+
+        //___________________________________________________________________________________    
         ResultSet rs;
-        
-                   
-         String MensajeExitoD="Operacion exitosa, Felicidades!!!!"; 
-         String MensajeErrorD="Operacion Fallida, Lo siento mucho!!!!";
-         
-         switch(opcion){
+
+        String MensajeExitoD = "Operacion exitosa, Felicidades!!!!";
+        String MensajeErrorD = "Operacion Fallida, Lo siento mucho!!!!";
+        String mensaje;
+        HttpSession session = request.getSession();
+
+        switch (opcion) {
             case 1:// AGREGAR REGISTROS
-                nombreDepartamento=request.getParameter("txtNombreDepartamento");
-                idEncargadoDepartamento=Integer.parseInt(request.getParameter("txtEmpleadoEncargado"));              
-                BeanDepartamento BDepartamento=new BeanDepartamento(nombreDepartamento,idEncargadoDepartamento);
-                DaoDepartamento DDepartamento=new DaoDepartamento(BDepartamento);
-                
-                if(DDepartamento.agregarRegistro()){
-                    request.setAttribute("mensajeD", MensajeExitoD);
-                }else{
-                    request.setAttribute("mensajeD", MensajeErrorD);
+                nombreDepartamento = request.getParameter("txtNombreDepartamento");
+                idEncargadoDepartamento = Integer.parseInt(request.getParameter("txtEmpleadoEncargado"));
+                BeanDepartamento BDepartamento = new BeanDepartamento(nombreDepartamento, idEncargadoDepartamento);
+                DaoDepartamento DDepartamento = new DaoDepartamento(BDepartamento);
+
+                if (DDepartamento.agregarRegistro()) {
+                    mensaje = MensajeExitoD;
+                    session.setAttribute("mensajeD", mensaje);
+                    //request.setAttribute("mensajeD", MensajeExitoD);
+                } else {
+                    mensaje = MensajeErrorD;
+                    session.setAttribute("mensajeD", mensaje);
+                    //request.setAttribute("mensajeD", MensajeErrorD);
                 }
-                
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                response.sendRedirect("index.jsp#contenedor2");
+                //request.getRequestDispatcher("index.jsp#contenedor2").forward(request, response);
+                //response.sendRedirect("index.jsp#contenedor2");
+
                 break;
             case 2://BORRAR REGISTROS
-                
-                codigoDepartamento=Integer.parseInt(request.getParameter("txtCodigoDepartamentoEliminar"));
-                BeanDepartamento BDepartamentoB=new BeanDepartamento();
-                DaoDepartamento DDepartamentoB=new DaoDepartamento(BDepartamentoB);
-                
-                if(DDepartamentoB.borrarRegistro(codigoDepartamento)){
-                    request.setAttribute("mensajeD", MensajeExitoD);
-                }else{request.setAttribute("mensajeD", MensajeErrorD);}
-                
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-            break;    
-           case 3://ACTUALIZAR REGISTROS
-               
-                nombreDepartamento=request.getParameter("txtNombreDepartamento");
-                idEncargadoDepartamento=Integer.parseInt(request.getParameter("txtEmpleadoEncargado"));
-                 codigoDepartamento=Integer.parseInt(request.getParameter("txtCodigoDepartamentoEliminar")); 
-                 
-                 BeanDepartamento BDepartamentoA=new BeanDepartamento(nombreDepartamento,idEncargadoDepartamento);
-                DaoDepartamento DDepartamentoA=new DaoDepartamento(BDepartamentoA);
-                
-                if(DDepartamentoA.actualizarRegistro(codigoDepartamento)){
-                    request.setAttribute("mensajeD", MensajeExitoD);
-                }else{request.setAttribute("mensajeD", MensajeErrorD);}
-                
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+
+                codigoDepartamento = Integer.parseInt(request.getParameter("txtCodigoDepartamentoEliminar"));
+                BeanDepartamento BDepartamentoB = new BeanDepartamento();
+                DaoDepartamento DDepartamentoB = new DaoDepartamento(BDepartamentoB);
+
+                if (DDepartamentoB.borrarRegistro(codigoDepartamento)) {
+                    mensaje = MensajeExitoD;
+                    session.setAttribute("mensajeD", mensaje);
+                    //request.setAttribute("mensajeD", MensajeExitoD);
+                } else {
+                    mensaje = MensajeErrorD;
+                    session.setAttribute("mensajeD", mensaje);
+                    //request.setAttribute("mensajeD", MensajeErrorD);
+                }
+                response.sendRedirect("index.jsp#contenedor2");
+                //request.getRequestDispatcher("index.jsp").forward(request, response);
+                 //Terminar session de los parametros enviados
+                        session.removeAttribute("cod_departamento");
+                        session.removeAttribute("nombre");
+                        session.removeAttribute("id_Coordinador");
+                        session.removeAttribute("nombre_Coordinador");
                 break;
-             case 4://CONSULTAR UN REGISTRO
-                 
-                 codigoDepartamento=Integer.parseInt(request.getParameter("txtCodigoDepartamentoEliminar")); 
-                 BeanDepartamento BDepartamentoCon=new BeanDepartamento();
-                DaoDepartamento DDepartamentoCon=new DaoDepartamento(BDepartamentoCon);
-                
-                rs=(ResultSet)DDepartamentoCon.consultarRegistro(codigoDepartamento);
-        try {
-            while(rs.next()){
-                request.setAttribute("cod_departamento", rs.getString(1));
-                request.setAttribute("nombre", rs.getString(2));
-                request.setAttribute("id_Coordinador", rs.getString(3));
-                request.setAttribute("nombre_Coordinador", rs.getString(4));
-                
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            case 3://ACTUALIZAR REGISTROS
+
+                nombreDepartamento = request.getParameter("txtNombreDepartamento");
+                idEncargadoDepartamento = Integer.parseInt(request.getParameter("txtEmpleadoEncargado"));
+                codigoDepartamento = Integer.parseInt(request.getParameter("txtCodigoDepartamentoEliminar"));
+
+                BeanDepartamento BDepartamentoA = new BeanDepartamento(nombreDepartamento, idEncargadoDepartamento);
+                DaoDepartamento DDepartamentoA = new DaoDepartamento(BDepartamentoA);
+
+                if (DDepartamentoA.actualizarRegistro(codigoDepartamento)) {
+                    mensaje = MensajeExitoD;
+                    session.setAttribute("mensajeD", mensaje);
+
+                    //request.setAttribute("mensajeD", MensajeExitoD);
+                } else {
+                    mensaje = MensajeErrorD;
+                    session.setAttribute("mensajeD", mensaje);
+
+                    //request.setAttribute("mensajeD", MensajeErrorD);
+                }
+                response.sendRedirect("index.jsp#contenedor2");
+                //request.getRequestDispatcher("index.jsp").forward(request, response);
+                break;
+            case 4://CONSULTAR UN REGISTRO
+
+                codigoDepartamento = Integer.parseInt(request.getParameter("txtCodigoDepartamentoEliminar"));
+                BeanDepartamento BDepartamentoCon = new BeanDepartamento();
+                DaoDepartamento DDepartamentoCon = new DaoDepartamento(BDepartamentoCon);
+
+                rs = (ResultSet) DDepartamentoCon.consultarRegistro(codigoDepartamento);
+                try {
+                    while (rs.next()) {                        
+                        
+                        session.setAttribute("cod_departamento", rs.getString(1));
+                        session.setAttribute("nombre", rs.getString(2));
+                        session.setAttribute("id_Coordinador", rs.getString(3));
+                        session.setAttribute("nombre_Coordinador", rs.getString(4));     
+                        
+                    }
+                       
+                        
+                } catch (SQLException ex) {
+                        Logger.getLogger(ServletEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 //request.setAttribute("resultset", rs);
+                response.sendRedirect("index.jsp#contenedor2");
+                        
                 
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                       
+
+                //request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
-          /*  case 5://LISTAR TODOS LOS REGISTROS
+            /*  case 5://LISTAR TODOS LOS REGISTROS
                 rs=DEmpleado.listarTabla();
                 request.setAttribute("resultset", rs);
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;*/
             default:
-                
+
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
-         }
-        
+        }
+
 //        try {
 //            /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
@@ -155,13 +187,10 @@ public class ServletDepartamentos extends HttpServlet {
 //        }
 //    
     }
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -175,8 +204,7 @@ public class ServletDepartamentos extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP
-     * <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response

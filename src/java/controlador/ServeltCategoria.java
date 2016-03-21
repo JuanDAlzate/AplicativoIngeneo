@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modelo.BEAN.BeanCategoria;
 import modelo.DAO.DaoCategoria;
 
@@ -45,6 +46,8 @@ public class ServeltCategoria extends HttpServlet {
         //--------------------------------------------------
         String mExito="Felicidades,operacion exitosa";
         String mError="Lo siento mucho ,operacion fallida";
+        String mensaje;
+        HttpSession session=request.getSession();
         
         switch(opcionCategoria){
             case 1://AGREGAR CATEGORIA       
@@ -53,11 +56,16 @@ public class ServeltCategoria extends HttpServlet {
                  DaoCategoria DCategoria=new DaoCategoria(BCategoria);
                  
                 if(DCategoria.agregarRegistro()){
-                   request.setAttribute("Mensaje", mExito);
+                   mensaje=mExito;
+                   session.setAttribute("Mensaje", mExito);
+                   //request.setAttribute("Mensaje", mExito);
                 }else{
-                    request.setAttribute("Mensaje", mError);
+                    mensaje=mError;
+                    session.setAttribute("Mensaje", mError);
+                    //request.setAttribute("Mensaje", mError);
                 }
-                request.getRequestDispatcher("index.jsp").forward(request,response);
+                    response.sendRedirect("index.jsp#contenedor3");
+                    //request.getRequestDispatcher("index.jsp").forward(request,response);
                 break;
             case 2://BORRAR CATEGORIA
                 
@@ -67,30 +75,42 @@ public class ServeltCategoria extends HttpServlet {
                    
                    if(DCategoriaBorrar.buscarCategoriaContrato(codCategoria)){
                    
-                      request.setAttribute("Mensaje", "La categoria esta siendo utilizada en un contrato hecho");
+                         mensaje="La categoria esta siendo utilizada en un contrato hecho";
+                         session.setAttribute("Mensaje", mensaje);
+                        //request.setAttribute("Mensaje", "La categoria esta siendo utilizada en un contrato hecho");
                    }else{
                       
                        if(DCategoriaBorrar.borrarRegistro(codCategoria)){
-                       request.setAttribute("Mensaje", mExito);
+                         mensaje=mExito;
+                         session.setAttribute("Mensaje", mExito);
+                        //request.setAttribute("Mensaje", mExito);
                     }else{
-                       request.setAttribute("Mensaje", mError);
+                         mensaje=mError;
+                         session.setAttribute("Mensaje", mError);
+                         //request.setAttribute("Mensaje", mError);
                     }
                        
                    }
-                    
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    response.sendRedirect("index.jsp#contenedor3");
+                    //request.getRequestDispatcher("index.jsp").forward(request, response);
                     break;
             case 3://ACTUALIZAR CATEGORIA
                     codCategoria=Integer.parseInt(request.getParameter("txtCodigoCategoria"));
                     nombreCategoria=request.getParameter("txtNombreCategoria");                    
                     BeanCategoria BCategoriaActualizar=new BeanCategoria(nombreCategoria);
                     DaoCategoria DCategoriaActualizar=new DaoCategoria(BCategoriaActualizar);
+                    
                     if(DCategoriaActualizar.actualizarRegistro(codCategoria)){
-                      request.setAttribute("Mensaje", mExito);
+                         mensaje=mExito;
+                         session.setAttribute("Mensaje", mensaje);
+                        //request.setAttribute("Mensaje", mExito);
                     }else{
-                      request.setAttribute("Mensaje", mError);
+                        mensaje=mError;
+                        session.setAttribute("Mensaje", mensaje);
+                      //request.setAttribute("Mensaje", mError);
                     }
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                     response.sendRedirect("index.jsp#contenedor3");
+                    //request.getRequestDispatcher("index.jsp").forward(request, response);
         }
         
         

@@ -63,8 +63,7 @@ public class ServletEmpleado extends HttpServlet {
                 nombre=request.getParameter("txtNombre");
                 apellido=request.getParameter("txtApellido");
                 direccion=request.getParameter("txtDireccion");
-                telefono=request.getParameter("txtTelefono");
-               
+                telefono=request.getParameter("txtTelefono");               
                 
                 BeanEmpleado BEmpleado=new BeanEmpleado(id,nombre,apellido,direccion,telefono);
                 DaoEmpleado DEmpleado=new DaoEmpleado(BEmpleado);
@@ -73,10 +72,9 @@ public class ServletEmpleado extends HttpServlet {
                     request.setAttribute("mensaje", mExito);
                 }else{request.setAttribute("mensaje", mError);}
                 
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                request.getRequestDispatcher("index.jsp").forward(request, response);               
                 break;
-            case 2://BORRAR REGISTROS
-                
+            case 2://BORRAR REGISTROS                
                 
                 id=Integer.parseInt(request.getParameter("txtIdentificacion"));                
                 BeanEmpleado BEmpleadoB=new BeanEmpleado(id);

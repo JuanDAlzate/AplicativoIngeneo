@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modelo.BEAN.BeanContrato;
 import modelo.DAO.DaoContrato;
 
@@ -52,6 +53,8 @@ public class ServletContrato extends HttpServlet {
         //-----------------------------------------------
         String mExito = "Operacion exitosa, Felicidades!!!!";
         String mError = "Operacion Fallida, Lo siento mucho!!!!";
+        String mensaje;
+        HttpSession session=request.getSession();
 
         switch (opcion) {
             case 1:
@@ -64,11 +67,16 @@ public class ServletContrato extends HttpServlet {
                   DaoContrato DContrato = new DaoContrato(BContrato);                
                 
                 if (DContrato.agregarRegistro()) {
-                    request.setAttribute("mensajeContrato", mExito);
+                       mensaje=mExito;
+                       session.setAttribute("mensajeContrato", mensaje);                      
+                        //request.setAttribute("mensajeContrato", mExito);
                 } else {
-                    request.setAttribute("mensajeContrato", mError);
+                      mensaje=mError;
+                      session.setAttribute("mensajeContrato", mensaje);
+                    //request.setAttribute("mensajeContrato", mError);
                 }
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                     response.sendRedirect("index.jsp#contenedor5");
+                    //request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 2:
                   codigoContrato = Integer.parseInt(request.getParameter("txtCodigoContrato")); 
@@ -77,11 +85,26 @@ public class ServletContrato extends HttpServlet {
                   DaoContrato DContratoBorrar = new DaoContrato(BContratoBorrar);
                  
                 if(DContratoBorrar.borrarRegistro(codigoContrato)) {
-                    request.setAttribute("mensajeContrato", mExito);
+                    mensaje=mExito;
+                    session.setAttribute("mensajeContrato", mExito);
+                    //request.setAttribute("mensajeContrato", mExito);
                 } else {
-                    request.setAttribute("mensajeContrato", mError);
+                    mensaje=mError;
+                    session.setAttribute("mensajeContrato", mError);
+                    //request.setAttribute("mensajeContrato", mError);
                 }
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                    response.sendRedirect("index.jsp#contenedor5");
+                    //request.getRequestDispatcher("index.jsp").forward(request, response);
+                    
+                    //Se eliminan los parametros que estan en la session
+                     session.removeAttribute("codigoContrato");
+                      session.removeAttribute("fechaInicio");
+                      session.removeAttribute("fechaFinal");
+                      session.removeAttribute("id_empleado");
+                      session.removeAttribute("nombreEmpleado");
+                      session.removeAttribute("apellidoEmpleado");
+                      session.removeAttribute("codigoCategoria");
+                      session.removeAttribute("nombreCategoria");
                 break;
            case 3:
                
@@ -95,11 +118,16 @@ public class ServletContrato extends HttpServlet {
                   DaoContrato DContratoActualizar = new DaoContrato(BContratoActualizar);               
                
                 if (DContratoActualizar.actualizarRegistro(codigoContrato)) {
-                    request.setAttribute("mensajeContrato", mExito);
+                   mensaje=mExito;
+                   session.setAttribute("mensajeContrato", mExito);
+                   //request.setAttribute("mensajeContrato", mExito);
                 } else {
-                    request.setAttribute("mensajeContrato", mError);
+                    mensaje=mError;
+                    session.setAttribute("mensajeContrato", mError);
+                    //request.setAttribute("mensajeContrato", mError);
                 }
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                    response.sendRedirect("index.jsp#contenedor5");
+                    //request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 4:
                 
@@ -110,19 +138,20 @@ public class ServletContrato extends HttpServlet {
                  rs=(ResultSet)DContratoConsultar.consultarRegistro(codigoContrato);
                  try{
                     while(rs.next()){
-                      request.setAttribute("codigoContrato", rs.getString(1));
-                      request.setAttribute("fechaInicio", rs.getString(2));
-                      request.setAttribute("fechaFinal", rs.getString(3));
-                      request.setAttribute("id_empleado", rs.getString(4));
-                      request.setAttribute("nombreEmpleado", rs.getString(5));
-                      request.setAttribute("apellidoEmpleado", rs.getString(6));
-                      request.setAttribute("codigoCategoria", rs.getString(7));
-                      request.setAttribute("nombreCategoria", rs.getString(8));
+                      session.setAttribute("codigoContrato", rs.getString(1));
+                      session.setAttribute("fechaInicio", rs.getString(2));
+                      session.setAttribute("fechaFinal", rs.getString(3));
+                      session.setAttribute("id_empleado", rs.getString(4));
+                      session.setAttribute("nombreEmpleado", rs.getString(5));
+                      session.setAttribute("apellidoEmpleado", rs.getString(6));
+                      session.setAttribute("codigoCategoria", rs.getString(7));
+                      session.setAttribute("nombreCategoria", rs.getString(8));
                     }
                     }catch(SQLException ex){
                             Logger.getLogger(ServletContrato.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                  request.getRequestDispatcher("index.jsp").forward(request, response);                 
+                     response.sendRedirect("index.jsp#contenedor5");
+                    //request.getRequestDispatcher("index.jsp").forward(request, response);                 
                   break;
         }
 

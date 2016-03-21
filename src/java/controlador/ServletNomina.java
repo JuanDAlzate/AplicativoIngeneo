@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modelo.BEAN.BeanNomina;
 import modelo.DAO.DaoNomina;
 
@@ -51,6 +52,8 @@ public class ServletNomina extends HttpServlet {
 
         String mensajexitosoN = "Operacion exitosa,Felicidades";
         String mensajeErrorN = "Operacion fallida,Lo siento";
+        String mensaje;
+        HttpSession session=request.getSession();                
 
         switch (opcion) {
             case 1:
@@ -61,11 +64,16 @@ public class ServletNomina extends HttpServlet {
                 BeanNomina BNomina = new BeanNomina(fecha, salario, codEmpleadoNomina);
                 DaoNomina DNomina = new DaoNomina(BNomina);
                 if (DNomina.agregarRegistro()) {
-                    request.setAttribute("MensajeN", mensajexitosoN);
+                    mensaje=mensajexitosoN;
+                    session.setAttribute("MensajeN", mensaje);
+                    //request.setAttribute("MensajeN", mensajexitosoN);
                 } else {
-                    request.setAttribute("MensajeN", mensajeErrorN);
+                    mensaje=mensajeErrorN;
+                    session.setAttribute("MensajeN", mensaje);
+                    //request.setAttribute("MensajeN", mensajeErrorN);
                 }
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                    response.sendRedirect("index.jsp#contenedor4");
+                    //request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             case 2:
 
@@ -74,11 +82,24 @@ public class ServletNomina extends HttpServlet {
                 DaoNomina DNominaBorrar = new DaoNomina(BNominaBorrar);
 
                 if (DNominaBorrar.borrarRegistro(codigoNomina)) {
-                    request.setAttribute("MensajeN", mensajexitosoN);
+                    
+                    mensaje=mensajexitosoN;
+                    session.setAttribute("MensajeN", mensaje);
+                    //request.setAttribute("MensajeN", mensajexitosoN);
                 } else {
-                    request.setAttribute("MensajeN", mensajeErrorN);
+                    
+                    mensaje=mensajeErrorN;
+                    session.setAttribute("MensajeN", mensaje);
+                    //request.setAttribute("MensajeN", mensajeErrorN);
                 }
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                     response.sendRedirect("index.jsp#contenedor4");
+                   // request.getRequestDispatcher("index.jsp").forward(request, response);
+                     //Borrando las variables que estan en session   
+                        session.removeAttribute("cod_nomina");
+                        session.removeAttribute("fecha");
+                        session.removeAttribute("salario");
+                        session.removeAttribute("id_empleado");
+                        session.removeAttribute("nombre");
                 break;
             case 3:
 
@@ -91,11 +112,16 @@ public class ServletNomina extends HttpServlet {
                 DaoNomina DNominaActualizar = new DaoNomina(BNominaActualizar);
 
                 if (DNominaActualizar.actualizarRegistro(codigoNomina)) {
-                    request.setAttribute("MensajeN", mensajexitosoN);
+                     mensaje=mensajexitosoN;
+                     session.setAttribute("MensajeN", mensaje);
+                    //request.setAttribute("MensajeN", mensajexitosoN);
                 } else {
-                    request.setAttribute("MensajeN", mensajeErrorN);
+                    mensaje=mensajeErrorN;
+                    session.setAttribute("MensajeN", mensaje);
+                    //request.setAttribute("MensajeN", mensajeErrorN);
                 }
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                    response.sendRedirect("index.jsp#contenedor4");
+                   //request.getRequestDispatcher("index.jsp").forward(request, response);
 
             case 4://CONSULTAR UN REGISTRO
                 codigoNomina = Integer.parseInt(request.getParameter("txtCodigoNomina"));
@@ -106,11 +132,11 @@ public class ServletNomina extends HttpServlet {
                 rs = (ResultSet) DNominaconsultar.consultarRegistro(codigoNomina);
                 try {
                     while (rs.next()) {
-                        request.setAttribute("cod_nomina", rs.getString(1));
-                        request.setAttribute("fecha", rs.getString(2));
-                        request.setAttribute("salario", rs.getString(3));
-                        request.setAttribute("id_empleado", rs.getString(4));
-                        request.setAttribute("nombre", rs.getString(5));
+                        session.setAttribute("cod_nomina", rs.getString(1));
+                        session.setAttribute("fecha", rs.getString(2));
+                        session.setAttribute("salario", rs.getString(3));
+                        session.setAttribute("id_empleado", rs.getString(4));
+                        session.setAttribute("nombre", rs.getString(5));
                         
                     }
                 } catch (SQLException ex) {
@@ -118,7 +144,8 @@ public class ServletNomina extends HttpServlet {
                 }
                 //request.setAttribute("resultset", rs);
                 
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                response.sendRedirect("index.jsp#contenedor4");
+                //request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
         }
 
