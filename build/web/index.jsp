@@ -72,7 +72,11 @@
 
                     <div id="divIdenE" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Identificacion</span>
-                        <input id="inputIdenE" id="redondo" type="number" class="form-control" name="txtIdentificacion" placeholder="ID/CC" aria-describedby="basic-addon1" title="Es necesaria su identificacion"  required value="<%=request.getAttribute("id")%>"/>
+                        <% if(request.getParameter("id")==null){%>
+                        <input id="inputIdenE" id="redondo" type="text" class="form-control" name="txtIdentificacion" placeholder="ID/CC" aria-describedby="basic-addon1" title="Debe ser un numero menor de 10 digitos, y no debe contener numeros"  required pattern="^[0-9]{6,10}$" value=""/>
+                        <% }else{ %>
+                        <input id="inputIdenE" id="redondo" type="text" class="form-control" name="txtIdentificacion" placeholder="ID/CC" aria-describedby="basic-addon1" title="Debe ser un numero menor de 10 digitos, y no debe contener numeros"  required pattern="^[0-9]{6,10}$" value="<%=request.getAttribute("id")%>"/>
+                       <% } %>
                     </div>
                     <br>
                     <div id="divNomE" class="input-group">
