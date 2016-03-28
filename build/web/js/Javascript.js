@@ -114,9 +114,9 @@ $(document).ready(function(){
                         
                         //Manejo de los campos al realizar una creacion de la nomina
                         if(selectedOption4.val()==1){
-                            $("#divCodnomina").hide("slow");
+                            $("#divCodnomina").prop("disabled","true");
+                            $("#inputCodNomina").removeAttr("required")
                         }else{
-                            $("#divCodnomina").show("slow");
                             $("#inputCodNomina").prop("required","true");
                         }
                         
@@ -124,8 +124,7 @@ $(document).ready(function(){
                         if(selectedOption4.val()==2 || selectedOption4.val()==4){                            
                             
                             $("#inputCodNomina").removeAttr("disabled");
-                            $("#divCodnomina").css("margin-top","-50px");
-                            
+                            $("#divCodnomina").css("margin-top","-50px");                            
                             
                             $("#divFechaNomina").hide("slow");
                             $("#inputFechaNomina").removeAttr("required");
