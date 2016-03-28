@@ -72,15 +72,14 @@
 
                     <div id="divIdenE" class="input-group">
                         <span class="input-group-addon" id="basic-addon1" >Identificacion</span>
-                        <% if(request.getParameter("id")==null){%>
-                        <input id="inputIdenE" id="redondo" type="text" class="form-control" name="txtIdentificacion" placeholder="ID/CC" aria-describedby="basic-addon1" title="Debe ser un numero menor de 10 digitos, y no debe contener numeros"  required pattern="^[0-9]{6,10}$" value=""/>
+                        <% if(request.getAttribute("id")==null){%>
+                        <input id="inputIdenE" id="redondo" type="text" class="form-control" name="txtIdentificacion" placeholder="ID/CC" aria-describedby="basic-addon1" required pattern="^[0-9]{6,10}$" title="Debe ser un numero menor de 10 digitos, y no debe contener numeros"   value=""/>
                         <% }else{ %>
-                        <input id="inputIdenE" id="redondo" type="text" class="form-control" name="txtIdentificacion" placeholder="ID/CC" aria-describedby="basic-addon1" title="Debe ser un numero menor de 10 digitos, y no debe contener numeros"  required pattern="^[0-9]{6,10}$" value="<%=request.getAttribute("id")%>"/>
+                        <input id="inputIdenE" id="redondo" type="text" class="form-control" name="txtIdentificacion" placeholder="ID/CC" aria-describedby="basic-addon1" required pattern="^[0-9]{6,10}$" title="Debe ser un numero menor de 10 digitos, y no debe contener numeros"  value="<%=request.getAttribute("id")%>"/>
                        <% } %>
                     </div>
                     <br>
-                    <div id="divNomE" class="input-group">
-                        
+                    <div id="divNomE" class="input-group">                        
                         <span class="input-group-addon" id="basic-addon1">Nombre</span>
                         <% if(request.getAttribute("nom")==null){ %>
                            <input id="inputNomE" id="redondo" type="text" class="form-control" name="txtNombre" placeholder="First name" aria-describedby="basic-addon1" title="Es necesario agregar un nombre, y debe contener letras"  required value=""/>

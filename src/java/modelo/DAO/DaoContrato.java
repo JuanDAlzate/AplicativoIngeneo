@@ -16,7 +16,6 @@ import sun.util.logging.PlatformLogger;
 import util.ClassConex;
 import util.interfaceCRUD;
 
-
 /**
  *
  * @author ASUS X550C

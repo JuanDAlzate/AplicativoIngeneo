@@ -66,10 +66,15 @@ public class ServletEmpleado extends HttpServlet {
                 BeanEmpleado BEmpleado=new BeanEmpleado(id,nombre,apellido,direccion,telefono);
                 DaoEmpleado DEmpleado=new DaoEmpleado(BEmpleado);
 
-                if(DEmpleado.agregarRegistro()){
-                    request.setAttribute("mensaje", mExito);
+                if(DEmpleado.buscarIdentificacion()){
+                    request.setAttribute("mensaje", "Ya se ha registrado un empleado con esta identificacion");
+                  
                 }else{
+                    if(DEmpleado.agregarRegistro()){
+                    request.setAttribute("mensaje", mExito);
+                    }else{
                     request.setAttribute("mensaje", mError);
+                    }
                 }
                 
                 request.getRequestDispatcher("index.jsp").forward(request, response);               

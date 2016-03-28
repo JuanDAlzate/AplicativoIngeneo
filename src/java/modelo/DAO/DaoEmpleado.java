@@ -154,5 +154,18 @@ public class DaoEmpleado extends ClassConex implements  interfaceCRUD{
         }
            return listo;
         }
+        
+        //Consulta para saber si existen empleados creados con esta misma identificacion
+        public boolean buscarIdentificacion(){
+           try{
+               rs=st.executeQuery("SELECT ID FROM empleado WHERE ID='"+id+"';");
+               if(rs.next()){
+                  listo=true;
+               }
+           }catch(SQLException ex){
+               Logger.getLogger(DaoEmpleado.class.getName()).log(Level.SEVERE,null,ex);
+           }
+           return listo ;
+        }
     
 }

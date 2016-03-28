@@ -125,9 +125,19 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("                    <div id=\"divIdenE\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Identificacion</span>\r\n");
-      out.write("                        <input id=\"inputIdenE\" id=\"redondo\" type=\"number\" class=\"form-control\" name=\"txtIdentificacion\" placeholder=\"ID/CC\" aria-describedby=\"basic-addon1\" title=\"Es necesaria su identificacion\"  required value=\"");
+      out.write("                        ");
+ if(request.getParameter("id")==null){
+      out.write("\r\n");
+      out.write("                        <input id=\"inputIdenE\" id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtIdentificacion\" placeholder=\"ID/CC\" aria-describedby=\"basic-addon1\" title=\"Debe ser un numero menor de 10 digitos, y no debe contener numeros\"  required pattern=\"^[0-9]{6,10}$\" value=\"\"/>\r\n");
+      out.write("                        ");
+ }else{ 
+      out.write("\r\n");
+      out.write("                        <input id=\"inputIdenE\" id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtIdentificacion\" placeholder=\"ID/CC\" aria-describedby=\"basic-addon1\" title=\"Debe ser un numero menor de 10 digitos, y no debe contener numeros\"  required pattern=\"^[0-9]{6,10}$\" value=\"");
       out.print(request.getAttribute("id"));
       out.write("\"/>\r\n");
+      out.write("                       ");
+ } 
+      out.write("\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
       out.write("                    <div id=\"divNomE\" class=\"input-group\">\r\n");
@@ -268,14 +278,14 @@ if (request.getAttribute("name_jefe") != null) {
       out.write("                <div id=\"resulset\" class=\"table-responsive\">\r\n");
       out.write("                    ");
   
-                        PreparedStatement consultaEmpleados = conn.ObtenerConexion().prepareStatement("select empleado.ID,empleado.cod_empleado,empleado.nombreE,empleado.apellido,empleado.direccion,empleado.telefono,jefe.ID,jefe.nombreE from empleado left join empleado jefe on empleado.id_responsable=jefe.ID");
+                        PreparedStatement consultaEmpleados = conn.ObtenerConexion().prepareStatement("select empleado.ID,empleado.cod_empleado,empleado.nombreE,empleado.apellido,empleado.direccion,empleado.telefono,jefe.ID,jefe.nombreE,jefe.apellido,ct.cod_categoria,ct.nombreC from empleado left join empleado jefe on empleado.id_responsable=jefe.ID left join categoria_profesional ct on empleado.cod_categoria=ct.cod_categoria;");
                         ResultSet res1 = consultaEmpleados.executeQuery();
                         
                         if (res1 != null) {
       out.write("\r\n");
       out.write("                    <table border=\"1\" class=\"table table-striped table-bordered table-hover table-condensed\">\r\n");
       out.write("                        <tr>\r\n");
-      out.write("                            <th>ID</th><th>CODIGO_EMPLEADO</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th>ID_RESPONSABLE</th><th>NOMBRE_RESPONSABLE</th><!--<th colspan=\"2\">OPCIONES</th>-->\r\n");
+      out.write("                            <th>ID</th><th>CODIGO_EMPLEADO</th><th>NOMBRE</th><th>APELLIDO</th><th>DIRECCION</th><th>TELEFONO</th><th>ID_RESPONSABLE</th><th>NOMBRE_RESPONSABLE</th><th>APELLIDO_RESPONSABLE</th><th>CODIGO_CATEGORIA</th><th>NOMBRE_CATEGORIA</th><!--<th colspan=\"2\">OPCIONES</th>-->\r\n");
       out.write("                        </tr>\r\n");
       out.write("                        ");
 while (res1.next()) {
@@ -305,6 +315,17 @@ while (res1.next()) {
       out.write("                            <td> ");
       out.print(res1.getString(8));
       out.write("</td>\r\n");
+      out.write("                            <td> ");
+      out.print(res1.getString(9));
+      out.write("</td>\r\n");
+      out.write("                            <td> ");
+      out.print(res1.getString(10));
+      out.write("</td>\r\n");
+      out.write("                            <td> ");
+      out.print(res1.getString(11));
+      out.write("</td>\r\n");
+      out.write("                           \r\n");
+      out.write("                            \r\n");
       out.write("                           <!-- <td> <a href=\"#\" alt=\"\" onclick=\"valida_envia('4', '");
       out.print(res1.getString(1));
       out.write("');\">SELECCIONAR</a></td>\r\n");
@@ -331,7 +352,7 @@ while (res1.next()) {
       out.write("                <center><h2>Registro de departamentos</h2></center>\r\n");
       out.write("\r\n");
       out.write("                ");
- if (request.getAttribute("mensajeD") != null) { 
+ if (session.getAttribute("mensajeD") != null) { 
       out.write(" \r\n");
       out.write("                <div class=\"col-md-12 alert alert-info\" role=\"alert\">\r\n");
       out.write("\r\n");
@@ -350,14 +371,14 @@ while (res1.next()) {
       out.write("                    <div id=\"divNomD\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Nombre del departamento</span>\r\n");
       out.write("                        ");
- if(request.getAttribute("nombre")==null) {
+ if(session.getAttribute("nombre")==null) {
       out.write("\r\n");
       out.write("                        <input id=\"inputNomD\" id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtNombreDepartamento\" placeholder=\"Name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria agregar un  nombre al departamento\" required value=\"\"/>\r\n");
       out.write("                       ");
  }else{
       out.write("\r\n");
       out.write("                       <input id=\"inputNomD\" id=\"redondo\" type=\"text\" class=\"form-control\" name=\"txtNombreDepartamento\" placeholder=\"Name\" aria-describedby=\"basic-addon1\" title=\"Es necesaria agregar un nombre al departamento\" required value=\"");
-      out.print(request.getAttribute("nombre"));
+      out.print(session.getAttribute("nombre"));
       out.write("\"/>\r\n");
       out.write("                       ");
 }
@@ -368,13 +389,13 @@ while (res1.next()) {
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Asignar </span>\r\n");
       out.write("                        <select id=\"inputIdenEn\" class=\"form-control\" name=\"txtEmpleadoEncargado\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un coordinador a este departamento\" required>                              \r\n");
       out.write("                            ");
-if (request.getAttribute("nombre_Coordinador") != null) {
+if (session.getAttribute("nombre_Coordinador") != null) {
       out.write("\r\n");
       out.write("                            <option value=\"");
-      out.print(request.getAttribute("id_Coordinador"));
+      out.print(session.getAttribute("id_Coordinador"));
       out.write('"');
       out.write('>');
-      out.print( request.getAttribute("nombre_Coordinador"));
+      out.print( session.getAttribute("nombre_Coordinador"));
       out.write("</option>\r\n");
       out.write("                            ");
 } else {
@@ -407,7 +428,7 @@ if (request.getAttribute("nombre_Coordinador") != null) {
       out.write("                    <div id=\"divCodD\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Codigo del departamento a eliminar</span>\r\n");
       out.write("                        <input id=\"inputCodE\" id=\"redondo\" disabled type=\"number\" class=\"form-control\" name=\"txtCodigoDepartamentoEliminar\" placeholder=\"Cod_departamento\" required aria-describedby=\"basic-addon1\" title=\"Es necesaria agregar el codigo del departamento que va a eliminar\"  value=\"");
-      out.print(request.getAttribute("cod_departamento"));
+      out.print(session.getAttribute("cod_departamento"));
       out.write("\"/>\r\n");
       out.write("                    </div>   \r\n");
       out.write("                    <br>\r\n");
@@ -482,7 +503,7 @@ while (res2.next()) {
       out.write("            <div class=\"contenedor col-md-4\">\r\n");
       out.write("                <center><h2>Registro de una categoria profesional</h2></center>\r\n");
       out.write("                    ");
- if (request.getAttribute("Mensaje") != null) { 
+ if (session.getAttribute("Mensaje") != null) { 
       out.write(" \r\n");
       out.write("                <div class=\"col-md-12 alert alert-info\" role=\"alert\">\r\n");
       out.write("\r\n");
@@ -570,7 +591,7 @@ while (res3.next()) {
       out.write("            <div class=\"contenedor col-md-4\">\r\n");
       out.write("                <center><h2>Registro de una nomina</h2></center>\r\n");
       out.write("                    ");
- if (request.getAttribute("MensajeN") != null) { 
+ if (session.getAttribute("MensajeN") != null) { 
       out.write(" \r\n");
       out.write("                <div class=\"col-md-12 alert alert-info\" role=\"alert\">\r\n");
       out.write("\r\n");
@@ -587,14 +608,14 @@ while (res3.next()) {
       out.write("                    <div id=\"divFechaNomina\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Fecha</span>\r\n");
       out.write("                        <input id=\"inputFechaNomina\" type=\"date\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtFechaNomina\" placeholder=\"Date\" title=\"Es necesario que ingrese una fecha\" required value=\"");
-      out.print( request.getAttribute("fecha"));
+      out.print( session.getAttribute("fecha"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
       out.write("                    <div id=\"divSalarioNomina\" class=\"input-group\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Salario</span>\r\n");
       out.write("                        <input id=\"inputSalarioNomina\" type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtSalarioNomina\" placeholder=\"Salario correspondiente\" title=\"Es necesario agregar un salario\" required value=\"");
-      out.print( request.getAttribute("salario"));
+      out.print( session.getAttribute("salario"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
@@ -602,13 +623,13 @@ while (res3.next()) {
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Empleado </span>\r\n");
       out.write("                        <select id=\"inputCodEmpleadoNomina\" class=\"form-control\" name=\"txtEmpleadoNomina\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empleado para la esta nomina\" required>                              \r\n");
       out.write("                            ");
-if (request.getAttribute("nombre") != null) {
+if (session.getAttribute("nombre") != null) {
       out.write("\r\n");
       out.write("                            <option value=\"");
-      out.print(request.getAttribute("id_empleado"));
+      out.print(session.getAttribute("id_empleado"));
       out.write('"');
       out.write('>');
-      out.print( request.getAttribute("nombre"));
+      out.print( session.getAttribute("nombre"));
       out.write("</option>\r\n");
       out.write("                            ");
 } else {
@@ -639,7 +660,7 @@ if (request.getAttribute("nombre") != null) {
       out.write("                    <div id=\"divCodnomina\" class=\"input-group col-md-7\">\r\n");
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Cod_nomina</span>\r\n");
       out.write("                        <input id=\"inputCodNomina\" disabled type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtCodigoNomina\" placeholder=\"cod nomina\" title=\"Es necesario agregar el codigo de la nomina si quieres eliminarla\" value=\"");
-      out.print( request.getAttribute("cod_nomina"));
+      out.print( session.getAttribute("cod_nomina"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
@@ -721,7 +742,7 @@ while (res4.next()) {
       out.write("            <div class=\"contenedor col-md-4\">\r\n");
       out.write("                <center><h2>Crear un contrato</h2></center>\r\n");
       out.write("                    ");
- if (request.getAttribute("mensajeContrato") != null) { 
+ if (session.getAttribute("mensajeContrato") != null) { 
       out.write(" \r\n");
       out.write("                <div class=\"col-md-12 alert alert-info\" role=\"alert\">\r\n");
       out.write("\r\n");
@@ -738,14 +759,14 @@ while (res4.next()) {
       out.write("                    <div id=\"divFechaInicioContrato\" class=\"input-group\">\r\n");
       out.write("                        <span id=\"basic-addon1\" class=\"input-group-addon\">Fecha inicio</span>\r\n");
       out.write("                        <input id=\"inputFechaInicioContrato\" type=\"date\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtFechaInicio\" placeholder=\"Fecha ini\" required title=\"Es necesario agregar una fecha inical para registrar este contrato\" value=\"");
-      out.print( request.getAttribute("fechaInicio"));
+      out.print( session.getAttribute("fechaInicio"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
       out.write("                    <div id=\"divFechaFinalContrato\" class=\"input-group\">\r\n");
       out.write("                        <span id=\"basic-addon1\" class=\"input-group-addon\">Fecha final</span>\r\n");
       out.write("                        <input id=\"inputFechaFinalContrato\" type=\"date\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtFechaFinal\" placeholder=\"Fecha fin\" title=\"Es necesario agregar una fecha final para registrar este contrato\" value=\"");
-      out.print( request.getAttribute("fechaFinal"));
+      out.print( session.getAttribute("fechaFinal"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
@@ -753,13 +774,13 @@ while (res4.next()) {
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Seleccione </span>\r\n");
       out.write("                        <select id=\"inputEmpleadoContrato\" class=\"form-control\" name=\"txtEmpleadoAContratar\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empleado para la contratacion\" required>                              \r\n");
       out.write("                            ");
-if (request.getAttribute("nombreEmpleado") != null) {
+if (session.getAttribute("nombreEmpleado") != null) {
       out.write("\r\n");
       out.write("                            <option value=\"");
-      out.print(request.getAttribute("id_empleado"));
+      out.print(session.getAttribute("id_empleado"));
       out.write('"');
       out.write('>');
-      out.print( request.getAttribute("nombreEmpleado"));
+      out.print( session.getAttribute("nombreEmpleado"));
       out.write("</option>\r\n");
       out.write("                            ");
 } else {
@@ -791,13 +812,13 @@ if (request.getAttribute("nombreEmpleado") != null) {
       out.write("                        <span class=\"input-group-addon\" id=\"basic-addon1\" >Seleccione </span>\r\n");
       out.write("                        <select id=\"inputCategoriaContrato\" class=\"form-control\" name=\"txtContratoCategoria\" id=\"sel1\" aria-describedby=\"basic-addon1\"  title=\"Es necesaria asignar un empleado para la nomina\" required>                              \r\n");
       out.write("                            ");
-if (request.getAttribute("nombreCategoria") != null) {
+if (session.getAttribute("nombreCategoria") != null) {
       out.write("\r\n");
       out.write("                            <option value=\"");
-      out.print(request.getAttribute("codigoCategoria"));
+      out.print(session.getAttribute("codigoCategoria"));
       out.write('"');
       out.write('>');
-      out.print( request.getAttribute("nombreCategoria"));
+      out.print( session.getAttribute("nombreCategoria"));
       out.write("</option>\r\n");
       out.write("                            ");
 } else {
@@ -828,7 +849,7 @@ if (request.getAttribute("nombreCategoria") != null) {
       out.write("                     <div id=\"divCodigoContrato\" class=\"input-group col-md-7 center-block\">\r\n");
       out.write("                        <span id=\"basic-addon1\" class=\"input-group-addon\">Cod_contrato</span>\r\n");
       out.write("                        <input id=\"inputCodigoContrato\" disabled type=\"number\" id=\"redondo\" class=\"form-control\" aria-describedby=\"basic-addon1\" name=\"txtCodigoContrato\" placeholder=\"Utilizado para eliminar un contrato\" required title=\"Es necesario agregar el codigo del contrato si lo desea eliminar\" required value=\"");
-      out.print( request.getAttribute("codigoContrato"));
+      out.print( session.getAttribute("codigoContrato"));
       out.write("\"/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <br>\r\n");
