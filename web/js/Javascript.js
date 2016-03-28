@@ -168,9 +168,8 @@ $(document).ready(function(){
                         
                         //Manejo del formulario cuando se maneja la opcion crear
                          if(optionSelected.val()==1){
-                             $("#divCodigoContrato").hide("slow");
+                             $("#divCodigoContrato").css("margin-top","10px");
                              $("#inputCodigoContrato").removeAttr("required");
-                             $("#divAcciones5").css("margin-top","-60px");
                         }else{
                              $("#divCodigoContrato").show("slow");
                              $("#inputCodigoContrato").prop("required","true");
@@ -180,9 +179,8 @@ $(document).ready(function(){
                         //Manejo del formulario cuando se maneja la opcion eliminar
                         if(optionSelected.val()==2 || optionSelected.val()==4){
                             $("#inputCodigoContrato").removeAttr("disabled");                            
-                            $("#divCodigoContrato").show("slow");
                             $("#inputCodigoContrato").prop("required","true");
-                            $("#divCodigoContrato").css("margin-top","-40px");
+                            $("#divCodigoContrato").css("margin-top","-80px");
                             
                             $("#divFechaInicioContrato").hide("slow");
                             $("#inputFechaInicioContrato").removeAttr("required");
@@ -194,10 +192,8 @@ $(document).ready(function(){
                             $("#inputCategoriaContrato").removeAttr("required");
                         }else{
                             $("#inputCodigoContrato").prop("required","true");
-                            $("#divCodigoContrato").hide("slow");
-                            $("#inputCodigoContrato").removeAttr("required");
-                            $("#divCodigoContrato").css("margin-top","");
                             
+                            $("#inputCodigoContrato").removeAttr("required");
                             $("#divFechaInicioContrato").show("slow");
                             $("#inputFechaInicioContrato").prop("required","true");
                             $("#divFechaFinalContrato").show("slow");
@@ -212,14 +208,13 @@ $(document).ready(function(){
                         //Manejo del formulario cuando se maneja la opcion actualizar
                          if(optionSelected.val()==3){
                              $("#divCodigoContrato").show("slow");
-                             $("#divCodigoContrato").css("margin-top","140px");
+                             $("#divCodigoContrato").css("margin-top","10px");
                              $("#inputCodigoContrato").prop("required","true");
                              $("#inputCodigoContrato").css("background","#9FF781");
                              $("#inputCodigoContrato").removeAttr("disabled");
                          }else{
                              $("#inputCodigoContrato").css("background","");
-                             
-                             
+                             //$("#divCodigoContrato").css("margin-top","0px");
                          }
                          
                          
