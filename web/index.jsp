@@ -583,6 +583,7 @@
         <script src="js/jquery-1.12.1.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script src="js/bootstrap.min.js"></script>
+        <!--Segundo comentario de prueba-->
 
 
     </body>
